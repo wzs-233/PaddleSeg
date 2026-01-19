@@ -152,3 +152,4 @@ quant_img/
 *.pdopt
 *.pdparams
 *.pdstates
+*.sh
