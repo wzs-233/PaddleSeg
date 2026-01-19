@@ -1,0 +1,4 @@
+_base_: './pp_liteseg_stdc2_MaVeCoDD_960x720.yml'
+
+val_dataset:
+  val_path: data/MaVeCoDD/val.txt

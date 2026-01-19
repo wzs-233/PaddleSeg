@@ -1,0 +1,16 @@
+val/fg/colorImage1005.png val/alpha/colorImage1005.png
+val/fg/colorImage1006.png val/alpha/colorImage1006.png
+val/fg/colorImage1013.png val/alpha/colorImage1013.png
+val/fg/colorImage1015.png val/alpha/colorImage1015.png
+val/fg/colorImage1016.png val/alpha/colorImage1016.png
+val/fg/colorImage1019.png val/alpha/colorImage1019.png
+val/fg/colorImage1029.png val/alpha/colorImage1029.png
+val/fg/colorImage1030.png val/alpha/colorImage1030.png
+val/fg/colorImage1038.png val/alpha/colorImage1038.png
+val/fg/colorImage1039.png val/alpha/colorImage1039.png
+val/fg/colorImage1042.png val/alpha/colorImage1042.png
+val/fg/colorImage1051.png val/alpha/colorImage1051.png
+val/fg/hull018.png val/alpha/hull018.png
+val/fg/hull040.png val/alpha/hull040.png
+val/fg/hull053.png val/alpha/hull053.png
+val/fg/hull054.png val/alpha/hull054.png

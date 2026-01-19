@@ -1,0 +1,254 @@
+W1231 07:50:40.831579 85092 gpu_resources.cc:114] Please NOTE: device: 1, GPU Compute Capability: 8.9, Driver API Version: 13.0, Runtime API Version: 12.6
+======================= Modified FLAGS detected =======================
+FLAGS(name='FLAGS_nvidia_package_dir', current_value='/root/miniconda3/envs/pp-mattingv2/lib/python3.10/site-packages/paddle/../nvidia', default_value='')
+FLAGS(name='FLAGS_enable_pir_in_executor', current_value=True, default_value=False)
+FLAGS(name='FLAGS_cusparse_dir', current_value='/root/miniconda3/envs/pp-mattingv2/lib/python3.10/site-packages/paddle/../nvidia/cusparse/lib', default_value='')
+FLAGS(name='FLAGS_curand_dir', current_value='/root/miniconda3/envs/pp-mattingv2/lib/python3.10/site-packages/paddle/../nvidia/curand/lib', default_value='')
+FLAGS(name='FLAGS_selected_gpus', current_value='1', default_value='')
+FLAGS(name='FLAGS_cuda_cccl_dir', current_value='/root/miniconda3/envs/pp-mattingv2/lib/python3.10/site-packages/paddle/../nvidia/cuda_cccl/include/', default_value='')
+FLAGS(name='FLAGS_cusolver_dir', current_value='/root/miniconda3/envs/pp-mattingv2/lib/python3.10/site-packages/paddle/../nvidia/cusolver/lib', default_value='')
+FLAGS(name='FLAGS_cupti_dir', current_value='/root/miniconda3/envs/pp-mattingv2/lib/python3.10/site-packages/paddle/../nvidia/cuda_cupti/lib', default_value='')
+FLAGS(name='FLAGS_nccl_dir', current_value='/root/miniconda3/envs/pp-mattingv2/lib/python3.10/site-packages/paddle/../nvidia/nccl/lib', default_value='')
+FLAGS(name='FLAGS_cublas_dir', current_value='/root/miniconda3/envs/pp-mattingv2/lib/python3.10/site-packages/paddle/../nvidia/cublas/lib', default_value='')
+FLAGS(name='FLAGS_cudnn_dir', current_value='/root/miniconda3/envs/pp-mattingv2/lib/python3.10/site-packages/paddle/../nvidia/cudnn/lib', default_value='')
+=======================================================================
+I1231 07:50:41.114459 85092 tcp_utils.cc:134] Successfully connected to 127.0.1.1:45556
+I1231 07:50:41.120101 85092 process_group_nccl.cc:154] ProcessGroupNCCL pg_timeout_ 1800000
+I1231 07:50:41.120132 85092 process_group_nccl.cc:155] ProcessGroupNCCL nccl_comm_init_option_ 0
+/root/miniconda3/envs/pp-mattingv2/lib/python3.10/site-packages/paddle/utils/decorator_utils.py:420: Warning: 
+Non compatible API. Please refer to https://www.paddlepaddle.org.cn/documentation/docs/en/develop/guides/model_convert/convert_from_pytorch/api_difference/torch/torch.max.html first.
+  warnings.warn(
+
+
+--------------------------------------
+C++ Traceback (most recent call last):
+--------------------------------------
+0   paddle::pybind::MultiDeviceFeedReader<paddle::operators::reader::DenseTensorBlockingQueue>::ReadNextList()
+1   paddle::pybind::MultiDeviceFeedReader<paddle::operators::reader::DenseTensorBlockingQueue>::CheckNextStatus()
+2   paddle::pybind::MultiDeviceFeedReader<paddle::operators::reader::DenseTensorBlockingQueue>::WaitFutures(std::__exception_ptr::exception_ptr*)
+
+----------------------
+Error Message Summary:
+----------------------
+FatalError: `Termination signal` is detected by the operating system.
+  [TimeInfo: *** Aborted at 1767167724 (unix time) try "date -d @1767167724" if you are using GNU date ***]
+  [SignalInfo: *** SIGTERM (@0x14c15) received by PID 85092 (TID 0x70a1a81d9740) from PID 85013 ***]
+
+W1231 07:56:24.864765 91341 gpu_resources.cc:114] Please NOTE: device: 1, GPU Compute Capability: 8.9, Driver API Version: 13.0, Runtime API Version: 12.6
+======================= Modified FLAGS detected =======================
+FLAGS(name='FLAGS_selected_gpus', current_value='1', default_value='')
+FLAGS(name='FLAGS_nccl_dir', current_value='/root/miniconda3/envs/pp-mattingv2/lib/python3.10/site-packages/paddle/../nvidia/nccl/lib', default_value='')
+FLAGS(name='FLAGS_cublas_dir', current_value='/root/miniconda3/envs/pp-mattingv2/lib/python3.10/site-packages/paddle/../nvidia/cublas/lib', default_value='')
+FLAGS(name='FLAGS_curand_dir', current_value='/root/miniconda3/envs/pp-mattingv2/lib/python3.10/site-packages/paddle/../nvidia/curand/lib', default_value='')
+FLAGS(name='FLAGS_cupti_dir', current_value='/root/miniconda3/envs/pp-mattingv2/lib/python3.10/site-packages/paddle/../nvidia/cuda_cupti/lib', default_value='')
+FLAGS(name='FLAGS_cudnn_dir', current_value='/root/miniconda3/envs/pp-mattingv2/lib/python3.10/site-packages/paddle/../nvidia/cudnn/lib', default_value='')
+FLAGS(name='FLAGS_cusparse_dir', current_value='/root/miniconda3/envs/pp-mattingv2/lib/python3.10/site-packages/paddle/../nvidia/cusparse/lib', default_value='')
+FLAGS(name='FLAGS_cuda_cccl_dir', current_value='/root/miniconda3/envs/pp-mattingv2/lib/python3.10/site-packages/paddle/../nvidia/cuda_cccl/include/', default_value='')
+FLAGS(name='FLAGS_cusolver_dir', current_value='/root/miniconda3/envs/pp-mattingv2/lib/python3.10/site-packages/paddle/../nvidia/cusolver/lib', default_value='')
+FLAGS(name='FLAGS_enable_pir_in_executor', current_value=True, default_value=False)
+FLAGS(name='FLAGS_nvidia_package_dir', current_value='/root/miniconda3/envs/pp-mattingv2/lib/python3.10/site-packages/paddle/../nvidia', default_value='')
+=======================================================================
+I1231 07:56:25.642347 91341 tcp_utils.cc:111] Retry to connect to 127.0.1.1:45756 while the server is not yet listening.
+I1231 07:56:28.642683 91341 tcp_utils.cc:134] Successfully connected to 127.0.1.1:45756
+I1231 07:56:28.720240 91341 process_group_nccl.cc:154] ProcessGroupNCCL pg_timeout_ 1800000
+I1231 07:56:28.720297 91341 process_group_nccl.cc:155] ProcessGroupNCCL nccl_comm_init_option_ 0
+/root/miniconda3/envs/pp-mattingv2/lib/python3.10/site-packages/paddle/utils/decorator_utils.py:420: Warning: 
+Non compatible API. Please refer to https://www.paddlepaddle.org.cn/documentation/docs/en/develop/guides/model_convert/convert_from_pytorch/api_difference/torch/torch.max.html first.
+  warnings.warn(
+I1231 08:21:24.511909 91341 process_group_nccl.cc:162] ProcessGroupNCCL destruct 
+W0106 07:20:01.633858 2992293 gpu_resources.cc:119] Please NOTE: device: 1, GPU Compute Capability: 8.9, Driver API Version: 13.0, Runtime API Version: 11.8
+W0106 07:20:01.633939 2992293 gpu_resources.cc:164] device: 1, cuDNN Version: 9.3.
+======================= Modified FLAGS detected =======================
+FLAGS(name='FLAGS_selected_gpus', current_value='1', default_value='')
+=======================================================================
+I0106 07:20:02.119382 2992293 tcp_utils.cc:107] Retry to connect to 127.0.1.1:63091 while the server is not yet listening.
+I0106 07:20:05.119714 2992293 tcp_utils.cc:130] Successfully connected to 127.0.1.1:63091
+I0106 07:20:05.200001 2992293 process_group_nccl.cc:129] ProcessGroupNCCL pg_timeout_ 1800000
+
+
+--------------------------------------
+C++ Traceback (most recent call last):
+--------------------------------------
+No stack trace in paddle, may be caused by external reasons.
+
+----------------------
+Error Message Summary:
+----------------------
+FatalError: `Termination signal` is detected by the operating system.
+  [TimeInfo: *** Aborted at 1767684170 (unix time) try "date -d @1767684170" if you are using GNU date ***]
+  [SignalInfo: *** SIGTERM (@0x2da799) received by PID 3044602 (TID 0x7f5e1315f740) from PID 2992025 ***]
+
+W0106 07:24:12.772131 3046862 gpu_resources.cc:119] Please NOTE: device: 1, GPU Compute Capability: 8.9, Driver API Version: 13.0, Runtime API Version: 11.8
+W0106 07:24:12.772202 3046862 gpu_resources.cc:164] device: 1, cuDNN Version: 9.3.
+======================= Modified FLAGS detected =======================
+FLAGS(name='FLAGS_selected_gpus', current_value='1', default_value='')
+=======================================================================
+I0106 07:24:13.220448 3046862 tcp_utils.cc:130] Successfully connected to 127.0.1.1:49018
+I0106 07:24:13.307794 3046862 process_group_nccl.cc:129] ProcessGroupNCCL pg_timeout_ 1800000
+W0106 07:41:21.532025 3383053 gpu_resources.cc:119] Please NOTE: device: 1, GPU Compute Capability: 8.9, Driver API Version: 13.0, Runtime API Version: 11.8
+W0106 07:41:21.532080 3383053 gpu_resources.cc:164] device: 1, cuDNN Version: 9.3.
+======================= Modified FLAGS detected =======================
+FLAGS(name='FLAGS_selected_gpus', current_value='1', default_value='')
+=======================================================================
+I0106 07:41:22.152374 3383053 tcp_utils.cc:107] Retry to connect to 127.0.1.1:54069 while the server is not yet listening.
+I0106 07:41:25.152678 3383053 tcp_utils.cc:130] Successfully connected to 127.0.1.1:54069
+I0106 07:41:25.219887 3383053 process_group_nccl.cc:129] ProcessGroupNCCL pg_timeout_ 1800000
+size : [128, 128]
+size : [256, 256]
+size : [64, 64]
+
+
+--------------------------------------
+C++ Traceback (most recent call last):
+--------------------------------------
+0   paddle::pybind::MultiDeviceFeedReader<paddle::operators::reader::LoDTensorBlockingQueue>::ReadNextList()
+1   paddle::pybind::MultiDeviceFeedReader<paddle::operators::reader::LoDTensorBlockingQueue>::CheckNextStatus()
+2   paddle::pybind::MultiDeviceFeedReader<paddle::operators::reader::LoDTensorBlockingQueue>::WaitFutures(std::__exception_ptr::exception_ptr*)
+
+----------------------
+Error Message Summary:
+----------------------
+FatalError: `Termination signal` is detected by the operating system.
+  [TimeInfo: *** Aborted at 1767685307 (unix time) try "date -d @1767685307" if you are using GNU date ***]
+  [SignalInfo: *** SIGTERM (@0x339e1f) received by PID 3383053 (TID 0x716bb1660740) from PID 3382815 ***]
+
+W0106 07:42:07.976313 3385310 gpu_resources.cc:119] Please NOTE: device: 1, GPU Compute Capability: 8.9, Driver API Version: 13.0, Runtime API Version: 11.8
+W0106 07:42:07.976358 3385310 gpu_resources.cc:164] device: 1, cuDNN Version: 9.3.
+======================= Modified FLAGS detected =======================
+FLAGS(name='FLAGS_selected_gpus', current_value='1', default_value='')
+=======================================================================
+I0106 07:42:08.721786 3385310 tcp_utils.cc:130] Successfully connected to 127.0.1.1:51650
+I0106 07:42:08.775770 3385310 process_group_nccl.cc:129] ProcessGroupNCCL pg_timeout_ 1800000
+
+
+--------------------------------------
+C++ Traceback (most recent call last):
+--------------------------------------
+No stack trace in paddle, may be caused by external reasons.
+
+----------------------
+Error Message Summary:
+----------------------
+FatalError: `Termination signal` is detected by the operating system.
+  [TimeInfo: *** Aborted at 1767685381 (unix time) try "date -d @1767685381" if you are using GNU date ***]
+  [SignalInfo: *** SIGTERM (@0x33a6dd) received by PID 3401861 (TID 0x70f9afa7f740) from PID 3385053 ***]
+
+W0106 07:45:19.512532 3407655 gpu_resources.cc:119] Please NOTE: device: 1, GPU Compute Capability: 8.9, Driver API Version: 13.0, Runtime API Version: 11.8
+W0106 07:45:19.512672 3407655 gpu_resources.cc:164] device: 1, cuDNN Version: 9.3.
+======================= Modified FLAGS detected =======================
+FLAGS(name='FLAGS_selected_gpus', current_value='1', default_value='')
+=======================================================================
+I0106 07:45:20.023537 3407655 tcp_utils.cc:130] Successfully connected to 127.0.1.1:44514
+I0106 07:45:20.043779 3407655 process_group_nccl.cc:129] ProcessGroupNCCL pg_timeout_ 1800000
+
+
+--------------------------------------
+C++ Traceback (most recent call last):
+--------------------------------------
+No stack trace in paddle, may be caused by external reasons.
+
+----------------------
+Error Message Summary:
+----------------------
+FatalError: `Termination signal` is detected by the operating system.
+  [TimeInfo: *** Aborted at 1767685549 (unix time) try "date -d @1767685549" if you are using GNU date ***]
+  [SignalInfo: *** SIGTERM (@0x33fea1) received by PID 3407655 (TID 0x7b9ec5ac5740) from PID 3407521 ***]
+
+W0106 07:47:57.718806 3422053 gpu_resources.cc:119] Please NOTE: device: 1, GPU Compute Capability: 8.9, Driver API Version: 13.0, Runtime API Version: 11.8
+W0106 07:47:57.718940 3422053 gpu_resources.cc:164] device: 1, cuDNN Version: 9.3.
+======================= Modified FLAGS detected =======================
+FLAGS(name='FLAGS_selected_gpus', current_value='1', default_value='')
+=======================================================================
+I0106 07:47:58.343003 3422053 tcp_utils.cc:130] Successfully connected to 127.0.1.1:61935
+I0106 07:47:58.383824 3422053 process_group_nccl.cc:129] ProcessGroupNCCL pg_timeout_ 1800000
+W0114 05:12:46.386365 2124225 gpu_resources.cc:114] Please NOTE: device: 1, GPU Compute Capability: 8.9, Driver API Version: 13.0, Runtime API Version: 12.6
+======================= Modified FLAGS detected =======================
+FLAGS(name='FLAGS_cuda_cccl_dir', current_value='/root/miniconda3/envs/pp-mattingv2/lib/python3.10/site-packages/paddle/../nvidia/cuda_cccl/include/', default_value='')
+FLAGS(name='FLAGS_nvidia_package_dir', current_value='/root/miniconda3/envs/pp-mattingv2/lib/python3.10/site-packages/paddle/../nvidia', default_value='')
+FLAGS(name='FLAGS_cudnn_dir', current_value='/root/miniconda3/envs/pp-mattingv2/lib/python3.10/site-packages/paddle/../nvidia/cudnn/lib', default_value='')
+FLAGS(name='FLAGS_enable_pir_in_executor', current_value=True, default_value=False)
+FLAGS(name='FLAGS_cusolver_dir', current_value='/root/miniconda3/envs/pp-mattingv2/lib/python3.10/site-packages/paddle/../nvidia/cusolver/lib', default_value='')
+FLAGS(name='FLAGS_curand_dir', current_value='/root/miniconda3/envs/pp-mattingv2/lib/python3.10/site-packages/paddle/../nvidia/curand/lib', default_value='')
+FLAGS(name='FLAGS_nccl_dir', current_value='/root/miniconda3/envs/pp-mattingv2/lib/python3.10/site-packages/paddle/../nvidia/nccl/lib', default_value='')
+FLAGS(name='FLAGS_cusparse_dir', current_value='/root/miniconda3/envs/pp-mattingv2/lib/python3.10/site-packages/paddle/../nvidia/cusparse/lib', default_value='')
+FLAGS(name='FLAGS_cupti_dir', current_value='/root/miniconda3/envs/pp-mattingv2/lib/python3.10/site-packages/paddle/../nvidia/cuda_cupti/lib', default_value='')
+FLAGS(name='FLAGS_selected_gpus', current_value='1', default_value='')
+FLAGS(name='FLAGS_cublas_dir', current_value='/root/miniconda3/envs/pp-mattingv2/lib/python3.10/site-packages/paddle/../nvidia/cublas/lib', default_value='')
+=======================================================================
+I0114 05:12:47.099210 2124225 tcp_utils.cc:111] Retry to connect to 127.0.1.1:42899 while the server is not yet listening.
+I0114 05:12:50.099514 2124225 tcp_utils.cc:134] Successfully connected to 127.0.1.1:42899
+I0114 05:12:50.133183 2124225 process_group_nccl.cc:154] ProcessGroupNCCL pg_timeout_ 1800000
+I0114 05:12:50.133209 2124225 process_group_nccl.cc:155] ProcessGroupNCCL nccl_comm_init_option_ 0
+
+
+--------------------------------------
+C++ Traceback (most recent call last):
+--------------------------------------
+No stack trace in paddle, may be caused by external reasons.
+
+----------------------
+Error Message Summary:
+----------------------
+FatalError: `Termination signal` is detected by the operating system.
+  [TimeInfo: *** Aborted at 1768367768 (unix time) try "date -d @1768367768" if you are using GNU date ***]
+  [SignalInfo: *** SIGTERM (@0x206964) received by PID 2124225 (TID 0x753e8c18a740) from PID 2124132 ***]
+
+W0114 05:18:06.280107 2166292 gpu_resources.cc:114] Please NOTE: device: 1, GPU Compute Capability: 8.9, Driver API Version: 13.0, Runtime API Version: 12.6
+======================= Modified FLAGS detected =======================
+FLAGS(name='FLAGS_enable_pir_in_executor', current_value=True, default_value=False)
+FLAGS(name='FLAGS_nccl_dir', current_value='/root/miniconda3/envs/pp-mattingv2/lib/python3.10/site-packages/paddle/../nvidia/nccl/lib', default_value='')
+FLAGS(name='FLAGS_cublas_dir', current_value='/root/miniconda3/envs/pp-mattingv2/lib/python3.10/site-packages/paddle/../nvidia/cublas/lib', default_value='')
+FLAGS(name='FLAGS_cupti_dir', current_value='/root/miniconda3/envs/pp-mattingv2/lib/python3.10/site-packages/paddle/../nvidia/cuda_cupti/lib', default_value='')
+FLAGS(name='FLAGS_cuda_cccl_dir', current_value='/root/miniconda3/envs/pp-mattingv2/lib/python3.10/site-packages/paddle/../nvidia/cuda_cccl/include/', default_value='')
+FLAGS(name='FLAGS_curand_dir', current_value='/root/miniconda3/envs/pp-mattingv2/lib/python3.10/site-packages/paddle/../nvidia/curand/lib', default_value='')
+FLAGS(name='FLAGS_nvidia_package_dir', current_value='/root/miniconda3/envs/pp-mattingv2/lib/python3.10/site-packages/paddle/../nvidia', default_value='')
+FLAGS(name='FLAGS_cudnn_dir', current_value='/root/miniconda3/envs/pp-mattingv2/lib/python3.10/site-packages/paddle/../nvidia/cudnn/lib', default_value='')
+FLAGS(name='FLAGS_selected_gpus', current_value='1', default_value='')
+FLAGS(name='FLAGS_cusolver_dir', current_value='/root/miniconda3/envs/pp-mattingv2/lib/python3.10/site-packages/paddle/../nvidia/cusolver/lib', default_value='')
+FLAGS(name='FLAGS_cusparse_dir', current_value='/root/miniconda3/envs/pp-mattingv2/lib/python3.10/site-packages/paddle/../nvidia/cusparse/lib', default_value='')
+=======================================================================
+I0114 05:18:06.541277 2166292 tcp_utils.cc:111] Retry to connect to 127.0.1.1:56619 while the server is not yet listening.
+I0114 05:18:09.541529 2166292 tcp_utils.cc:134] Successfully connected to 127.0.1.1:56619
+I0114 05:18:09.557173 2166292 process_group_nccl.cc:154] ProcessGroupNCCL pg_timeout_ 1800000
+I0114 05:18:09.557195 2166292 process_group_nccl.cc:155] ProcessGroupNCCL nccl_comm_init_option_ 0
+/root/miniconda3/envs/pp-mattingv2/lib/python3.10/site-packages/paddle/utils/decorator_utils.py:420: Warning: 
+Non compatible API. Please refer to https://www.paddlepaddle.org.cn/documentation/docs/en/develop/guides/model_convert/convert_from_pytorch/api_difference/torch/torch.max.html first.
+  warnings.warn(
+
+
+--------------------------------------
+C++ Traceback (most recent call last):
+--------------------------------------
+0   paddle::pybind::MultiDeviceFeedReader<paddle::operators::reader::DenseTensorBlockingQueue>::ReadNextList()
+1   paddle::pybind::MultiDeviceFeedReader<paddle::operators::reader::DenseTensorBlockingQueue>::CheckNextStatus()
+2   paddle::pybind::MultiDeviceFeedReader<paddle::operators::reader::DenseTensorBlockingQueue>::WaitFutures(std::__exception_ptr::exception_ptr*)
+
+----------------------
+Error Message Summary:
+----------------------
+FatalError: `Termination signal` is detected by the operating system.
+  [TimeInfo: *** Aborted at 1768367909 (unix time) try "date -d @1768367909" if you are using GNU date ***]
+  [SignalInfo: *** SIGTERM (@0x210dba) received by PID 2166292 (TID 0x72c3886e4740) from PID 2166202 ***]
+
+W0114 05:19:56.270824 2168333 gpu_resources.cc:114] Please NOTE: device: 1, GPU Compute Capability: 8.9, Driver API Version: 13.0, Runtime API Version: 12.6
+======================= Modified FLAGS detected =======================
+FLAGS(name='FLAGS_nccl_dir', current_value='/root/miniconda3/envs/pp-mattingv2/lib/python3.10/site-packages/paddle/../nvidia/nccl/lib', default_value='')
+FLAGS(name='FLAGS_cusparse_dir', current_value='/root/miniconda3/envs/pp-mattingv2/lib/python3.10/site-packages/paddle/../nvidia/cusparse/lib', default_value='')
+FLAGS(name='FLAGS_nvidia_package_dir', current_value='/root/miniconda3/envs/pp-mattingv2/lib/python3.10/site-packages/paddle/../nvidia', default_value='')
+FLAGS(name='FLAGS_cupti_dir', current_value='/root/miniconda3/envs/pp-mattingv2/lib/python3.10/site-packages/paddle/../nvidia/cuda_cupti/lib', default_value='')
+FLAGS(name='FLAGS_cudnn_dir', current_value='/root/miniconda3/envs/pp-mattingv2/lib/python3.10/site-packages/paddle/../nvidia/cudnn/lib', default_value='')
+FLAGS(name='FLAGS_curand_dir', current_value='/root/miniconda3/envs/pp-mattingv2/lib/python3.10/site-packages/paddle/../nvidia/curand/lib', default_value='')
+FLAGS(name='FLAGS_cuda_cccl_dir', current_value='/root/miniconda3/envs/pp-mattingv2/lib/python3.10/site-packages/paddle/../nvidia/cuda_cccl/include/', default_value='')
+FLAGS(name='FLAGS_cusolver_dir', current_value='/root/miniconda3/envs/pp-mattingv2/lib/python3.10/site-packages/paddle/../nvidia/cusolver/lib', default_value='')
+FLAGS(name='FLAGS_cublas_dir', current_value='/root/miniconda3/envs/pp-mattingv2/lib/python3.10/site-packages/paddle/../nvidia/cublas/lib', default_value='')
+FLAGS(name='FLAGS_enable_pir_in_executor', current_value=True, default_value=False)
+FLAGS(name='FLAGS_selected_gpus', current_value='1', default_value='')
+=======================================================================
+I0114 05:19:56.686331 2168333 tcp_utils.cc:111] Retry to connect to 127.0.1.1:44054 while the server is not yet listening.
+I0114 05:19:59.686606 2168333 tcp_utils.cc:134] Successfully connected to 127.0.1.1:44054
+I0114 05:19:59.765340 2168333 process_group_nccl.cc:154] ProcessGroupNCCL pg_timeout_ 1800000
+I0114 05:19:59.765386 2168333 process_group_nccl.cc:155] ProcessGroupNCCL nccl_comm_init_option_ 0
+/root/miniconda3/envs/pp-mattingv2/lib/python3.10/site-packages/paddle/utils/decorator_utils.py:420: Warning: 
+Non compatible API. Please refer to https://www.paddlepaddle.org.cn/documentation/docs/en/develop/guides/model_convert/convert_from_pytorch/api_difference/torch/torch.max.html first.
+  warnings.warn(
+I0114 07:59:37.003984 2168333 process_group_nccl.cc:162] ProcessGroupNCCL destruct 

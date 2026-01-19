@@ -1,0 +1,2950 @@
+2025-12-31 07:50:40 [INFO]	
+------------Environment Information-------------
+platform: Linux-6.5.0-35-generic-x86_64-with-glibc2.35
+Python: 3.10.19 (main, Oct 21 2025, 16:43:05) [GCC 11.2.0]
+Paddle compiled with cuda: True
+NVCC: Build cuda_12.6.r12.6/compiler.35059454_0
+cudnn: 90.5
+GPUs used: 2
+CUDA_VISIBLE_DEVICES: None
+GPU: ['GPU 0: NVIDIA GeForce', 'GPU 1: NVIDIA GeForce']
+GCC: gcc (Ubuntu 11.4.0-1ubuntu1~22.04.2) 11.4.0
+PaddleSeg: 2.8.0
+PaddlePaddle: 3.2.0
+OpenCV: 4.5.5
+------------------------------------------------
+2025-12-31 07:50:40 [INFO]	
+---------------Config Information---------------
+batch_size: 32
+iters: 100
+train_dataset:
+  dataset_root: data/PPM-100
+  mode: train
+  train_file: train.txt
+  transforms:
+  - type: LoadImages
+  - max_short: 512
+    type: LimitShort
+  - crop_size:
+    - 512
+    - 512
+    type: RandomCrop
+  - target_size:
+    - 512
+    - 512
+    type: Padding
+  - type: RandomDistort
+  - prob: 0.1
+    type: RandomBlur
+  - prob: 0.2
+    type: RandomSharpen
+  - prob: 0.5
+    type: RandomNoise
+  - prob: 0.2
+    type: RandomReJpeg
+  - type: RandomHorizontalFlip
+  - type: Normalize
+  type: MattingDataset
+val_dataset:
+  dataset_root: data/PPM-100
+  get_trimap: false
+  mode: val
+  transforms:
+  - type: LoadImages
+  - max_short: 512
+    type: LimitShort
+  - mult_int: 32
+    type: ResizeToIntMult
+  - type: Normalize
+  type: MattingDataset
+  val_file: val.txt
+optimizer:
+  momentum: 0.9
+  type: sgd
+  weight_decay: 0.0005
+lr_scheduler:
+  end_lr: 0
+  learning_rate: 0.01
+  power: 0.9
+  type: PolynomialDecay
+  warmup_iters: 100
+  warmup_start_lr: 1.0e-05
+model:
+  backbone:
+    pretrained: https://bj.bcebos.com/paddleseg/dygraph/PP_STDCNet1.tar.gz
+    type: STDC1
+  decoder_channels:
+  - 128
+  - 96
+  - 64
+  - 32
+  - 16
+  dpp_merge_type: add
+  dpp_output_channel: 256
+  head_channel: 8
+  type: PPMattingV2
+------------------------------------------------
+
+2025-12-31 07:50:40 [INFO]	Set device: gpu
+2025-12-31 07:50:40 [INFO]	Use the following config to build model
+model:
+  backbone:
+    pretrained: https://bj.bcebos.com/paddleseg/dygraph/PP_STDCNet1.tar.gz
+    type: STDC1
+  decoder_channels:
+  - 128
+  - 96
+  - 64
+  - 32
+  - 16
+  dpp_merge_type: add
+  dpp_output_channel: 256
+  head_channel: 8
+  type: PPMattingV2
+W1231 07:50:40.767884 85090 gpu_resources.cc:114] Please NOTE: device: 0, GPU Compute Capability: 8.9, Driver API Version: 13.0, Runtime API Version: 12.6
+2025-12-31 07:50:40 [INFO]	Loading pretrained model from https://bj.bcebos.com/paddleseg/dygraph/PP_STDCNet1.tar.gz
+2025-12-31 07:50:40 [INFO]	There are 145/145 variables loaded into STDCNet.
+2025-12-31 07:50:41 [INFO]	Convert bn to sync_bn
+2025-12-31 07:50:41 [INFO]	Use the following config to build train_dataset
+train_dataset:
+  dataset_root: data/PPM-100
+  mode: train
+  train_file: train.txt
+  transforms:
+  - type: LoadImages
+  - max_short: 512
+    type: LimitShort
+  - crop_size:
+    - 512
+    - 512
+    type: RandomCrop
+  - target_size:
+    - 512
+    - 512
+    type: Padding
+  - type: RandomDistort
+  - prob: 0.1
+    type: RandomBlur
+  - prob: 0.2
+    type: RandomSharpen
+  - prob: 0.5
+    type: RandomNoise
+  - prob: 0.2
+    type: RandomReJpeg
+  - type: RandomHorizontalFlip
+  - type: Normalize
+  type: MattingDataset
+2025-12-31 07:50:41 [INFO]	Use the following config to build val_dataset
+val_dataset:
+  dataset_root: data/PPM-100
+  get_trimap: false
+  mode: val
+  transforms:
+  - type: LoadImages
+  - max_short: 512
+    type: LimitShort
+  - mult_int: 32
+    type: ResizeToIntMult
+  - type: Normalize
+  type: MattingDataset
+  val_file: val.txt
+2025-12-31 07:50:41 [INFO]	If the type is SGD and momentum in optimizer config, the type is changed to Momentum.
+2025-12-31 07:50:41 [INFO]	Use the following config to build optimizer
+optimizer:
+  momentum: 0.9
+  type: Momentum
+  weight_decay: 0.0005
+======================= Modified FLAGS detected =======================
+FLAGS(name='FLAGS_curand_dir', current_value='/root/miniconda3/envs/pp-mattingv2/lib/python3.10/site-packages/paddle/../nvidia/curand/lib', default_value='')
+FLAGS(name='FLAGS_cusparse_dir', current_value='/root/miniconda3/envs/pp-mattingv2/lib/python3.10/site-packages/paddle/../nvidia/cusparse/lib', default_value='')
+FLAGS(name='FLAGS_nccl_dir', current_value='/root/miniconda3/envs/pp-mattingv2/lib/python3.10/site-packages/paddle/../nvidia/nccl/lib', default_value='')
+FLAGS(name='FLAGS_nvidia_package_dir', current_value='/root/miniconda3/envs/pp-mattingv2/lib/python3.10/site-packages/paddle/../nvidia', default_value='')
+FLAGS(name='FLAGS_cusolver_dir', current_value='/root/miniconda3/envs/pp-mattingv2/lib/python3.10/site-packages/paddle/../nvidia/cusolver/lib', default_value='')
+FLAGS(name='FLAGS_enable_pir_in_executor', current_value=True, default_value=False)
+FLAGS(name='FLAGS_cudnn_dir', current_value='/root/miniconda3/envs/pp-mattingv2/lib/python3.10/site-packages/paddle/../nvidia/cudnn/lib', default_value='')
+FLAGS(name='FLAGS_cublas_dir', current_value='/root/miniconda3/envs/pp-mattingv2/lib/python3.10/site-packages/paddle/../nvidia/cublas/lib', default_value='')
+FLAGS(name='FLAGS_cupti_dir', current_value='/root/miniconda3/envs/pp-mattingv2/lib/python3.10/site-packages/paddle/../nvidia/cuda_cupti/lib', default_value='')
+FLAGS(name='FLAGS_cuda_cccl_dir', current_value='/root/miniconda3/envs/pp-mattingv2/lib/python3.10/site-packages/paddle/../nvidia/cuda_cccl/include/', default_value='')
+FLAGS(name='FLAGS_selected_gpus', current_value='0', default_value='')
+=======================================================================
+I1231 07:50:41.078004 85090 tcp_utils.cc:185] The server starts to listen on IP_ANY:45556; setting synclog to 2048
+I1231 07:50:41.078202 85090 tcp_utils.cc:134] Successfully connected to 127.0.1.1:45556
+I1231 07:50:41.164234 85090 process_group_nccl.cc:154] ProcessGroupNCCL pg_timeout_ 1800000
+I1231 07:50:41.164278 85090 process_group_nccl.cc:155] ProcessGroupNCCL nccl_comm_init_option_ 0
+/root/miniconda3/envs/pp-mattingv2/lib/python3.10/site-packages/paddle/utils/decorator_utils.py:420: Warning: 
+Non compatible API. Please refer to https://www.paddlepaddle.org.cn/documentation/docs/en/develop/guides/model_convert/convert_from_pytorch/api_difference/torch/torch.max.html first.
+  warnings.warn(
+2025-12-31 07:53:38 [INFO]	[TRAIN] epoch=10, iter=10/100, loss=2.2478, lr=0.000909, batch_cost=17.6223, reader_cost=16.77886, ips=1.8159 samples/sec | ETA 00:26:26
+                          	[LOSSES] alpha_8x_mrsd=0.4894 alpha_8x_grad=0.0833 alpha_8x=0.5727 alpha_mrsd=1.3719 alpha_grad=0.3032 alpha=1.6751
+
+
+
+--------------------------------------
+C++ Traceback (most recent call last):
+--------------------------------------
+0   paddle::pybind::MultiDeviceFeedReader<paddle::operators::reader::DenseTensorBlockingQueue>::ReadNextList()
+1   paddle::pybind::MultiDeviceFeedReader<paddle::operators::reader::DenseTensorBlockingQueue>::CheckNextStatus()
+2   paddle::pybind::MultiDeviceFeedReader<paddle::operators::reader::DenseTensorBlockingQueue>::WaitFutures(std::__exception_ptr::exception_ptr*)
+
+----------------------
+Error Message Summary:
+----------------------
+FatalError: `Termination signal` is detected by the operating system.
+  [TimeInfo: *** Aborted at 1767167723 (unix time) try "date -d @1767167723" if you are using GNU date ***]
+  [SignalInfo: *** SIGTERM (@0x14c15) received by PID 85090 (TID 0x70fbc651a740) from PID 85013 ***]
+
+2025-12-31 07:56:24 [INFO]	
+------------Environment Information-------------
+platform: Linux-6.5.0-35-generic-x86_64-with-glibc2.35
+Python: 3.10.19 (main, Oct 21 2025, 16:43:05) [GCC 11.2.0]
+Paddle compiled with cuda: True
+NVCC: Build cuda_12.6.r12.6/compiler.35059454_0
+cudnn: 90.5
+GPUs used: 2
+CUDA_VISIBLE_DEVICES: None
+GPU: ['GPU 0: NVIDIA GeForce', 'GPU 1: NVIDIA GeForce']
+GCC: gcc (Ubuntu 11.4.0-1ubuntu1~22.04.2) 11.4.0
+PaddleSeg: 2.8.0
+PaddlePaddle: 3.2.0
+OpenCV: 4.5.5
+------------------------------------------------
+2025-12-31 07:56:24 [INFO]	
+---------------Config Information---------------
+batch_size: 32
+iters: 100
+train_dataset:
+  dataset_root: data/PPM-100
+  mode: train
+  train_file: train.txt
+  transforms:
+  - type: LoadImages
+  - max_short: 512
+    type: LimitShort
+  - crop_size:
+    - 512
+    - 512
+    type: RandomCrop
+  - target_size:
+    - 512
+    - 512
+    type: Padding
+  - type: RandomDistort
+  - prob: 0.1
+    type: RandomBlur
+  - prob: 0.2
+    type: RandomSharpen
+  - prob: 0.5
+    type: RandomNoise
+  - prob: 0.2
+    type: RandomReJpeg
+  - type: RandomHorizontalFlip
+  - type: Normalize
+  type: MattingDataset
+val_dataset:
+  dataset_root: data/PPM-100
+  get_trimap: false
+  mode: val
+  transforms:
+  - type: LoadImages
+  - max_short: 512
+    type: LimitShort
+  - mult_int: 32
+    type: ResizeToIntMult
+  - type: Normalize
+  type: MattingDataset
+  val_file: val.txt
+optimizer:
+  momentum: 0.9
+  type: sgd
+  weight_decay: 0.0005
+lr_scheduler:
+  end_lr: 0
+  learning_rate: 0.001
+  power: 0.9
+  type: PolynomialDecay
+  warmup_iters: 100
+  warmup_start_lr: 1.0e-05
+model:
+  backbone:
+    pretrained: https://bj.bcebos.com/paddleseg/dygraph/PP_STDCNet1.tar.gz
+    type: STDC1
+  decoder_channels:
+  - 128
+  - 96
+  - 64
+  - 32
+  - 16
+  dpp_merge_type: add
+  dpp_output_channel: 256
+  head_channel: 8
+  pretrained: pretrained_models/ppmattingv2-stdc1-human_512.pdparams
+  type: PPMattingV2
+------------------------------------------------
+
+2025-12-31 07:56:24 [INFO]	Set device: gpu
+2025-12-31 07:56:24 [INFO]	Use the following config to build model
+model:
+  backbone:
+    pretrained: https://bj.bcebos.com/paddleseg/dygraph/PP_STDCNet1.tar.gz
+    type: STDC1
+  decoder_channels:
+  - 128
+  - 96
+  - 64
+  - 32
+  - 16
+  dpp_merge_type: add
+  dpp_output_channel: 256
+  head_channel: 8
+  pretrained: pretrained_models/ppmattingv2-stdc1-human_512.pdparams
+  type: PPMattingV2
+W1231 07:56:24.963558 91339 gpu_resources.cc:114] Please NOTE: device: 0, GPU Compute Capability: 8.9, Driver API Version: 13.0, Runtime API Version: 12.6
+2025-12-31 07:56:25 [INFO]	Loading pretrained model from https://bj.bcebos.com/paddleseg/dygraph/PP_STDCNet1.tar.gz
+2025-12-31 07:56:25 [INFO]	There are 145/145 variables loaded into STDCNet.
+2025-12-31 07:56:25 [INFO]	Loading pretrained model from pretrained_models/ppmattingv2-stdc1-human_512.pdparams
+2025-12-31 07:56:25 [INFO]	There are 485/485 variables loaded into PPMattingV2.
+2025-12-31 07:56:25 [INFO]	Convert bn to sync_bn
+2025-12-31 07:56:25 [INFO]	Use the following config to build train_dataset
+train_dataset:
+  dataset_root: data/PPM-100
+  mode: train
+  train_file: train.txt
+  transforms:
+  - type: LoadImages
+  - max_short: 512
+    type: LimitShort
+  - crop_size:
+    - 512
+    - 512
+    type: RandomCrop
+  - target_size:
+    - 512
+    - 512
+    type: Padding
+  - type: RandomDistort
+  - prob: 0.1
+    type: RandomBlur
+  - prob: 0.2
+    type: RandomSharpen
+  - prob: 0.5
+    type: RandomNoise
+  - prob: 0.2
+    type: RandomReJpeg
+  - type: RandomHorizontalFlip
+  - type: Normalize
+  type: MattingDataset
+2025-12-31 07:56:25 [INFO]	Use the following config to build val_dataset
+val_dataset:
+  dataset_root: data/PPM-100
+  get_trimap: false
+  mode: val
+  transforms:
+  - type: LoadImages
+  - max_short: 512
+    type: LimitShort
+  - mult_int: 32
+    type: ResizeToIntMult
+  - type: Normalize
+  type: MattingDataset
+  val_file: val.txt
+2025-12-31 07:56:25 [INFO]	If the type is SGD and momentum in optimizer config, the type is changed to Momentum.
+2025-12-31 07:56:25 [INFO]	Use the following config to build optimizer
+optimizer:
+  momentum: 0.9
+  type: Momentum
+  weight_decay: 0.0005
+======================= Modified FLAGS detected =======================
+FLAGS(name='FLAGS_enable_pir_in_executor', current_value=True, default_value=False)
+FLAGS(name='FLAGS_cudnn_dir', current_value='/root/miniconda3/envs/pp-mattingv2/lib/python3.10/site-packages/paddle/../nvidia/cudnn/lib', default_value='')
+FLAGS(name='FLAGS_cuda_cccl_dir', current_value='/root/miniconda3/envs/pp-mattingv2/lib/python3.10/site-packages/paddle/../nvidia/cuda_cccl/include/', default_value='')
+FLAGS(name='FLAGS_cupti_dir', current_value='/root/miniconda3/envs/pp-mattingv2/lib/python3.10/site-packages/paddle/../nvidia/cuda_cupti/lib', default_value='')
+FLAGS(name='FLAGS_nccl_dir', current_value='/root/miniconda3/envs/pp-mattingv2/lib/python3.10/site-packages/paddle/../nvidia/nccl/lib', default_value='')
+FLAGS(name='FLAGS_cublas_dir', current_value='/root/miniconda3/envs/pp-mattingv2/lib/python3.10/site-packages/paddle/../nvidia/cublas/lib', default_value='')
+FLAGS(name='FLAGS_curand_dir', current_value='/root/miniconda3/envs/pp-mattingv2/lib/python3.10/site-packages/paddle/../nvidia/curand/lib', default_value='')
+FLAGS(name='FLAGS_cusparse_dir', current_value='/root/miniconda3/envs/pp-mattingv2/lib/python3.10/site-packages/paddle/../nvidia/cusparse/lib', default_value='')
+FLAGS(name='FLAGS_nvidia_package_dir', current_value='/root/miniconda3/envs/pp-mattingv2/lib/python3.10/site-packages/paddle/../nvidia', default_value='')
+FLAGS(name='FLAGS_cusolver_dir', current_value='/root/miniconda3/envs/pp-mattingv2/lib/python3.10/site-packages/paddle/../nvidia/cusolver/lib', default_value='')
+FLAGS(name='FLAGS_selected_gpus', current_value='0', default_value='')
+=======================================================================
+I1231 07:56:25.646615 91339 tcp_utils.cc:185] The server starts to listen on IP_ANY:45756; setting synclog to 2048
+I1231 07:56:25.646855 91339 tcp_utils.cc:134] Successfully connected to 127.0.1.1:45756
+I1231 07:56:28.820145 91339 process_group_nccl.cc:154] ProcessGroupNCCL pg_timeout_ 1800000
+I1231 07:56:28.820215 91339 process_group_nccl.cc:155] ProcessGroupNCCL nccl_comm_init_option_ 0
+/root/miniconda3/envs/pp-mattingv2/lib/python3.10/site-packages/paddle/utils/decorator_utils.py:420: Warning: 
+Non compatible API. Please refer to https://www.paddlepaddle.org.cn/documentation/docs/en/develop/guides/model_convert/convert_from_pytorch/api_difference/torch/torch.max.html first.
+  warnings.warn(
+2025-12-31 07:59:07 [INFO]	[TRAIN] epoch=10, iter=10/100, loss=0.2355, lr=0.000099, batch_cost=15.8206, reader_cost=15.15198, ips=2.0227 samples/sec | ETA 00:23:43
+                          	[LOSSES] alpha_8x_mrsd=0.0159 alpha_8x_grad=0.0076 alpha_8x=0.0234 alpha_mrsd=0.1485 alpha_grad=0.0635 alpha=0.2120
+
+2025-12-31 08:01:41 [INFO]	[TRAIN] epoch=20, iter=20/100, loss=0.2054, lr=0.000198, batch_cost=15.3986, reader_cost=14.06803, ips=2.0781 samples/sec | ETA 00:20:31
+                          	[LOSSES] alpha_8x_mrsd=0.0107 alpha_8x_grad=0.0063 alpha_8x=0.0170 alpha_mrsd=0.1280 alpha_grad=0.0605 alpha=0.1885
+
+2025-12-31 08:04:12 [INFO]	[TRAIN] epoch=30, iter=30/100, loss=0.2054, lr=0.000297, batch_cost=15.1192, reader_cost=14.34518, ips=2.1165 samples/sec | ETA 00:17:38
+                          	[LOSSES] alpha_8x_mrsd=0.0100 alpha_8x_grad=0.0061 alpha_8x=0.0161 alpha_mrsd=0.1299 alpha_grad=0.0594 alpha=0.1893
+
+2025-12-31 08:06:48 [INFO]	[TRAIN] epoch=40, iter=40/100, loss=0.2033, lr=0.000396, batch_cost=15.6308, reader_cost=14.50449, ips=2.0472 samples/sec | ETA 00:15:37
+                          	[LOSSES] alpha_8x_mrsd=0.0109 alpha_8x_grad=0.0062 alpha_8x=0.0171 alpha_mrsd=0.1278 alpha_grad=0.0584 alpha=0.1861
+
+2025-12-31 08:09:14 [INFO]	[TRAIN] epoch=50, iter=50/100, loss=0.1892, lr=0.000495, batch_cost=14.6006, reader_cost=13.71261, ips=2.1917 samples/sec | ETA 00:12:10
+                          	[LOSSES] alpha_8x_mrsd=0.0083 alpha_8x_grad=0.0054 alpha_8x=0.0137 alpha_mrsd=0.1189 alpha_grad=0.0567 alpha=0.1755
+
+2025-12-31 08:11:41 [INFO]	[TRAIN] epoch=60, iter=60/100, loss=0.1766, lr=0.000594, batch_cost=14.6949, reader_cost=13.81261, ips=2.1776 samples/sec | ETA 00:09:47
+                          	[LOSSES] alpha_8x_mrsd=0.0079 alpha_8x_grad=0.0051 alpha_8x=0.0130 alpha_mrsd=0.1097 alpha_grad=0.0540 alpha=0.1637
+
+2025-12-31 08:14:08 [INFO]	[TRAIN] epoch=70, iter=70/100, loss=0.1743, lr=0.000693, batch_cost=14.6249, reader_cost=13.66445, ips=2.1881 samples/sec | ETA 00:07:18
+                          	[LOSSES] alpha_8x_mrsd=0.0081 alpha_8x_grad=0.0052 alpha_8x=0.0133 alpha_mrsd=0.1080 alpha_grad=0.0529 alpha=0.1609
+
+2025-12-31 08:16:33 [INFO]	[TRAIN] epoch=80, iter=80/100, loss=0.1756, lr=0.000792, batch_cost=14.4926, reader_cost=13.59960, ips=2.2080 samples/sec | ETA 00:04:49
+                          	[LOSSES] alpha_8x_mrsd=0.0080 alpha_8x_grad=0.0049 alpha_8x=0.0128 alpha_mrsd=0.1085 alpha_grad=0.0543 alpha=0.1628
+
+2025-12-31 08:18:57 [INFO]	[TRAIN] epoch=90, iter=90/100, loss=0.1725, lr=0.000891, batch_cost=14.3993, reader_cost=13.72626, ips=2.2223 samples/sec | ETA 00:02:23
+                          	[LOSSES] alpha_8x_mrsd=0.0079 alpha_8x_grad=0.0050 alpha_8x=0.0128 alpha_mrsd=0.1076 alpha_grad=0.0521 alpha=0.1597
+
+2025-12-31 08:21:23 [INFO]	[TRAIN] epoch=100, iter=100/100, loss=0.1691, lr=0.000990, batch_cost=14.6243, reader_cost=13.77991, ips=2.1881 samples/sec | ETA 00:00:00
+                          	[LOSSES] alpha_8x_mrsd=0.0076 alpha_8x_grad=0.0049 alpha_8x=0.0125 alpha_mrsd=0.1036 alpha_grad=0.0530 alpha=0.1566
+
+2025-12-31 08:21:23 [INFO]	Start evaluating (total_samples: 10, total_iters: 10)...
+10/10 - 5s - sad: 97.4545 - batch_cost: 0.5053 - reader cost: 0.1432
+2025-12-31 08:21:28 [INFO]	[EVAL] sad: 97.4545
+2025-12-31 08:21:29 [INFO]	[EVAL] The model with the best validation sad (97.4545) was saved at iter 100.
+I1231 08:21:30.447592 91339 process_group_nccl.cc:162] ProcessGroupNCCL destruct 
+I1231 08:21:30.601505 91486 tcp_store.cc:292] receive shutdown event and so quit from MasterDaemon run loop
+2026-01-06 07:18:59 [INFO]	
+------------Environment Information-------------
+platform: Linux-6.5.0-35-generic-x86_64-with-glibc2.35
+Python: 3.10.12 (main, Jul 29 2024, 16:56:48) [GCC 11.4.0]
+Paddle compiled with cuda: True
+NVCC: Build cuda_12.6.r12.6/compiler.34431801_0
+cudnn: 90.3
+GPUs used: 1
+CUDA_VISIBLE_DEVICES: 0
+GPU: ['GPU 0: NVIDIA GeForce', 'GPU 1: NVIDIA GeForce']
+GCC: gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
+PaddleSeg: 2.8.0
+PaddlePaddle: 2.6.2
+OpenCV: 4.12.0
+------------------------------------------------
+2026-01-06 07:18:59 [INFO]	
+---------------Config Information---------------
+batch_size: 32
+iters: 500
+train_dataset:
+  dataset_root: data/MaVeCoDD
+  mode: train
+  train_file: train.txt
+  transforms:
+  - type: LoadImages
+  - max_short: 512
+    type: LimitShort
+  - crop_size:
+    - 512
+    - 512
+    type: RandomCrop
+  - target_size:
+    - 512
+    - 512
+    type: Padding
+  - type: RandomDistort
+  - prob: 0.1
+    type: RandomBlur
+  - prob: 0.2
+    type: RandomSharpen
+  - prob: 0.5
+    type: RandomNoise
+  - prob: 0.2
+    type: RandomReJpeg
+  - type: RandomHorizontalFlip
+  - type: Normalize
+  type: MattingDataset
+val_dataset:
+  dataset_root: data/MaVeCoDD
+  get_trimap: false
+  mode: val
+  transforms:
+  - type: LoadImages
+  - max_short: 512
+    type: LimitShort
+  - mult_int: 32
+    type: ResizeToIntMult
+  - type: Normalize
+  type: MattingDataset
+  val_file: val.txt
+optimizer:
+  momentum: 0.9
+  type: sgd
+  weight_decay: 0.0005
+lr_scheduler:
+  end_lr: 0
+  learning_rate: 0.01
+  power: 0.9
+  type: PolynomialDecay
+  warmup_iters: 100
+  warmup_start_lr: 1.0e-05
+model:
+  backbone:
+    type: STDC1
+  decoder_channels:
+  - 128
+  - 96
+  - 64
+  - 32
+  - 16
+  dpp_merge_type: add
+  dpp_output_channel: 256
+  head_channel: 8
+  type: PPMattingV2
+------------------------------------------------
+
+2026-01-06 07:19:00 [INFO]	Set device: gpu
+2026-01-06 07:19:00 [INFO]	Use the following config to build model
+model:
+  backbone:
+    type: STDC1
+  decoder_channels:
+  - 128
+  - 96
+  - 64
+  - 32
+  - 16
+  dpp_merge_type: add
+  dpp_output_channel: 256
+  head_channel: 8
+  type: PPMattingV2
+W0106 07:19:00.026507 2989622 gpu_resources.cc:119] Please NOTE: device: 0, GPU Compute Capability: 8.9, Driver API Version: 13.0, Runtime API Version: 11.8
+W0106 07:19:00.026587 2989622 gpu_resources.cc:164] device: 0, cuDNN Version: 9.3.
+2026-01-06 07:19:00 [INFO]	Use the following config to build train_dataset
+train_dataset:
+  dataset_root: data/MaVeCoDD
+  mode: train
+  train_file: train.txt
+  transforms:
+  - type: LoadImages
+  - max_short: 512
+    type: LimitShort
+  - crop_size:
+    - 512
+    - 512
+    type: RandomCrop
+  - target_size:
+    - 512
+    - 512
+    type: Padding
+  - type: RandomDistort
+  - prob: 0.1
+    type: RandomBlur
+  - prob: 0.2
+    type: RandomSharpen
+  - prob: 0.5
+    type: RandomNoise
+  - prob: 0.2
+    type: RandomReJpeg
+  - type: RandomHorizontalFlip
+  - type: Normalize
+  type: MattingDataset
+2026-01-06 07:19:00 [INFO]	Use the following config to build val_dataset
+val_dataset:
+  dataset_root: data/MaVeCoDD
+  get_trimap: false
+  mode: val
+  transforms:
+  - type: LoadImages
+  - max_short: 512
+    type: LimitShort
+  - mult_int: 32
+    type: ResizeToIntMult
+  - type: Normalize
+  type: MattingDataset
+  val_file: val.txt
+2026-01-06 07:19:00 [INFO]	If the type is SGD and momentum in optimizer config, the type is changed to Momentum.
+2026-01-06 07:19:00 [INFO]	Use the following config to build optimizer
+optimizer:
+  momentum: 0.9
+  type: Momentum
+  weight_decay: 0.0005
+/usr/local/lib/python3.10/dist-packages/paddle/nn/layer/norm.py:824: UserWarning: When training, we now always track global mean and variance.
+  warnings.warn(
+size : [128, 128]
+size : [256, 256]
+size : [64, 64]
+size : [128, 128]
+size : [256, 256]
+size : [64, 64]
+size : [128, 128]
+size : [256, 256]
+size : [64, 64]
+size : [128, 128]
+size : [256, 256]
+size : [64, 64]
+
+
+--------------------------------------
+C++ Traceback (most recent call last):
+--------------------------------------
+0   paddle::pybind::MultiDeviceFeedReader<paddle::operators::reader::LoDTensorBlockingQueue>::ReadNextList()
+1   paddle::pybind::MultiDeviceFeedReader<paddle::operators::reader::LoDTensorBlockingQueue>::CheckNextStatus()
+2   paddle::pybind::MultiDeviceFeedReader<paddle::operators::reader::LoDTensorBlockingQueue>::WaitFutures(std::__exception_ptr::exception_ptr*)
+
+----------------------
+Error Message Summary:
+----------------------
+FatalError: `Termination signal` is detected by the operating system.
+  [TimeInfo: *** Aborted at 1767683990 (unix time) try "date -d @1767683990" if you are using GNU date ***]
+  [SignalInfo: *** SIGTERM (@0x2d9d4b) received by PID 2989622 (TID 0x732dd959e740) from PID 2989387 ***]
+
+2026-01-06 07:20:01 [INFO]	
+------------Environment Information-------------
+platform: Linux-6.5.0-35-generic-x86_64-with-glibc2.35
+Python: 3.10.12 (main, Jul 29 2024, 16:56:48) [GCC 11.4.0]
+Paddle compiled with cuda: True
+NVCC: Build cuda_12.6.r12.6/compiler.34431801_0
+cudnn: 90.3
+GPUs used: 2
+CUDA_VISIBLE_DEVICES: 0,1
+GPU: ['GPU 0: NVIDIA GeForce', 'GPU 1: NVIDIA GeForce']
+GCC: gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
+PaddleSeg: 2.8.0
+PaddlePaddle: 2.6.2
+OpenCV: 4.12.0
+------------------------------------------------
+2026-01-06 07:20:01 [INFO]	
+---------------Config Information---------------
+batch_size: 32
+iters: 500
+train_dataset:
+  dataset_root: data/MaVeCoDD
+  mode: train
+  train_file: train.txt
+  transforms:
+  - type: LoadImages
+  - max_short: 512
+    type: LimitShort
+  - crop_size:
+    - 512
+    - 512
+    type: RandomCrop
+  - target_size:
+    - 512
+    - 512
+    type: Padding
+  - type: RandomDistort
+  - prob: 0.1
+    type: RandomBlur
+  - prob: 0.2
+    type: RandomSharpen
+  - prob: 0.5
+    type: RandomNoise
+  - prob: 0.2
+    type: RandomReJpeg
+  - type: RandomHorizontalFlip
+  - type: Normalize
+  type: MattingDataset
+val_dataset:
+  dataset_root: data/MaVeCoDD
+  get_trimap: false
+  mode: val
+  transforms:
+  - type: LoadImages
+  - max_short: 512
+    type: LimitShort
+  - mult_int: 32
+    type: ResizeToIntMult
+  - type: Normalize
+  type: MattingDataset
+  val_file: val.txt
+optimizer:
+  momentum: 0.9
+  type: sgd
+  weight_decay: 0.0005
+lr_scheduler:
+  end_lr: 0
+  learning_rate: 0.01
+  power: 0.9
+  type: PolynomialDecay
+  warmup_iters: 100
+  warmup_start_lr: 1.0e-05
+model:
+  backbone:
+    type: STDC1
+  decoder_channels:
+  - 128
+  - 96
+  - 64
+  - 32
+  - 16
+  dpp_merge_type: add
+  dpp_output_channel: 256
+  head_channel: 8
+  type: PPMattingV2
+------------------------------------------------
+
+2026-01-06 07:20:01 [INFO]	Set device: gpu
+2026-01-06 07:20:01 [INFO]	Use the following config to build model
+model:
+  backbone:
+    type: STDC1
+  decoder_channels:
+  - 128
+  - 96
+  - 64
+  - 32
+  - 16
+  dpp_merge_type: add
+  dpp_output_channel: 256
+  head_channel: 8
+  type: PPMattingV2
+W0106 07:20:01.553684 2992290 gpu_resources.cc:119] Please NOTE: device: 0, GPU Compute Capability: 8.9, Driver API Version: 13.0, Runtime API Version: 11.8
+W0106 07:20:01.553761 2992290 gpu_resources.cc:164] device: 0, cuDNN Version: 9.3.
+2026-01-06 07:20:02 [INFO]	Convert bn to sync_bn
+2026-01-06 07:20:02 [INFO]	Use the following config to build train_dataset
+train_dataset:
+  dataset_root: data/MaVeCoDD
+  mode: train
+  train_file: train.txt
+  transforms:
+  - type: LoadImages
+  - max_short: 512
+    type: LimitShort
+  - crop_size:
+    - 512
+    - 512
+    type: RandomCrop
+  - target_size:
+    - 512
+    - 512
+    type: Padding
+  - type: RandomDistort
+  - prob: 0.1
+    type: RandomBlur
+  - prob: 0.2
+    type: RandomSharpen
+  - prob: 0.5
+    type: RandomNoise
+  - prob: 0.2
+    type: RandomReJpeg
+  - type: RandomHorizontalFlip
+  - type: Normalize
+  type: MattingDataset
+2026-01-06 07:20:02 [INFO]	Use the following config to build val_dataset
+val_dataset:
+  dataset_root: data/MaVeCoDD
+  get_trimap: false
+  mode: val
+  transforms:
+  - type: LoadImages
+  - max_short: 512
+    type: LimitShort
+  - mult_int: 32
+    type: ResizeToIntMult
+  - type: Normalize
+  type: MattingDataset
+  val_file: val.txt
+2026-01-06 07:20:02 [INFO]	If the type is SGD and momentum in optimizer config, the type is changed to Momentum.
+2026-01-06 07:20:02 [INFO]	Use the following config to build optimizer
+optimizer:
+  momentum: 0.9
+  type: Momentum
+  weight_decay: 0.0005
+======================= Modified FLAGS detected =======================
+FLAGS(name='FLAGS_selected_gpus', current_value='0', default_value='')
+=======================================================================
+I0106 07:20:02.135324 2992290 tcp_utils.cc:181] The server starts to listen on IP_ANY:63091
+I0106 07:20:02.135520 2992290 tcp_utils.cc:130] Successfully connected to 127.0.1.1:63091
+I0106 07:20:05.300189 2992290 process_group_nccl.cc:129] ProcessGroupNCCL pg_timeout_ 1800000
+2026-01-06 07:24:12 [INFO]	
+------------Environment Information-------------
+platform: Linux-6.5.0-35-generic-x86_64-with-glibc2.35
+Python: 3.10.12 (main, Jul 29 2024, 16:56:48) [GCC 11.4.0]
+Paddle compiled with cuda: True
+NVCC: Build cuda_12.6.r12.6/compiler.34431801_0
+cudnn: 90.3
+GPUs used: 2
+CUDA_VISIBLE_DEVICES: 0,1
+GPU: ['GPU 0: NVIDIA GeForce', 'GPU 1: NVIDIA GeForce']
+GCC: gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
+PaddleSeg: 2.8.0
+PaddlePaddle: 2.6.2
+OpenCV: 4.12.0
+------------------------------------------------
+2026-01-06 07:24:12 [INFO]	
+---------------Config Information---------------
+batch_size: 32
+iters: 500
+train_dataset:
+  dataset_root: data/MaVeCoDD
+  mode: train
+  train_file: train.txt
+  transforms:
+  - type: LoadImages
+  - max_short: 512
+    type: LimitShort
+  - crop_size:
+    - 512
+    - 512
+    type: RandomCrop
+  - target_size:
+    - 512
+    - 512
+    type: Padding
+  - type: RandomDistort
+  - prob: 0.1
+    type: RandomBlur
+  - prob: 0.2
+    type: RandomSharpen
+  - prob: 0.5
+    type: RandomNoise
+  - prob: 0.2
+    type: RandomReJpeg
+  - type: RandomHorizontalFlip
+  - type: Normalize
+  type: MattingDataset
+val_dataset:
+  dataset_root: data/MaVeCoDD
+  get_trimap: false
+  mode: val
+  transforms:
+  - type: LoadImages
+  - max_short: 512
+    type: LimitShort
+  - mult_int: 32
+    type: ResizeToIntMult
+  - type: Normalize
+  type: MattingDataset
+  val_file: val.txt
+optimizer:
+  momentum: 0.9
+  type: sgd
+  weight_decay: 0.0005
+lr_scheduler:
+  end_lr: 0
+  learning_rate: 0.01
+  power: 0.9
+  type: PolynomialDecay
+  warmup_iters: 100
+  warmup_start_lr: 1.0e-05
+model:
+  backbone:
+    type: STDC1
+  decoder_channels:
+  - 128
+  - 96
+  - 64
+  - 32
+  - 16
+  dpp_merge_type: add
+  dpp_output_channel: 256
+  head_channel: 8
+  type: PPMattingV2
+------------------------------------------------
+
+2026-01-06 07:24:12 [INFO]	Set device: gpu
+2026-01-06 07:24:12 [INFO]	Use the following config to build model
+model:
+  backbone:
+    type: STDC1
+  decoder_channels:
+  - 128
+  - 96
+  - 64
+  - 32
+  - 16
+  dpp_merge_type: add
+  dpp_output_channel: 256
+  head_channel: 8
+  type: PPMattingV2
+W0106 07:24:12.589097 3046859 gpu_resources.cc:119] Please NOTE: device: 0, GPU Compute Capability: 8.9, Driver API Version: 13.0, Runtime API Version: 11.8
+W0106 07:24:12.589143 3046859 gpu_resources.cc:164] device: 0, cuDNN Version: 9.3.
+2026-01-06 07:24:13 [INFO]	Convert bn to sync_bn
+2026-01-06 07:24:13 [INFO]	Use the following config to build train_dataset
+train_dataset:
+  dataset_root: data/MaVeCoDD
+  mode: train
+  train_file: train.txt
+  transforms:
+  - type: LoadImages
+  - max_short: 512
+    type: LimitShort
+  - crop_size:
+    - 512
+    - 512
+    type: RandomCrop
+  - target_size:
+    - 512
+    - 512
+    type: Padding
+  - type: RandomDistort
+  - prob: 0.1
+    type: RandomBlur
+  - prob: 0.2
+    type: RandomSharpen
+  - prob: 0.5
+    type: RandomNoise
+  - prob: 0.2
+    type: RandomReJpeg
+  - type: RandomHorizontalFlip
+  - type: Normalize
+  type: MattingDataset
+2026-01-06 07:24:13 [INFO]	Use the following config to build val_dataset
+val_dataset:
+  dataset_root: data/MaVeCoDD
+  get_trimap: false
+  mode: val
+  transforms:
+  - type: LoadImages
+  - max_short: 512
+    type: LimitShort
+  - mult_int: 32
+    type: ResizeToIntMult
+  - type: Normalize
+  type: MattingDataset
+  val_file: val.txt
+2026-01-06 07:24:13 [INFO]	If the type is SGD and momentum in optimizer config, the type is changed to Momentum.
+2026-01-06 07:24:13 [INFO]	Use the following config to build optimizer
+optimizer:
+  momentum: 0.9
+  type: Momentum
+  weight_decay: 0.0005
+======================= Modified FLAGS detected =======================
+FLAGS(name='FLAGS_selected_gpus', current_value='0', default_value='')
+=======================================================================
+I0106 07:24:13.121579 3046859 tcp_utils.cc:181] The server starts to listen on IP_ANY:49018
+I0106 07:24:13.121794 3046859 tcp_utils.cc:130] Successfully connected to 127.0.1.1:49018
+I0106 07:24:13.403859 3046859 process_group_nccl.cc:129] ProcessGroupNCCL pg_timeout_ 1800000
+
+
+--------------------------------------
+C++ Traceback (most recent call last):
+--------------------------------------
+No stack trace in paddle, may be caused by external reasons.
+
+----------------------
+Error Message Summary:
+----------------------
+FatalError: `Termination signal` is detected by the operating system.
+  [TimeInfo: *** Aborted at 1767685236 (unix time) try "date -d @1767685236" if you are using GNU date ***]
+  [SignalInfo: *** SIGTERM (@0x2e7d05) received by PID 3381423 (TID 0x7d89014a4740) from PID 3046661 ***]
+
+2026-01-06 07:41:21 [INFO]	
+------------Environment Information-------------
+platform: Linux-6.5.0-35-generic-x86_64-with-glibc2.35
+Python: 3.10.12 (main, Jul 29 2024, 16:56:48) [GCC 11.4.0]
+Paddle compiled with cuda: True
+NVCC: Build cuda_12.6.r12.6/compiler.34431801_0
+cudnn: 90.3
+GPUs used: 2
+CUDA_VISIBLE_DEVICES: None
+GPU: ['GPU 0: NVIDIA GeForce', 'GPU 1: NVIDIA GeForce']
+GCC: gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
+PaddleSeg: 2.8.0
+PaddlePaddle: 2.6.2
+OpenCV: 4.12.0
+------------------------------------------------
+2026-01-06 07:41:21 [INFO]	
+---------------Config Information---------------
+batch_size: 32
+iters: 100
+train_dataset:
+  dataset_root: data/PPM-100
+  mode: train
+  train_file: train.txt
+  transforms:
+  - type: LoadImages
+  - max_short: 512
+    type: LimitShort
+  - crop_size:
+    - 512
+    - 512
+    type: RandomCrop
+  - target_size:
+    - 512
+    - 512
+    type: Padding
+  - type: RandomDistort
+  - prob: 0.1
+    type: RandomBlur
+  - prob: 0.2
+    type: RandomSharpen
+  - prob: 0.5
+    type: RandomNoise
+  - prob: 0.2
+    type: RandomReJpeg
+  - type: RandomHorizontalFlip
+  - type: Normalize
+  type: MattingDataset
+val_dataset:
+  dataset_root: data/PPM-100
+  get_trimap: false
+  mode: val
+  transforms:
+  - type: LoadImages
+  - max_short: 512
+    type: LimitShort
+  - mult_int: 32
+    type: ResizeToIntMult
+  - type: Normalize
+  type: MattingDataset
+  val_file: val.txt
+optimizer:
+  momentum: 0.9
+  type: sgd
+  weight_decay: 0.0005
+lr_scheduler:
+  end_lr: 0
+  learning_rate: 0.001
+  power: 0.9
+  type: PolynomialDecay
+  warmup_iters: 100
+  warmup_start_lr: 1.0e-05
+model:
+  backbone:
+    pretrained: https://bj.bcebos.com/paddleseg/dygraph/PP_STDCNet1.tar.gz
+    type: STDC1
+  decoder_channels:
+  - 128
+  - 96
+  - 64
+  - 32
+  - 16
+  dpp_merge_type: add
+  dpp_output_channel: 256
+  head_channel: 8
+  type: PPMattingV2
+------------------------------------------------
+
+2026-01-06 07:41:21 [INFO]	Set device: gpu
+2026-01-06 07:41:21 [INFO]	Use the following config to build model
+model:
+  backbone:
+    pretrained: https://bj.bcebos.com/paddleseg/dygraph/PP_STDCNet1.tar.gz
+    type: STDC1
+  decoder_channels:
+  - 128
+  - 96
+  - 64
+  - 32
+  - 16
+  dpp_merge_type: add
+  dpp_output_channel: 256
+  head_channel: 8
+  type: PPMattingV2
+W0106 07:41:21.529922 3383050 gpu_resources.cc:119] Please NOTE: device: 0, GPU Compute Capability: 8.9, Driver API Version: 13.0, Runtime API Version: 11.8
+W0106 07:41:21.529965 3383050 gpu_resources.cc:164] device: 0, cuDNN Version: 9.3.
+2026-01-06 07:41:21 [INFO]	Loading pretrained model from https://bj.bcebos.com/paddleseg/dygraph/PP_STDCNet1.tar.gz
+2026-01-06 07:41:21 [INFO]	There are 145/145 variables loaded into STDCNet.
+2026-01-06 07:41:22 [INFO]	Convert bn to sync_bn
+2026-01-06 07:41:22 [INFO]	Use the following config to build train_dataset
+train_dataset:
+  dataset_root: data/PPM-100
+  mode: train
+  train_file: train.txt
+  transforms:
+  - type: LoadImages
+  - max_short: 512
+    type: LimitShort
+  - crop_size:
+    - 512
+    - 512
+    type: RandomCrop
+  - target_size:
+    - 512
+    - 512
+    type: Padding
+  - type: RandomDistort
+  - prob: 0.1
+    type: RandomBlur
+  - prob: 0.2
+    type: RandomSharpen
+  - prob: 0.5
+    type: RandomNoise
+  - prob: 0.2
+    type: RandomReJpeg
+  - type: RandomHorizontalFlip
+  - type: Normalize
+  type: MattingDataset
+2026-01-06 07:41:22 [INFO]	Use the following config to build val_dataset
+val_dataset:
+  dataset_root: data/PPM-100
+  get_trimap: false
+  mode: val
+  transforms:
+  - type: LoadImages
+  - max_short: 512
+    type: LimitShort
+  - mult_int: 32
+    type: ResizeToIntMult
+  - type: Normalize
+  type: MattingDataset
+  val_file: val.txt
+2026-01-06 07:41:22 [INFO]	If the type is SGD and momentum in optimizer config, the type is changed to Momentum.
+2026-01-06 07:41:22 [INFO]	Use the following config to build optimizer
+optimizer:
+  momentum: 0.9
+  type: Momentum
+  weight_decay: 0.0005
+======================= Modified FLAGS detected =======================
+FLAGS(name='FLAGS_selected_gpus', current_value='0', default_value='')
+=======================================================================
+I0106 07:41:22.188431 3383050 tcp_utils.cc:181] The server starts to listen on IP_ANY:54069
+I0106 07:41:22.188588 3383050 tcp_utils.cc:130] Successfully connected to 127.0.1.1:54069
+I0106 07:41:25.319803 3383050 process_group_nccl.cc:129] ProcessGroupNCCL pg_timeout_ 1800000
+size : [128, 128]
+size : [256, 256]
+size : [64, 64]
+
+
+--------------------------------------
+C++ Traceback (most recent call last):
+--------------------------------------
+0   paddle::pybind::MultiDeviceFeedReader<paddle::operators::reader::LoDTensorBlockingQueue>::ReadNextList()
+1   paddle::pybind::MultiDeviceFeedReader<paddle::operators::reader::LoDTensorBlockingQueue>::CheckNextStatus()
+2   paddle::pybind::MultiDeviceFeedReader<paddle::operators::reader::LoDTensorBlockingQueue>::WaitFutures(std::__exception_ptr::exception_ptr*)
+
+----------------------
+Error Message Summary:
+----------------------
+FatalError: `Termination signal` is detected by the operating system.
+  [TimeInfo: *** Aborted at 1767685306 (unix time) try "date -d @1767685306" if you are using GNU date ***]
+  [SignalInfo: *** SIGTERM (@0x339e1f) received by PID 3383050 (TID 0x708b51721740) from PID 3382815 ***]
+
+2026-01-06 07:42:07 [INFO]	
+------------Environment Information-------------
+platform: Linux-6.5.0-35-generic-x86_64-with-glibc2.35
+Python: 3.10.12 (main, Jul 29 2024, 16:56:48) [GCC 11.4.0]
+Paddle compiled with cuda: True
+NVCC: Build cuda_12.6.r12.6/compiler.34431801_0
+cudnn: 90.3
+GPUs used: 2
+CUDA_VISIBLE_DEVICES: None
+GPU: ['GPU 0: NVIDIA GeForce', 'GPU 1: NVIDIA GeForce']
+GCC: gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
+PaddleSeg: 2.8.0
+PaddlePaddle: 2.6.2
+OpenCV: 4.12.0
+------------------------------------------------
+2026-01-06 07:42:07 [INFO]	
+---------------Config Information---------------
+batch_size: 32
+iters: 500
+train_dataset:
+  dataset_root: data/MaVeCoDD
+  mode: train
+  train_file: train.txt
+  transforms:
+  - type: LoadImages
+  - max_short: 512
+    type: LimitShort
+  - crop_size:
+    - 512
+    - 512
+    type: RandomCrop
+  - target_size:
+    - 512
+    - 512
+    type: Padding
+  - type: RandomDistort
+  - prob: 0.1
+    type: RandomBlur
+  - prob: 0.2
+    type: RandomSharpen
+  - prob: 0.5
+    type: RandomNoise
+  - prob: 0.2
+    type: RandomReJpeg
+  - type: RandomHorizontalFlip
+  - type: Normalize
+  type: MattingDataset
+val_dataset:
+  dataset_root: data/MaVeCoDD
+  get_trimap: false
+  mode: val
+  transforms:
+  - type: LoadImages
+  - max_short: 512
+    type: LimitShort
+  - mult_int: 32
+    type: ResizeToIntMult
+  - type: Normalize
+  type: MattingDataset
+  val_file: val.txt
+optimizer:
+  momentum: 0.9
+  type: sgd
+  weight_decay: 0.0005
+lr_scheduler:
+  end_lr: 0
+  learning_rate: 0.01
+  power: 0.9
+  type: PolynomialDecay
+  warmup_iters: 100
+  warmup_start_lr: 1.0e-05
+model:
+  backbone:
+    type: STDC1
+  decoder_channels:
+  - 128
+  - 96
+  - 64
+  - 32
+  - 16
+  dpp_merge_type: add
+  dpp_output_channel: 256
+  head_channel: 8
+  type: PPMattingV2
+------------------------------------------------
+
+2026-01-06 07:42:07 [INFO]	Set device: gpu
+2026-01-06 07:42:07 [INFO]	Use the following config to build model
+model:
+  backbone:
+    type: STDC1
+  decoder_channels:
+  - 128
+  - 96
+  - 64
+  - 32
+  - 16
+  dpp_merge_type: add
+  dpp_output_channel: 256
+  head_channel: 8
+  type: PPMattingV2
+W0106 07:42:08.050431 3385307 gpu_resources.cc:119] Please NOTE: device: 0, GPU Compute Capability: 8.9, Driver API Version: 13.0, Runtime API Version: 11.8
+W0106 07:42:08.050532 3385307 gpu_resources.cc:164] device: 0, cuDNN Version: 9.3.
+2026-01-06 07:42:08 [INFO]	Convert bn to sync_bn
+2026-01-06 07:42:08 [INFO]	Use the following config to build train_dataset
+train_dataset:
+  dataset_root: data/MaVeCoDD
+  mode: train
+  train_file: train.txt
+  transforms:
+  - type: LoadImages
+  - max_short: 512
+    type: LimitShort
+  - crop_size:
+    - 512
+    - 512
+    type: RandomCrop
+  - target_size:
+    - 512
+    - 512
+    type: Padding
+  - type: RandomDistort
+  - prob: 0.1
+    type: RandomBlur
+  - prob: 0.2
+    type: RandomSharpen
+  - prob: 0.5
+    type: RandomNoise
+  - prob: 0.2
+    type: RandomReJpeg
+  - type: RandomHorizontalFlip
+  - type: Normalize
+  type: MattingDataset
+2026-01-06 07:42:08 [INFO]	Use the following config to build val_dataset
+val_dataset:
+  dataset_root: data/MaVeCoDD
+  get_trimap: false
+  mode: val
+  transforms:
+  - type: LoadImages
+  - max_short: 512
+    type: LimitShort
+  - mult_int: 32
+    type: ResizeToIntMult
+  - type: Normalize
+  type: MattingDataset
+  val_file: val.txt
+2026-01-06 07:42:08 [INFO]	If the type is SGD and momentum in optimizer config, the type is changed to Momentum.
+2026-01-06 07:42:08 [INFO]	Use the following config to build optimizer
+optimizer:
+  momentum: 0.9
+  type: Momentum
+  weight_decay: 0.0005
+======================= Modified FLAGS detected =======================
+FLAGS(name='FLAGS_selected_gpus', current_value='0', default_value='')
+=======================================================================
+I0106 07:42:08.685262 3385307 tcp_utils.cc:181] The server starts to listen on IP_ANY:51650
+I0106 07:42:08.685437 3385307 tcp_utils.cc:130] Successfully connected to 127.0.1.1:51650
+I0106 07:42:08.875756 3385307 process_group_nccl.cc:129] ProcessGroupNCCL pg_timeout_ 1800000
+2026-01-06 07:45:19 [INFO]	
+------------Environment Information-------------
+platform: Linux-6.5.0-35-generic-x86_64-with-glibc2.35
+Python: 3.10.12 (main, Jul 29 2024, 16:56:48) [GCC 11.4.0]
+Paddle compiled with cuda: True
+NVCC: Build cuda_12.6.r12.6/compiler.34431801_0
+cudnn: 90.3
+GPUs used: 2
+CUDA_VISIBLE_DEVICES: None
+GPU: ['GPU 0: NVIDIA GeForce', 'GPU 1: NVIDIA GeForce']
+GCC: gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
+PaddleSeg: 2.8.0
+PaddlePaddle: 2.6.2
+OpenCV: 4.12.0
+------------------------------------------------
+2026-01-06 07:45:19 [INFO]	
+---------------Config Information---------------
+batch_size: 32
+iters: 500
+train_dataset:
+  dataset_root: data/MaVeCoDD
+  mode: train
+  train_file: train.txt
+  transforms:
+  - type: LoadImages
+  - max_short: 512
+    type: LimitShort
+  - crop_size:
+    - 512
+    - 512
+    type: RandomCrop
+  - target_size:
+    - 512
+    - 512
+    type: Padding
+  - type: RandomDistort
+  - prob: 0.1
+    type: RandomBlur
+  - prob: 0.2
+    type: RandomSharpen
+  - prob: 0.5
+    type: RandomNoise
+  - prob: 0.2
+    type: RandomReJpeg
+  - type: RandomHorizontalFlip
+  - type: Normalize
+  type: MattingDataset
+val_dataset:
+  dataset_root: data/MaVeCoDD
+  get_trimap: false
+  mode: val
+  transforms:
+  - type: LoadImages
+  - max_short: 512
+    type: LimitShort
+  - mult_int: 32
+    type: ResizeToIntMult
+  - type: Normalize
+  type: MattingDataset
+  val_file: val.txt
+optimizer:
+  momentum: 0.9
+  type: sgd
+  weight_decay: 0.0005
+lr_scheduler:
+  end_lr: 0
+  learning_rate: 0.01
+  power: 0.9
+  type: PolynomialDecay
+  warmup_iters: 100
+  warmup_start_lr: 1.0e-05
+model:
+  backbone:
+    type: STDC1
+  decoder_channels:
+  - 128
+  - 96
+  - 64
+  - 32
+  - 16
+  dpp_merge_type: add
+  dpp_output_channel: 256
+  head_channel: 8
+  type: PPMattingV2
+------------------------------------------------
+
+2026-01-06 07:45:19 [INFO]	Set device: gpu
+2026-01-06 07:45:19 [INFO]	Use the following config to build model
+model:
+  backbone:
+    type: STDC1
+  decoder_channels:
+  - 128
+  - 96
+  - 64
+  - 32
+  - 16
+  dpp_merge_type: add
+  dpp_output_channel: 256
+  head_channel: 8
+  type: PPMattingV2
+W0106 07:45:19.401970 3407649 gpu_resources.cc:119] Please NOTE: device: 0, GPU Compute Capability: 8.9, Driver API Version: 13.0, Runtime API Version: 11.8
+W0106 07:45:19.402026 3407649 gpu_resources.cc:164] device: 0, cuDNN Version: 9.3.
+2026-01-06 07:45:19 [INFO]	Convert bn to sync_bn
+2026-01-06 07:45:19 [INFO]	Use the following config to build train_dataset
+train_dataset:
+  dataset_root: data/MaVeCoDD
+  mode: train
+  train_file: train.txt
+  transforms:
+  - type: LoadImages
+  - max_short: 512
+    type: LimitShort
+  - crop_size:
+    - 512
+    - 512
+    type: RandomCrop
+  - target_size:
+    - 512
+    - 512
+    type: Padding
+  - type: RandomDistort
+  - prob: 0.1
+    type: RandomBlur
+  - prob: 0.2
+    type: RandomSharpen
+  - prob: 0.5
+    type: RandomNoise
+  - prob: 0.2
+    type: RandomReJpeg
+  - type: RandomHorizontalFlip
+  - type: Normalize
+  type: MattingDataset
+2026-01-06 07:45:19 [INFO]	Use the following config to build val_dataset
+val_dataset:
+  dataset_root: data/MaVeCoDD
+  get_trimap: false
+  mode: val
+  transforms:
+  - type: LoadImages
+  - max_short: 512
+    type: LimitShort
+  - mult_int: 32
+    type: ResizeToIntMult
+  - type: Normalize
+  type: MattingDataset
+  val_file: val.txt
+2026-01-06 07:45:19 [INFO]	If the type is SGD and momentum in optimizer config, the type is changed to Momentum.
+2026-01-06 07:45:19 [INFO]	Use the following config to build optimizer
+optimizer:
+  momentum: 0.9
+  type: Momentum
+  weight_decay: 0.0005
+======================= Modified FLAGS detected =======================
+FLAGS(name='FLAGS_selected_gpus', current_value='0', default_value='')
+=======================================================================
+I0106 07:45:19.951381 3407649 tcp_utils.cc:181] The server starts to listen on IP_ANY:44514
+I0106 07:45:19.951604 3407649 tcp_utils.cc:130] Successfully connected to 127.0.1.1:44514
+I0106 07:45:20.147805 3407649 process_group_nccl.cc:129] ProcessGroupNCCL pg_timeout_ 1800000
+
+
+--------------------------------------
+C++ Traceback (most recent call last):
+--------------------------------------
+No stack trace in paddle, may be caused by external reasons.
+
+----------------------
+Error Message Summary:
+----------------------
+FatalError: `Termination signal` is detected by the operating system.
+  [TimeInfo: *** Aborted at 1767685548 (unix time) try "date -d @1767685548" if you are using GNU date ***]
+  [SignalInfo: *** SIGTERM (@0x33fea1) received by PID 3416968 (TID 0x74ab342f5740) from PID 3407521 ***]
+
+2026-01-06 07:47:57 [INFO]	
+------------Environment Information-------------
+platform: Linux-6.5.0-35-generic-x86_64-with-glibc2.35
+Python: 3.10.12 (main, Jul 29 2024, 16:56:48) [GCC 11.4.0]
+Paddle compiled with cuda: True
+NVCC: Build cuda_12.6.r12.6/compiler.34431801_0
+cudnn: 90.3
+GPUs used: 2
+CUDA_VISIBLE_DEVICES: None
+GPU: ['GPU 0: NVIDIA GeForce', 'GPU 1: NVIDIA GeForce']
+GCC: gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
+PaddleSeg: 2.8.0
+PaddlePaddle: 2.6.2
+OpenCV: 4.12.0
+------------------------------------------------
+2026-01-06 07:47:57 [INFO]	
+---------------Config Information---------------
+batch_size: 32
+iters: 500
+train_dataset:
+  dataset_root: data/MaVeCoDD
+  mode: train
+  train_file: train.txt
+  transforms:
+  - type: LoadImages
+  - max_short: 512
+    type: LimitShort
+  - crop_size:
+    - 512
+    - 512
+    type: RandomCrop
+  - target_size:
+    - 512
+    - 512
+    type: Padding
+  - type: RandomDistort
+  - prob: 0.1
+    type: RandomBlur
+  - prob: 0.2
+    type: RandomSharpen
+  - prob: 0.5
+    type: RandomNoise
+  - prob: 0.2
+    type: RandomReJpeg
+  - type: RandomHorizontalFlip
+  - type: Normalize
+  type: MattingDataset
+val_dataset:
+  dataset_root: data/MaVeCoDD
+  get_trimap: false
+  mode: val
+  transforms:
+  - type: LoadImages
+  - max_short: 512
+    type: LimitShort
+  - mult_int: 32
+    type: ResizeToIntMult
+  - type: Normalize
+  type: MattingDataset
+  val_file: val.txt
+optimizer:
+  momentum: 0.9
+  type: sgd
+  weight_decay: 0.0005
+lr_scheduler:
+  end_lr: 0
+  learning_rate: 0.01
+  power: 0.9
+  type: PolynomialDecay
+  warmup_iters: 100
+  warmup_start_lr: 1.0e-05
+model:
+  backbone:
+    pretrained: https://bj.bcebos.com/paddleseg/dygraph/PP_STDCNet1.tar.gz
+    type: STDC1
+  decoder_channels:
+  - 128
+  - 96
+  - 64
+  - 32
+  - 16
+  dpp_merge_type: add
+  dpp_output_channel: 256
+  head_channel: 8
+  type: PPMattingV2
+------------------------------------------------
+
+2026-01-06 07:47:57 [INFO]	Set device: gpu
+2026-01-06 07:47:57 [INFO]	Use the following config to build model
+model:
+  backbone:
+    pretrained: https://bj.bcebos.com/paddleseg/dygraph/PP_STDCNet1.tar.gz
+    type: STDC1
+  decoder_channels:
+  - 128
+  - 96
+  - 64
+  - 32
+  - 16
+  dpp_merge_type: add
+  dpp_output_channel: 256
+  head_channel: 8
+  type: PPMattingV2
+W0106 07:47:57.676971 3422050 gpu_resources.cc:119] Please NOTE: device: 0, GPU Compute Capability: 8.9, Driver API Version: 13.0, Runtime API Version: 11.8
+W0106 07:47:57.677011 3422050 gpu_resources.cc:164] device: 0, cuDNN Version: 9.3.
+2026-01-06 07:47:57 [INFO]	Loading pretrained model from https://bj.bcebos.com/paddleseg/dygraph/PP_STDCNet1.tar.gz
+2026-01-06 07:47:58 [INFO]	There are 145/145 variables loaded into STDCNet.
+2026-01-06 07:47:58 [INFO]	Convert bn to sync_bn
+2026-01-06 07:47:58 [INFO]	Use the following config to build train_dataset
+train_dataset:
+  dataset_root: data/MaVeCoDD
+  mode: train
+  train_file: train.txt
+  transforms:
+  - type: LoadImages
+  - max_short: 512
+    type: LimitShort
+  - crop_size:
+    - 512
+    - 512
+    type: RandomCrop
+  - target_size:
+    - 512
+    - 512
+    type: Padding
+  - type: RandomDistort
+  - prob: 0.1
+    type: RandomBlur
+  - prob: 0.2
+    type: RandomSharpen
+  - prob: 0.5
+    type: RandomNoise
+  - prob: 0.2
+    type: RandomReJpeg
+  - type: RandomHorizontalFlip
+  - type: Normalize
+  type: MattingDataset
+2026-01-06 07:47:58 [INFO]	Use the following config to build val_dataset
+val_dataset:
+  dataset_root: data/MaVeCoDD
+  get_trimap: false
+  mode: val
+  transforms:
+  - type: LoadImages
+  - max_short: 512
+    type: LimitShort
+  - mult_int: 32
+    type: ResizeToIntMult
+  - type: Normalize
+  type: MattingDataset
+  val_file: val.txt
+2026-01-06 07:47:58 [INFO]	If the type is SGD and momentum in optimizer config, the type is changed to Momentum.
+2026-01-06 07:47:58 [INFO]	Use the following config to build optimizer
+optimizer:
+  momentum: 0.9
+  type: Momentum
+  weight_decay: 0.0005
+======================= Modified FLAGS detected =======================
+FLAGS(name='FLAGS_selected_gpus', current_value='0', default_value='')
+=======================================================================
+I0106 07:47:58.342125 3422050 tcp_utils.cc:181] The server starts to listen on IP_ANY:61935
+I0106 07:47:58.342324 3422050 tcp_utils.cc:130] Successfully connected to 127.0.1.1:61935
+I0106 07:47:58.427691 3422050 process_group_nccl.cc:129] ProcessGroupNCCL pg_timeout_ 1800000
+[2026/01/14 05:12:45] INFO: 
+------------Environment Information-------------
+platform: Linux-6.5.0-35-generic-x86_64-with-glibc2.35
+Python: 3.10.19 (main, Oct 21 2025, 16:43:05) [GCC 11.2.0]
+Paddle compiled with cuda: True
+NVCC: Build cuda_12.6.r12.6/compiler.35059454_0
+cudnn: 90.5
+GPUs used: 2
+CUDA_VISIBLE_DEVICES: 0,1
+GPU: ['GPU 0: NVIDIA GeForce', 'GPU 1: NVIDIA GeForce']
+GCC: gcc (Ubuntu 11.4.0-1ubuntu1~22.04.2) 11.4.0
+PaddleSeg: 0.0.0.dev0
+PaddlePaddle: 3.2.0
+OpenCV: 4.5.5
+------------------------------------------------
+[2026/01/14 05:12:45] INFO: 
+---------------Config Information---------------
+batch_size: 32
+iters: 2500
+train_dataset:
+  dataset_root: data/MaVeCoDD
+  mode: train
+  train_file: train.txt
+  transforms:
+  - type: LoadImages
+  - max_short: 512
+    type: LimitShort
+  - crop_size:
+    - 512
+    - 512
+    type: RandomCrop
+  - target_size:
+    - 512
+    - 512
+    type: Padding
+  - type: RandomDistort
+  - prob: 0.1
+    type: RandomBlur
+  - prob: 0.2
+    type: RandomSharpen
+  - prob: 0.5
+    type: RandomNoise
+  - prob: 0.2
+    type: RandomReJpeg
+  - type: RandomHorizontalFlip
+  - type: Normalize
+  type: MattingDataset
+val_dataset:
+  dataset_root: data/MaVeCoDD
+  get_trimap: false
+  mode: val
+  transforms:
+  - type: LoadImages
+  - max_short: 512
+    type: LimitShort
+  - mult_int: 32
+    type: ResizeToIntMult
+  - type: Normalize
+  type: MattingDataset
+  val_file: val.txt
+optimizer:
+  momentum: 0.9
+  type: sgd
+  weight_decay: 0.0005
+lr_scheduler:
+  end_lr: 0
+  learning_rate: 0.01
+  power: 0.9
+  type: PolynomialDecay
+  warmup_iters: 100
+  warmup_start_lr: 1.0e-05
+model:
+  backbone:
+    pretrained: https://bj.bcebos.com/paddleseg/dygraph/PP_STDCNet1.tar.gz
+    type: STDC1
+  decoder_channels:
+  - 128
+  - 96
+  - 64
+  - 32
+  - 16
+  dpp_merge_type: add
+  dpp_output_channel: 256
+  head_channel: 8
+  pretrained: output/best_model/model.pdparams
+  type: PPMattingV2
+------------------------------------------------
+
+[2026/01/14 05:12:45] INFO: Set device: gpu
+[2026/01/14 05:12:45] INFO: Use the following config to build model
+model:
+  backbone:
+    pretrained: https://bj.bcebos.com/paddleseg/dygraph/PP_STDCNet1.tar.gz
+    type: STDC1
+  decoder_channels:
+  - 128
+  - 96
+  - 64
+  - 32
+  - 16
+  dpp_merge_type: add
+  dpp_output_channel: 256
+  head_channel: 8
+  pretrained: output/best_model/model.pdparams
+  type: PPMattingV2
+W0114 05:12:46.409248 2124223 gpu_resources.cc:114] Please NOTE: device: 0, GPU Compute Capability: 8.9, Driver API Version: 13.0, Runtime API Version: 12.6
+[2026/01/14 05:12:46] INFO: Loading pretrained model from https://bj.bcebos.com/paddleseg/dygraph/PP_STDCNet1.tar.gz
+[2026/01/14 05:12:46] INFO: There are 145/145 variables loaded into STDCNet.
+[2026/01/14 05:12:46] INFO: Loading pretrained model from output/best_model/model.pdparams
+[2026/01/14 05:12:46] INFO: There are 485/485 variables loaded into PPMattingV2.
+[2026/01/14 05:12:47] INFO: Convert bn to sync_bn
+[2026/01/14 05:12:47] INFO: Use the following config to build train_dataset
+train_dataset:
+  dataset_root: data/MaVeCoDD
+  mode: train
+  train_file: train.txt
+  transforms:
+  - type: LoadImages
+  - max_short: 512
+    type: LimitShort
+  - crop_size:
+    - 512
+    - 512
+    type: RandomCrop
+  - target_size:
+    - 512
+    - 512
+    type: Padding
+  - type: RandomDistort
+  - prob: 0.1
+    type: RandomBlur
+  - prob: 0.2
+    type: RandomSharpen
+  - prob: 0.5
+    type: RandomNoise
+  - prob: 0.2
+    type: RandomReJpeg
+  - type: RandomHorizontalFlip
+  - type: Normalize
+  type: MattingDataset
+[2026/01/14 05:12:47] INFO: Use the following config to build val_dataset
+val_dataset:
+  dataset_root: data/MaVeCoDD
+  get_trimap: false
+  mode: val
+  transforms:
+  - type: LoadImages
+  - max_short: 512
+    type: LimitShort
+  - mult_int: 32
+    type: ResizeToIntMult
+  - type: Normalize
+  type: MattingDataset
+  val_file: val.txt
+[2026/01/14 05:12:47] INFO: If the type is SGD and momentum in optimizer config, the type is changed to Momentum.
+[2026/01/14 05:12:47] INFO: Use the following config to build optimizer
+optimizer:
+  momentum: 0.9
+  type: Momentum
+  weight_decay: 0.0005
+======================= Modified FLAGS detected =======================
+FLAGS(name='FLAGS_nvidia_package_dir', current_value='/root/miniconda3/envs/pp-mattingv2/lib/python3.10/site-packages/paddle/../nvidia', default_value='')
+FLAGS(name='FLAGS_cupti_dir', current_value='/root/miniconda3/envs/pp-mattingv2/lib/python3.10/site-packages/paddle/../nvidia/cuda_cupti/lib', default_value='')
+FLAGS(name='FLAGS_cublas_dir', current_value='/root/miniconda3/envs/pp-mattingv2/lib/python3.10/site-packages/paddle/../nvidia/cublas/lib', default_value='')
+FLAGS(name='FLAGS_cudnn_dir', current_value='/root/miniconda3/envs/pp-mattingv2/lib/python3.10/site-packages/paddle/../nvidia/cudnn/lib', default_value='')
+FLAGS(name='FLAGS_nccl_dir', current_value='/root/miniconda3/envs/pp-mattingv2/lib/python3.10/site-packages/paddle/../nvidia/nccl/lib', default_value='')
+FLAGS(name='FLAGS_selected_gpus', current_value='0', default_value='')
+FLAGS(name='FLAGS_cusparse_dir', current_value='/root/miniconda3/envs/pp-mattingv2/lib/python3.10/site-packages/paddle/../nvidia/cusparse/lib', default_value='')
+FLAGS(name='FLAGS_cusolver_dir', current_value='/root/miniconda3/envs/pp-mattingv2/lib/python3.10/site-packages/paddle/../nvidia/cusolver/lib', default_value='')
+FLAGS(name='FLAGS_cuda_cccl_dir', current_value='/root/miniconda3/envs/pp-mattingv2/lib/python3.10/site-packages/paddle/../nvidia/cuda_cccl/include/', default_value='')
+FLAGS(name='FLAGS_enable_pir_in_executor', current_value=True, default_value=False)
+FLAGS(name='FLAGS_curand_dir', current_value='/root/miniconda3/envs/pp-mattingv2/lib/python3.10/site-packages/paddle/../nvidia/curand/lib', default_value='')
+=======================================================================
+I0114 05:12:47.101511 2124223 tcp_utils.cc:185] The server starts to listen on IP_ANY:42899; setting synclog to 2048
+I0114 05:12:47.101743 2124223 tcp_utils.cc:134] Successfully connected to 127.0.1.1:42899
+I0114 05:12:50.177284 2124223 process_group_nccl.cc:154] ProcessGroupNCCL pg_timeout_ 1800000
+I0114 05:12:50.177342 2124223 process_group_nccl.cc:155] ProcessGroupNCCL nccl_comm_init_option_ 0
+
+
+--------------------------------------
+C++ Traceback (most recent call last):
+--------------------------------------
+No stack trace in paddle, may be caused by external reasons.
+
+----------------------
+Error Message Summary:
+----------------------
+FatalError: `Termination signal` is detected by the operating system.
+  [TimeInfo: *** Aborted at 1768367767 (unix time) try "date -d @1768367767" if you are using GNU date ***]
+  [SignalInfo: *** SIGTERM (@0x206964) received by PID 2124223 (TID 0x7c79f5f96740) from PID 2124132 ***]
+
+
+
+--------------------------------------
+C++ Traceback (most recent call last):
+--------------------------------------
+No stack trace in paddle, may be caused by external reasons.
+
+----------------------
+Error Message Summary:
+----------------------
+FatalError: `Termination signal` is detected by the operating system.
+  [TimeInfo: *** Aborted at 1768367767 (unix time) try "date -d @1768367767" if you are using GNU date ***]
+  [SignalInfo: *** SIGTERM (@0x206964) received by PID 2164886 (TID 0x7c79f5f96740) from PID 2124132 ***]
+
+[2026/01/14 05:18:06] INFO: 
+------------Environment Information-------------
+platform: Linux-6.5.0-35-generic-x86_64-with-glibc2.35
+Python: 3.10.19 (main, Oct 21 2025, 16:43:05) [GCC 11.2.0]
+Paddle compiled with cuda: True
+NVCC: Build cuda_12.6.r12.6/compiler.35059454_0
+cudnn: 90.5
+GPUs used: 2
+CUDA_VISIBLE_DEVICES: 0,1
+GPU: ['GPU 0: NVIDIA GeForce', 'GPU 1: NVIDIA GeForce']
+GCC: gcc (Ubuntu 11.4.0-1ubuntu1~22.04.2) 11.4.0
+PaddleSeg: 0.0.0.dev0
+PaddlePaddle: 3.2.0
+OpenCV: 4.5.5
+------------------------------------------------
+[2026/01/14 05:18:06] INFO: 
+---------------Config Information---------------
+batch_size: 16
+iters: 100000
+train_dataset:
+  dataset_root: data/MaVeCoDD
+  mode: train
+  train_file: train.txt
+  transforms:
+  - type: LoadImages
+  - max_short: 512
+    type: LimitShort
+  - crop_size:
+    - 512
+    - 512
+    type: RandomCrop
+  - target_size:
+    - 512
+    - 512
+    type: Padding
+  - type: RandomDistort
+  - prob: 0.1
+    type: RandomBlur
+  - prob: 0.2
+    type: RandomSharpen
+  - prob: 0.5
+    type: RandomNoise
+  - prob: 0.2
+    type: RandomReJpeg
+  - type: RandomHorizontalFlip
+  - type: Normalize
+  type: MattingDataset
+val_dataset:
+  dataset_root: data/MaVeCoDD
+  get_trimap: false
+  mode: val
+  transforms:
+  - type: LoadImages
+  - max_short: 512
+    type: LimitShort
+  - mult_int: 32
+    type: ResizeToIntMult
+  - type: Normalize
+  type: MattingDataset
+  val_file: val.txt
+optimizer:
+  momentum: 0.9
+  type: sgd
+  weight_decay: 0.0005
+lr_scheduler:
+  end_lr: 0
+  learning_rate: 0.01
+  power: 0.9
+  type: PolynomialDecay
+  warmup_iters: 1000
+  warmup_start_lr: 1.0e-05
+model:
+  backbone:
+    pretrained: https://bj.bcebos.com/paddleseg/dygraph/PP_STDCNet1.tar.gz
+    type: STDC1
+  decoder_channels:
+  - 128
+  - 96
+  - 64
+  - 32
+  - 16
+  dpp_merge_type: add
+  dpp_output_channel: 256
+  head_channel: 8
+  type: PPMattingV2
+------------------------------------------------
+
+[2026/01/14 05:18:06] INFO: Set device: gpu
+[2026/01/14 05:18:06] INFO: Use the following config to build model
+model:
+  backbone:
+    pretrained: https://bj.bcebos.com/paddleseg/dygraph/PP_STDCNet1.tar.gz
+    type: STDC1
+  decoder_channels:
+  - 128
+  - 96
+  - 64
+  - 32
+  - 16
+  dpp_merge_type: add
+  dpp_output_channel: 256
+  head_channel: 8
+  type: PPMattingV2
+W0114 05:18:06.280433 2166290 gpu_resources.cc:114] Please NOTE: device: 0, GPU Compute Capability: 8.9, Driver API Version: 13.0, Runtime API Version: 12.6
+[2026/01/14 05:18:06] INFO: Loading pretrained model from https://bj.bcebos.com/paddleseg/dygraph/PP_STDCNet1.tar.gz
+[2026/01/14 05:18:06] INFO: There are 145/145 variables loaded into STDCNet.
+[2026/01/14 05:18:06] INFO: Convert bn to sync_bn
+[2026/01/14 05:18:06] INFO: Use the following config to build train_dataset
+train_dataset:
+  dataset_root: data/MaVeCoDD
+  mode: train
+  train_file: train.txt
+  transforms:
+  - type: LoadImages
+  - max_short: 512
+    type: LimitShort
+  - crop_size:
+    - 512
+    - 512
+    type: RandomCrop
+  - target_size:
+    - 512
+    - 512
+    type: Padding
+  - type: RandomDistort
+  - prob: 0.1
+    type: RandomBlur
+  - prob: 0.2
+    type: RandomSharpen
+  - prob: 0.5
+    type: RandomNoise
+  - prob: 0.2
+    type: RandomReJpeg
+  - type: RandomHorizontalFlip
+  - type: Normalize
+  type: MattingDataset
+[2026/01/14 05:18:06] INFO: Use the following config to build val_dataset
+val_dataset:
+  dataset_root: data/MaVeCoDD
+  get_trimap: false
+  mode: val
+  transforms:
+  - type: LoadImages
+  - max_short: 512
+    type: LimitShort
+  - mult_int: 32
+    type: ResizeToIntMult
+  - type: Normalize
+  type: MattingDataset
+  val_file: val.txt
+[2026/01/14 05:18:06] INFO: If the type is SGD and momentum in optimizer config, the type is changed to Momentum.
+[2026/01/14 05:18:06] INFO: Use the following config to build optimizer
+optimizer:
+  momentum: 0.9
+  type: Momentum
+  weight_decay: 0.0005
+======================= Modified FLAGS detected =======================
+FLAGS(name='FLAGS_nccl_dir', current_value='/root/miniconda3/envs/pp-mattingv2/lib/python3.10/site-packages/paddle/../nvidia/nccl/lib', default_value='')
+FLAGS(name='FLAGS_cusolver_dir', current_value='/root/miniconda3/envs/pp-mattingv2/lib/python3.10/site-packages/paddle/../nvidia/cusolver/lib', default_value='')
+FLAGS(name='FLAGS_cudnn_dir', current_value='/root/miniconda3/envs/pp-mattingv2/lib/python3.10/site-packages/paddle/../nvidia/cudnn/lib', default_value='')
+FLAGS(name='FLAGS_curand_dir', current_value='/root/miniconda3/envs/pp-mattingv2/lib/python3.10/site-packages/paddle/../nvidia/curand/lib', default_value='')
+FLAGS(name='FLAGS_cusparse_dir', current_value='/root/miniconda3/envs/pp-mattingv2/lib/python3.10/site-packages/paddle/../nvidia/cusparse/lib', default_value='')
+FLAGS(name='FLAGS_nvidia_package_dir', current_value='/root/miniconda3/envs/pp-mattingv2/lib/python3.10/site-packages/paddle/../nvidia', default_value='')
+FLAGS(name='FLAGS_cupti_dir', current_value='/root/miniconda3/envs/pp-mattingv2/lib/python3.10/site-packages/paddle/../nvidia/cuda_cupti/lib', default_value='')
+FLAGS(name='FLAGS_cublas_dir', current_value='/root/miniconda3/envs/pp-mattingv2/lib/python3.10/site-packages/paddle/../nvidia/cublas/lib', default_value='')
+FLAGS(name='FLAGS_cuda_cccl_dir', current_value='/root/miniconda3/envs/pp-mattingv2/lib/python3.10/site-packages/paddle/../nvidia/cuda_cccl/include/', default_value='')
+FLAGS(name='FLAGS_enable_pir_in_executor', current_value=True, default_value=False)
+FLAGS(name='FLAGS_selected_gpus', current_value='0', default_value='')
+=======================================================================
+I0114 05:18:06.577091 2166290 tcp_utils.cc:185] The server starts to listen on IP_ANY:56619; setting synclog to 2048
+I0114 05:18:06.577302 2166290 tcp_utils.cc:134] Successfully connected to 127.0.1.1:56619
+I0114 05:18:09.653541 2166290 process_group_nccl.cc:154] ProcessGroupNCCL pg_timeout_ 1800000
+I0114 05:18:09.653592 2166290 process_group_nccl.cc:155] ProcessGroupNCCL nccl_comm_init_option_ 0
+/root/miniconda3/envs/pp-mattingv2/lib/python3.10/site-packages/paddle/utils/decorator_utils.py:420: Warning: 
+Non compatible API. Please refer to https://www.paddlepaddle.org.cn/documentation/docs/en/develop/guides/model_convert/convert_from_pytorch/api_difference/torch/torch.max.html first.
+  warnings.warn(
+
+
+--------------------------------------
+C++ Traceback (most recent call last):
+--------------------------------------
+0   paddle::pybind::MultiDeviceFeedReader<paddle::operators::reader::DenseTensorBlockingQueue>::ReadNextList()
+1   paddle::pybind::MultiDeviceFeedReader<paddle::operators::reader::DenseTensorBlockingQueue>::CheckNextStatus()
+2   paddle::pybind::MultiDeviceFeedReader<paddle::operators::reader::DenseTensorBlockingQueue>::WaitFutures(std::__exception_ptr::exception_ptr*)
+
+----------------------
+Error Message Summary:
+----------------------
+FatalError: `Termination signal` is detected by the operating system.
+  [TimeInfo: *** Aborted at 1768367909 (unix time) try "date -d @1768367909" if you are using GNU date ***]
+  [SignalInfo: *** SIGTERM (@0x210dba) received by PID 2166290 (TID 0x7074e794e740) from PID 2166202 ***]
+
+[2026/01/14 05:19:56] INFO: 
+------------Environment Information-------------
+platform: Linux-6.5.0-35-generic-x86_64-with-glibc2.35
+Python: 3.10.19 (main, Oct 21 2025, 16:43:05) [GCC 11.2.0]
+Paddle compiled with cuda: True
+NVCC: Build cuda_12.6.r12.6/compiler.35059454_0
+cudnn: 90.5
+GPUs used: 2
+CUDA_VISIBLE_DEVICES: 0,1
+GPU: ['GPU 0: NVIDIA GeForce', 'GPU 1: NVIDIA GeForce']
+GCC: gcc (Ubuntu 11.4.0-1ubuntu1~22.04.2) 11.4.0
+PaddleSeg: 0.0.0.dev0
+PaddlePaddle: 3.2.0
+OpenCV: 4.5.5
+------------------------------------------------
+[2026/01/14 05:19:56] INFO: 
+---------------Config Information---------------
+batch_size: 16
+iters: 2500
+train_dataset:
+  dataset_root: data/MaVeCoDD
+  mode: train
+  train_file: train.txt
+  transforms:
+  - type: LoadImages
+  - max_short: 512
+    type: LimitShort
+  - crop_size:
+    - 512
+    - 512
+    type: RandomCrop
+  - target_size:
+    - 512
+    - 512
+    type: Padding
+  - type: RandomDistort
+  - prob: 0.1
+    type: RandomBlur
+  - prob: 0.2
+    type: RandomSharpen
+  - prob: 0.5
+    type: RandomNoise
+  - prob: 0.2
+    type: RandomReJpeg
+  - type: RandomHorizontalFlip
+  - type: Normalize
+  type: MattingDataset
+val_dataset:
+  dataset_root: data/MaVeCoDD
+  get_trimap: false
+  mode: val
+  transforms:
+  - type: LoadImages
+  - max_short: 512
+    type: LimitShort
+  - mult_int: 32
+    type: ResizeToIntMult
+  - type: Normalize
+  type: MattingDataset
+  val_file: val.txt
+optimizer:
+  momentum: 0.9
+  type: sgd
+  weight_decay: 0.0005
+lr_scheduler:
+  end_lr: 0
+  learning_rate: 0.01
+  power: 0.9
+  type: PolynomialDecay
+  warmup_iters: 100
+  warmup_start_lr: 1.0e-05
+model:
+  backbone:
+    pretrained: https://bj.bcebos.com/paddleseg/dygraph/PP_STDCNet1.tar.gz
+    type: STDC1
+  decoder_channels:
+  - 128
+  - 96
+  - 64
+  - 32
+  - 16
+  dpp_merge_type: add
+  dpp_output_channel: 256
+  head_channel: 8
+  type: PPMattingV2
+------------------------------------------------
+
+[2026/01/14 05:19:56] INFO: Set device: gpu
+[2026/01/14 05:19:56] INFO: Use the following config to build model
+model:
+  backbone:
+    pretrained: https://bj.bcebos.com/paddleseg/dygraph/PP_STDCNet1.tar.gz
+    type: STDC1
+  decoder_channels:
+  - 128
+  - 96
+  - 64
+  - 32
+  - 16
+  dpp_merge_type: add
+  dpp_output_channel: 256
+  head_channel: 8
+  type: PPMattingV2
+W0114 05:19:56.356454 2168331 gpu_resources.cc:114] Please NOTE: device: 0, GPU Compute Capability: 8.9, Driver API Version: 13.0, Runtime API Version: 12.6
+[2026/01/14 05:19:56] INFO: Loading pretrained model from https://bj.bcebos.com/paddleseg/dygraph/PP_STDCNet1.tar.gz
+[2026/01/14 05:19:56] INFO: There are 145/145 variables loaded into STDCNet.
+[2026/01/14 05:19:56] INFO: Convert bn to sync_bn
+[2026/01/14 05:19:56] INFO: Use the following config to build train_dataset
+train_dataset:
+  dataset_root: data/MaVeCoDD
+  mode: train
+  train_file: train.txt
+  transforms:
+  - type: LoadImages
+  - max_short: 512
+    type: LimitShort
+  - crop_size:
+    - 512
+    - 512
+    type: RandomCrop
+  - target_size:
+    - 512
+    - 512
+    type: Padding
+  - type: RandomDistort
+  - prob: 0.1
+    type: RandomBlur
+  - prob: 0.2
+    type: RandomSharpen
+  - prob: 0.5
+    type: RandomNoise
+  - prob: 0.2
+    type: RandomReJpeg
+  - type: RandomHorizontalFlip
+  - type: Normalize
+  type: MattingDataset
+[2026/01/14 05:19:56] INFO: Use the following config to build val_dataset
+val_dataset:
+  dataset_root: data/MaVeCoDD
+  get_trimap: false
+  mode: val
+  transforms:
+  - type: LoadImages
+  - max_short: 512
+    type: LimitShort
+  - mult_int: 32
+    type: ResizeToIntMult
+  - type: Normalize
+  type: MattingDataset
+  val_file: val.txt
+[2026/01/14 05:19:56] INFO: If the type is SGD and momentum in optimizer config, the type is changed to Momentum.
+[2026/01/14 05:19:56] INFO: Use the following config to build optimizer
+optimizer:
+  momentum: 0.9
+  type: Momentum
+  weight_decay: 0.0005
+======================= Modified FLAGS detected =======================
+FLAGS(name='FLAGS_cusparse_dir', current_value='/root/miniconda3/envs/pp-mattingv2/lib/python3.10/site-packages/paddle/../nvidia/cusparse/lib', default_value='')
+FLAGS(name='FLAGS_nvidia_package_dir', current_value='/root/miniconda3/envs/pp-mattingv2/lib/python3.10/site-packages/paddle/../nvidia', default_value='')
+FLAGS(name='FLAGS_cusolver_dir', current_value='/root/miniconda3/envs/pp-mattingv2/lib/python3.10/site-packages/paddle/../nvidia/cusolver/lib', default_value='')
+FLAGS(name='FLAGS_cudnn_dir', current_value='/root/miniconda3/envs/pp-mattingv2/lib/python3.10/site-packages/paddle/../nvidia/cudnn/lib', default_value='')
+FLAGS(name='FLAGS_curand_dir', current_value='/root/miniconda3/envs/pp-mattingv2/lib/python3.10/site-packages/paddle/../nvidia/curand/lib', default_value='')
+FLAGS(name='FLAGS_selected_gpus', current_value='0', default_value='')
+FLAGS(name='FLAGS_nccl_dir', current_value='/root/miniconda3/envs/pp-mattingv2/lib/python3.10/site-packages/paddle/../nvidia/nccl/lib', default_value='')
+FLAGS(name='FLAGS_cupti_dir', current_value='/root/miniconda3/envs/pp-mattingv2/lib/python3.10/site-packages/paddle/../nvidia/cuda_cupti/lib', default_value='')
+FLAGS(name='FLAGS_cublas_dir', current_value='/root/miniconda3/envs/pp-mattingv2/lib/python3.10/site-packages/paddle/../nvidia/cublas/lib', default_value='')
+FLAGS(name='FLAGS_enable_pir_in_executor', current_value=True, default_value=False)
+FLAGS(name='FLAGS_cuda_cccl_dir', current_value='/root/miniconda3/envs/pp-mattingv2/lib/python3.10/site-packages/paddle/../nvidia/cuda_cccl/include/', default_value='')
+=======================================================================
+I0114 05:19:56.686674 2168331 tcp_utils.cc:185] The server starts to listen on IP_ANY:44054; setting synclog to 2048
+I0114 05:19:56.686820 2168331 tcp_utils.cc:134] Successfully connected to 127.0.1.1:44054
+I0114 05:19:59.861099 2168331 process_group_nccl.cc:154] ProcessGroupNCCL pg_timeout_ 1800000
+I0114 05:19:59.861153 2168331 process_group_nccl.cc:155] ProcessGroupNCCL nccl_comm_init_option_ 0
+/root/miniconda3/envs/pp-mattingv2/lib/python3.10/site-packages/paddle/utils/decorator_utils.py:420: Warning: 
+Non compatible API. Please refer to https://www.paddlepaddle.org.cn/documentation/docs/en/develop/guides/model_convert/convert_from_pytorch/api_difference/torch/torch.max.html first.
+  warnings.warn(
+[2026/01/14 05:20:38] INFO: [TRAIN] epoch=10, iter=10/2500, loss=2.5587, lr=0.000909, batch_cost=3.7709, reader_cost=3.36047, ips=4.2430 samples/sec | ETA 02:36:29
+                          	[LOSSES] alpha_8x_mrsd=0.4922 alpha_8x_grad=0.1107 alpha_8x=0.6029 alpha_mrsd=1.4905 alpha_grad=0.4653 alpha=1.9558
+
+[2026/01/14 05:21:14] INFO: [TRAIN] epoch=20, iter=20/2500, loss=2.5126, lr=0.001908, batch_cost=3.5949, reader_cost=3.37646, ips=4.4507 samples/sec | ETA 02:28:35
+                          	[LOSSES] alpha_8x_mrsd=0.4765 alpha_8x_grad=0.1087 alpha_8x=0.5852 alpha_mrsd=1.4650 alpha_grad=0.4624 alpha=1.9274
+
+[2026/01/14 05:21:49] INFO: [TRAIN] epoch=30, iter=30/2500, loss=2.3566, lr=0.002907, batch_cost=3.5774, reader_cost=3.30319, ips=4.4725 samples/sec | ETA 02:27:16
+                          	[LOSSES] alpha_8x_mrsd=0.4253 alpha_8x_grad=0.1033 alpha_8x=0.5285 alpha_mrsd=1.3867 alpha_grad=0.4413 alpha=1.8281
+
+[2026/01/14 05:22:26] INFO: [TRAIN] epoch=40, iter=40/2500, loss=2.1872, lr=0.003906, batch_cost=3.6526, reader_cost=3.44486, ips=4.3804 samples/sec | ETA 02:29:45
+                          	[LOSSES] alpha_8x_mrsd=0.3602 alpha_8x_grad=0.0982 alpha_8x=0.4585 alpha_mrsd=1.3160 alpha_grad=0.4127 alpha=1.7288
+
+[2026/01/14 05:23:02] INFO: [TRAIN] epoch=50, iter=50/2500, loss=2.0542, lr=0.004905, batch_cost=3.5872, reader_cost=3.34158, ips=4.4603 samples/sec | ETA 02:26:28
+                          	[LOSSES] alpha_8x_mrsd=0.3059 alpha_8x_grad=0.0898 alpha_8x=0.3956 alpha_mrsd=1.2511 alpha_grad=0.4075 alpha=1.6586
+
+[2026/01/14 05:23:38] INFO: [TRAIN] epoch=60, iter=60/2500, loss=1.8815, lr=0.005904, batch_cost=3.6225, reader_cost=3.30101, ips=4.4169 samples/sec | ETA 02:27:18
+                          	[LOSSES] alpha_8x_mrsd=0.2630 alpha_8x_grad=0.0819 alpha_8x=0.3449 alpha_mrsd=1.1433 alpha_grad=0.3933 alpha=1.5366
+
+[2026/01/14 05:24:14] INFO: [TRAIN] epoch=70, iter=70/2500, loss=1.6980, lr=0.006903, batch_cost=3.5828, reader_cost=3.34380, ips=4.4658 samples/sec | ETA 02:25:06
+                          	[LOSSES] alpha_8x_mrsd=0.2267 alpha_8x_grad=0.0784 alpha_8x=0.3052 alpha_mrsd=1.0270 alpha_grad=0.3658 alpha=1.3928
+
+[2026/01/14 05:24:51] INFO: [TRAIN] epoch=80, iter=80/2500, loss=1.5458, lr=0.007902, batch_cost=3.6936, reader_cost=3.45007, ips=4.3318 samples/sec | ETA 02:28:58
+                          	[LOSSES] alpha_8x_mrsd=0.2015 alpha_8x_grad=0.0731 alpha_8x=0.2746 alpha_mrsd=0.9151 alpha_grad=0.3561 alpha=1.2712
+
+[2026/01/14 05:25:27] INFO: [TRAIN] epoch=90, iter=90/2500, loss=1.4444, lr=0.008901, batch_cost=3.6447, reader_cost=3.38276, ips=4.3900 samples/sec | ETA 02:26:23
+                          	[LOSSES] alpha_8x_mrsd=0.1812 alpha_8x_grad=0.0739 alpha_8x=0.2551 alpha_mrsd=0.8388 alpha_grad=0.3505 alpha=1.1893
+
+[2026/01/14 05:26:03] INFO: [TRAIN] epoch=100, iter=100/2500, loss=1.2591, lr=0.009900, batch_cost=3.6196, reader_cost=3.33981, ips=4.4203 samples/sec | ETA 02:24:47
+                          	[LOSSES] alpha_8x_mrsd=0.1439 alpha_8x_grad=0.0630 alpha_8x=0.2069 alpha_mrsd=0.7251 alpha_grad=0.3271 alpha=1.0522
+
+[2026/01/14 05:26:40] INFO: [TRAIN] epoch=110, iter=110/2500, loss=1.2695, lr=0.009966, batch_cost=3.6530, reader_cost=3.42171, ips=4.3800 samples/sec | ETA 02:25:30
+                          	[LOSSES] alpha_8x_mrsd=0.1452 alpha_8x_grad=0.0659 alpha_8x=0.2111 alpha_mrsd=0.7228 alpha_grad=0.3356 alpha=1.0584
+
+[2026/01/14 05:27:17] INFO: [TRAIN] epoch=120, iter=120/2500, loss=1.1960, lr=0.009929, batch_cost=3.6768, reader_cost=3.44791, ips=4.3516 samples/sec | ETA 02:25:50
+                          	[LOSSES] alpha_8x_mrsd=0.1324 alpha_8x_grad=0.0646 alpha_8x=0.1970 alpha_mrsd=0.6767 alpha_grad=0.3222 alpha=0.9990
+
+[2026/01/14 05:27:53] INFO: [TRAIN] epoch=130, iter=130/2500, loss=1.1043, lr=0.009891, batch_cost=3.6092, reader_cost=3.34571, ips=4.4331 samples/sec | ETA 02:22:33
+                          	[LOSSES] alpha_8x_mrsd=0.1158 alpha_8x_grad=0.0589 alpha_8x=0.1747 alpha_mrsd=0.6239 alpha_grad=0.3056 alpha=0.9296
+
+[2026/01/14 05:28:29] INFO: [TRAIN] epoch=140, iter=140/2500, loss=1.0196, lr=0.009854, batch_cost=3.5757, reader_cost=3.35754, ips=4.4746 samples/sec | ETA 02:20:38
+                          	[LOSSES] alpha_8x_mrsd=0.1066 alpha_8x_grad=0.0552 alpha_8x=0.1619 alpha_mrsd=0.5742 alpha_grad=0.2835 alpha=0.8577
+
+[2026/01/14 05:29:05] INFO: [TRAIN] epoch=150, iter=150/2500, loss=1.0539, lr=0.009816, batch_cost=3.6556, reader_cost=3.44031, ips=4.3768 samples/sec | ETA 02:23:10
+                          	[LOSSES] alpha_8x_mrsd=0.1008 alpha_8x_grad=0.0531 alpha_8x=0.1539 alpha_mrsd=0.6015 alpha_grad=0.2985 alpha=0.9000
+
+[2026/01/14 05:29:42] INFO: [TRAIN] epoch=160, iter=160/2500, loss=1.0500, lr=0.009778, batch_cost=3.7104, reader_cost=3.41489, ips=4.3122 samples/sec | ETA 02:24:42
+                          	[LOSSES] alpha_8x_mrsd=0.1003 alpha_8x_grad=0.0535 alpha_8x=0.1538 alpha_mrsd=0.6007 alpha_grad=0.2955 alpha=0.8963
+
+[2026/01/14 05:30:19] INFO: [TRAIN] epoch=170, iter=170/2500, loss=1.0320, lr=0.009741, batch_cost=3.6740, reader_cost=3.38037, ips=4.3549 samples/sec | ETA 02:22:40
+                          	[LOSSES] alpha_8x_mrsd=0.0904 alpha_8x_grad=0.0494 alpha_8x=0.1398 alpha_mrsd=0.5890 alpha_grad=0.3031 alpha=0.8921
+
+[2026/01/14 05:30:56] INFO: [TRAIN] epoch=180, iter=180/2500, loss=1.0152, lr=0.009703, batch_cost=3.7039, reader_cost=3.48747, ips=4.3198 samples/sec | ETA 02:23:12
+                          	[LOSSES] alpha_8x_mrsd=0.0901 alpha_8x_grad=0.0510 alpha_8x=0.1411 alpha_mrsd=0.5783 alpha_grad=0.2959 alpha=0.8742
+
+[2026/01/14 05:31:32] INFO: [TRAIN] epoch=190, iter=190/2500, loss=0.9696, lr=0.009666, batch_cost=3.6443, reader_cost=3.32853, ips=4.3904 samples/sec | ETA 02:20:18
+                          	[LOSSES] alpha_8x_mrsd=0.0865 alpha_8x_grad=0.0493 alpha_8x=0.1357 alpha_mrsd=0.5504 alpha_grad=0.2835 alpha=0.8339
+
+[2026/01/14 05:32:10] INFO: [TRAIN] epoch=200, iter=200/2500, loss=0.9478, lr=0.009628, batch_cost=3.7248, reader_cost=3.32624, ips=4.2956 samples/sec | ETA 02:22:46
+                          	[LOSSES] alpha_8x_mrsd=0.0775 alpha_8x_grad=0.0461 alpha_8x=0.1236 alpha_mrsd=0.5351 alpha_grad=0.2892 alpha=0.8242
+
+[2026/01/14 05:32:48] INFO: [TRAIN] epoch=210, iter=210/2500, loss=0.9639, lr=0.009590, batch_cost=3.7790, reader_cost=3.43789, ips=4.2339 samples/sec | ETA 02:24:13
+                          	[LOSSES] alpha_8x_mrsd=0.0828 alpha_8x_grad=0.0489 alpha_8x=0.1318 alpha_mrsd=0.5485 alpha_grad=0.2836 alpha=0.8322
+
+[2026/01/14 05:33:24] INFO: [TRAIN] epoch=220, iter=220/2500, loss=0.9799, lr=0.009553, batch_cost=3.6165, reader_cost=3.39204, ips=4.4241 samples/sec | ETA 02:17:25
+                          	[LOSSES] alpha_8x_mrsd=0.0772 alpha_8x_grad=0.0457 alpha_8x=0.1229 alpha_mrsd=0.5617 alpha_grad=0.2953 alpha=0.8570
+
+[2026/01/14 05:34:01] INFO: [TRAIN] epoch=230, iter=230/2500, loss=0.9876, lr=0.009515, batch_cost=3.7058, reader_cost=3.45546, ips=4.3175 samples/sec | ETA 02:20:12
+                          	[LOSSES] alpha_8x_mrsd=0.0777 alpha_8x_grad=0.0468 alpha_8x=0.1246 alpha_mrsd=0.5652 alpha_grad=0.2978 alpha=0.8630
+
+[2026/01/14 05:34:38] INFO: [TRAIN] epoch=240, iter=240/2500, loss=0.9373, lr=0.009477, batch_cost=3.6845, reader_cost=3.46039, ips=4.3425 samples/sec | ETA 02:18:46
+                          	[LOSSES] alpha_8x_mrsd=0.0752 alpha_8x_grad=0.0451 alpha_8x=0.1203 alpha_mrsd=0.5332 alpha_grad=0.2839 alpha=0.8171
+
+[2026/01/14 05:35:15] INFO: [TRAIN] epoch=250, iter=250/2500, loss=0.8692, lr=0.009439, batch_cost=3.7520, reader_cost=3.43217, ips=4.2644 samples/sec | ETA 02:20:41
+                          	[LOSSES] alpha_8x_mrsd=0.0685 alpha_8x_grad=0.0423 alpha_8x=0.1108 alpha_mrsd=0.4933 alpha_grad=0.2651 alpha=0.7585
+
+[2026/01/14 05:35:52] INFO: [TRAIN] epoch=260, iter=260/2500, loss=0.9863, lr=0.009402, batch_cost=3.7045, reader_cost=3.46037, ips=4.3191 samples/sec | ETA 02:18:18
+                          	[LOSSES] alpha_8x_mrsd=0.0768 alpha_8x_grad=0.0460 alpha_8x=0.1228 alpha_mrsd=0.5613 alpha_grad=0.3022 alpha=0.8634
+
+[2026/01/14 05:36:30] INFO: [TRAIN] epoch=270, iter=270/2500, loss=0.9229, lr=0.009364, batch_cost=3.7766, reader_cost=3.48036, ips=4.2366 samples/sec | ETA 02:20:21
+                          	[LOSSES] alpha_8x_mrsd=0.0753 alpha_8x_grad=0.0449 alpha_8x=0.1203 alpha_mrsd=0.5255 alpha_grad=0.2771 alpha=0.8026
+
+[2026/01/14 05:37:08] INFO: [TRAIN] epoch=280, iter=280/2500, loss=0.9338, lr=0.009326, batch_cost=3.7636, reader_cost=3.46763, ips=4.2512 samples/sec | ETA 02:19:15
+                          	[LOSSES] alpha_8x_mrsd=0.0722 alpha_8x_grad=0.0446 alpha_8x=0.1168 alpha_mrsd=0.5251 alpha_grad=0.2919 alpha=0.8170
+
+[2026/01/14 05:37:45] INFO: [TRAIN] epoch=290, iter=290/2500, loss=0.9362, lr=0.009288, batch_cost=3.7081, reader_cost=3.44142, ips=4.3148 samples/sec | ETA 02:16:35
+                          	[LOSSES] alpha_8x_mrsd=0.0665 alpha_8x_grad=0.0415 alpha_8x=0.1080 alpha_mrsd=0.5303 alpha_grad=0.2979 alpha=0.8282
+
+[2026/01/14 05:38:22] INFO: [TRAIN] epoch=300, iter=300/2500, loss=0.9045, lr=0.009251, batch_cost=3.7337, reader_cost=3.41262, ips=4.2853 samples/sec | ETA 02:16:54
+                          	[LOSSES] alpha_8x_mrsd=0.0687 alpha_8x_grad=0.0432 alpha_8x=0.1118 alpha_mrsd=0.5064 alpha_grad=0.2863 alpha=0.7926
+
+[2026/01/14 05:38:59] INFO: [TRAIN] epoch=310, iter=310/2500, loss=0.8424, lr=0.009213, batch_cost=3.7113, reader_cost=3.38594, ips=4.3111 samples/sec | ETA 02:15:27
+                          	[LOSSES] alpha_8x_mrsd=0.0636 alpha_8x_grad=0.0404 alpha_8x=0.1040 alpha_mrsd=0.4785 alpha_grad=0.2599 alpha=0.7384
+
+[2026/01/14 05:39:37] INFO: [TRAIN] epoch=320, iter=320/2500, loss=0.9306, lr=0.009175, batch_cost=3.8161, reader_cost=3.53854, ips=4.1927 samples/sec | ETA 02:18:39
+                          	[LOSSES] alpha_8x_mrsd=0.0688 alpha_8x_grad=0.0429 alpha_8x=0.1118 alpha_mrsd=0.5274 alpha_grad=0.2915 alpha=0.8189
+
+[2026/01/14 05:40:15] INFO: [TRAIN] epoch=330, iter=330/2500, loss=0.8905, lr=0.009137, batch_cost=3.7487, reader_cost=3.49365, ips=4.2682 samples/sec | ETA 02:15:34
+                          	[LOSSES] alpha_8x_mrsd=0.0656 alpha_8x_grad=0.0410 alpha_8x=0.1066 alpha_mrsd=0.5032 alpha_grad=0.2806 alpha=0.7838
+
+[2026/01/14 05:40:52] INFO: [TRAIN] epoch=340, iter=340/2500, loss=0.9283, lr=0.009099, batch_cost=3.7059, reader_cost=3.45662, ips=4.3175 samples/sec | ETA 02:13:24
+                          	[LOSSES] alpha_8x_mrsd=0.0700 alpha_8x_grad=0.0437 alpha_8x=0.1137 alpha_mrsd=0.5258 alpha_grad=0.2889 alpha=0.8146
+
+[2026/01/14 05:41:29] INFO: [TRAIN] epoch=350, iter=350/2500, loss=0.9110, lr=0.009061, batch_cost=3.7663, reader_cost=3.40040, ips=4.2482 samples/sec | ETA 02:14:57
+                          	[LOSSES] alpha_8x_mrsd=0.0708 alpha_8x_grad=0.0434 alpha_8x=0.1142 alpha_mrsd=0.5131 alpha_grad=0.2837 alpha=0.7968
+
+[2026/01/14 05:42:07] INFO: [TRAIN] epoch=360, iter=360/2500, loss=0.8761, lr=0.009023, batch_cost=3.7252, reader_cost=3.48682, ips=4.2951 samples/sec | ETA 02:12:51
+                          	[LOSSES] alpha_8x_mrsd=0.0611 alpha_8x_grad=0.0381 alpha_8x=0.0992 alpha_mrsd=0.4990 alpha_grad=0.2779 alpha=0.7769
+
+[2026/01/14 05:42:44] INFO: [TRAIN] epoch=370, iter=370/2500, loss=0.8607, lr=0.008985, batch_cost=3.7528, reader_cost=3.51464, ips=4.2635 samples/sec | ETA 02:13:13
+                          	[LOSSES] alpha_8x_mrsd=0.0579 alpha_8x_grad=0.0376 alpha_8x=0.0955 alpha_mrsd=0.4872 alpha_grad=0.2781 alpha=0.7652
+
+[2026/01/14 05:43:22] INFO: [TRAIN] epoch=380, iter=380/2500, loss=0.8857, lr=0.008947, batch_cost=3.7790, reader_cost=3.50134, ips=4.2340 samples/sec | ETA 02:13:31
+                          	[LOSSES] alpha_8x_mrsd=0.0690 alpha_8x_grad=0.0431 alpha_8x=0.1120 alpha_mrsd=0.4990 alpha_grad=0.2746 alpha=0.7737
+
+[2026/01/14 05:43:59] INFO: [TRAIN] epoch=390, iter=390/2500, loss=0.8440, lr=0.008909, batch_cost=3.7087, reader_cost=3.40935, ips=4.3142 samples/sec | ETA 02:10:25
+                          	[LOSSES] alpha_8x_mrsd=0.0578 alpha_8x_grad=0.0377 alpha_8x=0.0955 alpha_mrsd=0.4766 alpha_grad=0.2719 alpha=0.7485
+
+[2026/01/14 05:44:37] INFO: [TRAIN] epoch=400, iter=400/2500, loss=0.8548, lr=0.008871, batch_cost=3.7956, reader_cost=3.47572, ips=4.2154 samples/sec | ETA 02:12:50
+                          	[LOSSES] alpha_8x_mrsd=0.0570 alpha_8x_grad=0.0372 alpha_8x=0.0943 alpha_mrsd=0.4804 alpha_grad=0.2801 alpha=0.7605
+
+[2026/01/14 05:45:14] INFO: [TRAIN] epoch=410, iter=410/2500, loss=0.8150, lr=0.008833, batch_cost=3.7256, reader_cost=3.36143, ips=4.2946 samples/sec | ETA 02:09:46
+                          	[LOSSES] alpha_8x_mrsd=0.0562 alpha_8x_grad=0.0368 alpha_8x=0.0930 alpha_mrsd=0.4589 alpha_grad=0.2631 alpha=0.7220
+
+[2026/01/14 05:45:52] INFO: [TRAIN] epoch=420, iter=420/2500, loss=0.8956, lr=0.008795, batch_cost=3.7269, reader_cost=3.42787, ips=4.2931 samples/sec | ETA 02:09:11
+                          	[LOSSES] alpha_8x_mrsd=0.0652 alpha_8x_grad=0.0414 alpha_8x=0.1065 alpha_mrsd=0.5041 alpha_grad=0.2850 alpha=0.7891
+
+[2026/01/14 05:46:30] INFO: [TRAIN] epoch=430, iter=430/2500, loss=0.8296, lr=0.008757, batch_cost=3.7998, reader_cost=3.45081, ips=4.2108 samples/sec | ETA 02:11:05
+                          	[LOSSES] alpha_8x_mrsd=0.0547 alpha_8x_grad=0.0354 alpha_8x=0.0901 alpha_mrsd=0.4768 alpha_grad=0.2627 alpha=0.7395
+
+[2026/01/14 05:47:07] INFO: [TRAIN] epoch=440, iter=440/2500, loss=0.8760, lr=0.008719, batch_cost=3.7499, reader_cost=3.53281, ips=4.2668 samples/sec | ETA 02:08:44
+                          	[LOSSES] alpha_8x_mrsd=0.0613 alpha_8x_grad=0.0394 alpha_8x=0.1008 alpha_mrsd=0.4969 alpha_grad=0.2783 alpha=0.7752
+
+[2026/01/14 05:47:45] INFO: [TRAIN] epoch=450, iter=450/2500, loss=0.8347, lr=0.008681, batch_cost=3.7621, reader_cost=3.51669, ips=4.2529 samples/sec | ETA 02:08:32
+                          	[LOSSES] alpha_8x_mrsd=0.0554 alpha_8x_grad=0.0366 alpha_8x=0.0920 alpha_mrsd=0.4655 alpha_grad=0.2772 alpha=0.7426
+
+[2026/01/14 05:48:23] INFO: [TRAIN] epoch=460, iter=460/2500, loss=0.8297, lr=0.008643, batch_cost=3.7981, reader_cost=3.44288, ips=4.2126 samples/sec | ETA 02:09:08
+                          	[LOSSES] alpha_8x_mrsd=0.0569 alpha_8x_grad=0.0371 alpha_8x=0.0940 alpha_mrsd=0.4671 alpha_grad=0.2685 alpha=0.7356
+
+[2026/01/14 05:49:00] INFO: [TRAIN] epoch=470, iter=470/2500, loss=0.8589, lr=0.008605, batch_cost=3.7287, reader_cost=3.48496, ips=4.2910 samples/sec | ETA 02:06:09
+                          	[LOSSES] alpha_8x_mrsd=0.0605 alpha_8x_grad=0.0391 alpha_8x=0.0997 alpha_mrsd=0.4828 alpha_grad=0.2765 alpha=0.7593
+
+[2026/01/14 05:49:38] INFO: [TRAIN] epoch=480, iter=480/2500, loss=0.8575, lr=0.008567, batch_cost=3.7920, reader_cost=3.41912, ips=4.2194 samples/sec | ETA 02:07:39
+                          	[LOSSES] alpha_8x_mrsd=0.0574 alpha_8x_grad=0.0374 alpha_8x=0.0948 alpha_mrsd=0.4769 alpha_grad=0.2858 alpha=0.7627
+
+[2026/01/14 05:50:16] INFO: [TRAIN] epoch=490, iter=490/2500, loss=0.8536, lr=0.008529, batch_cost=3.8429, reader_cost=3.48520, ips=4.1635 samples/sec | ETA 02:08:44
+                          	[LOSSES] alpha_8x_mrsd=0.0608 alpha_8x_grad=0.0385 alpha_8x=0.0993 alpha_mrsd=0.4809 alpha_grad=0.2734 alpha=0.7544
+
+[2026/01/14 05:50:54] INFO: [TRAIN] epoch=500, iter=500/2500, loss=0.8238, lr=0.008490, batch_cost=3.8066, reader_cost=3.56481, ips=4.2033 samples/sec | ETA 02:06:53
+                          	[LOSSES] alpha_8x_mrsd=0.0557 alpha_8x_grad=0.0369 alpha_8x=0.0925 alpha_mrsd=0.4645 alpha_grad=0.2668 alpha=0.7313
+
+[2026/01/14 05:50:55] INFO: Start evaluating (total_samples: 16, total_iters: 16)...
+16/16 - 2s - sad: 257.8731 - batch_cost: 0.1018 - reader cost: 0.0385
+[2026/01/14 05:50:56] INFO: [EVAL] sad: 257.8731
+[2026/01/14 05:50:57] INFO: [EVAL] The model with the best validation sad (257.8731) was saved at iter 500.
+[2026/01/14 05:51:35] INFO: [TRAIN] epoch=510, iter=510/2500, loss=0.8117, lr=0.008452, batch_cost=3.8061, reader_cost=3.46171, ips=4.2038 samples/sec | ETA 02:06:14
+                          	[LOSSES] alpha_8x_mrsd=0.0550 alpha_8x_grad=0.0370 alpha_8x=0.0920 alpha_mrsd=0.4524 alpha_grad=0.2673 alpha=0.7196
+
+[2026/01/14 05:52:12] INFO: [TRAIN] epoch=520, iter=520/2500, loss=0.8033, lr=0.008414, batch_cost=3.7809, reader_cost=3.45557, ips=4.2318 samples/sec | ETA 02:04:46
+                          	[LOSSES] alpha_8x_mrsd=0.0573 alpha_8x_grad=0.0377 alpha_8x=0.0950 alpha_mrsd=0.4464 alpha_grad=0.2618 alpha=0.7082
+
+[2026/01/14 05:52:50] INFO: [TRAIN] epoch=530, iter=530/2500, loss=0.8690, lr=0.008376, batch_cost=3.7680, reader_cost=3.46400, ips=4.2463 samples/sec | ETA 02:03:42
+                          	[LOSSES] alpha_8x_mrsd=0.0580 alpha_8x_grad=0.0372 alpha_8x=0.0951 alpha_mrsd=0.4925 alpha_grad=0.2813 alpha=0.7738
+
+[2026/01/14 05:53:28] INFO: [TRAIN] epoch=540, iter=540/2500, loss=0.8688, lr=0.008338, batch_cost=3.7752, reader_cost=3.48462, ips=4.2382 samples/sec | ETA 02:03:19
+                          	[LOSSES] alpha_8x_mrsd=0.0559 alpha_8x_grad=0.0366 alpha_8x=0.0924 alpha_mrsd=0.4912 alpha_grad=0.2852 alpha=0.7764
+
+[2026/01/14 05:54:06] INFO: [TRAIN] epoch=550, iter=550/2500, loss=0.7830, lr=0.008299, batch_cost=3.7632, reader_cost=3.41855, ips=4.2517 samples/sec | ETA 02:02:18
+                          	[LOSSES] alpha_8x_mrsd=0.0507 alpha_8x_grad=0.0338 alpha_8x=0.0845 alpha_mrsd=0.4417 alpha_grad=0.2568 alpha=0.6985
+
+[2026/01/14 05:54:44] INFO: [TRAIN] epoch=560, iter=560/2500, loss=0.7690, lr=0.008261, batch_cost=3.7974, reader_cost=3.40369, ips=4.2134 samples/sec | ETA 02:02:46
+                          	[LOSSES] alpha_8x_mrsd=0.0483 alpha_8x_grad=0.0324 alpha_8x=0.0807 alpha_mrsd=0.4294 alpha_grad=0.2588 alpha=0.6882
+
+[2026/01/14 05:55:22] INFO: [TRAIN] epoch=570, iter=570/2500, loss=0.8604, lr=0.008223, batch_cost=3.8196, reader_cost=3.56909, ips=4.1889 samples/sec | ETA 02:02:51
+                          	[LOSSES] alpha_8x_mrsd=0.0545 alpha_8x_grad=0.0355 alpha_8x=0.0900 alpha_mrsd=0.4865 alpha_grad=0.2839 alpha=0.7704
+
+[2026/01/14 05:56:00] INFO: [TRAIN] epoch=580, iter=580/2500, loss=0.8185, lr=0.008184, batch_cost=3.8224, reader_cost=3.53403, ips=4.1859 samples/sec | ETA 02:02:18
+                          	[LOSSES] alpha_8x_mrsd=0.0546 alpha_8x_grad=0.0353 alpha_8x=0.0899 alpha_mrsd=0.4618 alpha_grad=0.2668 alpha=0.7286
+
+[2026/01/14 05:56:39] INFO: [TRAIN] epoch=590, iter=590/2500, loss=0.7744, lr=0.008146, batch_cost=3.8714, reader_cost=3.56263, ips=4.1329 samples/sec | ETA 02:03:14
+                          	[LOSSES] alpha_8x_mrsd=0.0502 alpha_8x_grad=0.0335 alpha_8x=0.0837 alpha_mrsd=0.4378 alpha_grad=0.2529 alpha=0.6907
+
+[2026/01/14 05:57:16] INFO: [TRAIN] epoch=600, iter=600/2500, loss=0.8429, lr=0.008108, batch_cost=3.7296, reader_cost=3.40438, ips=4.2900 samples/sec | ETA 01:58:06
+                          	[LOSSES] alpha_8x_mrsd=0.0553 alpha_8x_grad=0.0362 alpha_8x=0.0915 alpha_mrsd=0.4741 alpha_grad=0.2773 alpha=0.7514
+
+[2026/01/14 05:57:54] INFO: [TRAIN] epoch=610, iter=610/2500, loss=0.8247, lr=0.008069, batch_cost=3.8260, reader_cost=3.50982, ips=4.1819 samples/sec | ETA 02:00:31
+                          	[LOSSES] alpha_8x_mrsd=0.0586 alpha_8x_grad=0.0381 alpha_8x=0.0967 alpha_mrsd=0.4590 alpha_grad=0.2691 alpha=0.7281
+
+[2026/01/14 05:58:33] INFO: [TRAIN] epoch=620, iter=620/2500, loss=0.8245, lr=0.008031, batch_cost=3.8458, reader_cost=3.50367, ips=4.1604 samples/sec | ETA 02:00:30
+                          	[LOSSES] alpha_8x_mrsd=0.0548 alpha_8x_grad=0.0356 alpha_8x=0.0904 alpha_mrsd=0.4666 alpha_grad=0.2675 alpha=0.7341
+
+[2026/01/14 05:59:10] INFO: [TRAIN] epoch=630, iter=630/2500, loss=0.8065, lr=0.007992, batch_cost=3.7615, reader_cost=3.52008, ips=4.2536 samples/sec | ETA 01:57:14
+                          	[LOSSES] alpha_8x_mrsd=0.0527 alpha_8x_grad=0.0347 alpha_8x=0.0874 alpha_mrsd=0.4524 alpha_grad=0.2667 alpha=0.7191
+
+[2026/01/14 05:59:49] INFO: [TRAIN] epoch=640, iter=640/2500, loss=0.7463, lr=0.007954, batch_cost=3.8631, reader_cost=3.60463, ips=4.1417 samples/sec | ETA 01:59:45
+                          	[LOSSES] alpha_8x_mrsd=0.0480 alpha_8x_grad=0.0324 alpha_8x=0.0805 alpha_mrsd=0.4150 alpha_grad=0.2508 alpha=0.6659
+
+[2026/01/14 06:00:27] INFO: [TRAIN] epoch=650, iter=650/2500, loss=0.7497, lr=0.007915, batch_cost=3.8161, reader_cost=3.50794, ips=4.1927 samples/sec | ETA 01:57:39
+                          	[LOSSES] alpha_8x_mrsd=0.0527 alpha_8x_grad=0.0344 alpha_8x=0.0871 alpha_mrsd=0.4199 alpha_grad=0.2427 alpha=0.6626
+
+[2026/01/14 06:01:04] INFO: [TRAIN] epoch=660, iter=660/2500, loss=0.7994, lr=0.007877, batch_cost=3.7047, reader_cost=3.43279, ips=4.3188 samples/sec | ETA 01:53:36
+                          	[LOSSES] alpha_8x_mrsd=0.0492 alpha_8x_grad=0.0324 alpha_8x=0.0816 alpha_mrsd=0.4489 alpha_grad=0.2689 alpha=0.7178
+
+[2026/01/14 06:01:42] INFO: [TRAIN] epoch=670, iter=670/2500, loss=0.7651, lr=0.007838, batch_cost=3.8246, reader_cost=3.56215, ips=4.1834 samples/sec | ETA 01:56:39
+                          	[LOSSES] alpha_8x_mrsd=0.0486 alpha_8x_grad=0.0326 alpha_8x=0.0812 alpha_mrsd=0.4250 alpha_grad=0.2589 alpha=0.6839
+
+[2026/01/14 06:02:21] INFO: [TRAIN] epoch=680, iter=680/2500, loss=0.7835, lr=0.007800, batch_cost=3.8412, reader_cost=3.57558, ips=4.1654 samples/sec | ETA 01:56:30
+                          	[LOSSES] alpha_8x_mrsd=0.0493 alpha_8x_grad=0.0324 alpha_8x=0.0817 alpha_mrsd=0.4457 alpha_grad=0.2561 alpha=0.7018
+
+[2026/01/14 06:02:59] INFO: [TRAIN] epoch=690, iter=690/2500, loss=0.7625, lr=0.007761, batch_cost=3.8214, reader_cost=3.58441, ips=4.1870 samples/sec | ETA 01:55:16
+                          	[LOSSES] alpha_8x_mrsd=0.0501 alpha_8x_grad=0.0332 alpha_8x=0.0833 alpha_mrsd=0.4252 alpha_grad=0.2540 alpha=0.6792
+
+[2026/01/14 06:03:37] INFO: [TRAIN] epoch=700, iter=700/2500, loss=0.8204, lr=0.007723, batch_cost=3.8275, reader_cost=3.50899, ips=4.1803 samples/sec | ETA 01:54:49
+                          	[LOSSES] alpha_8x_mrsd=0.0515 alpha_8x_grad=0.0335 alpha_8x=0.0850 alpha_mrsd=0.4687 alpha_grad=0.2666 alpha=0.7354
+
+[2026/01/14 06:04:16] INFO: [TRAIN] epoch=710, iter=710/2500, loss=0.8007, lr=0.007684, batch_cost=3.9029, reader_cost=3.65014, ips=4.0995 samples/sec | ETA 01:56:26
+                          	[LOSSES] alpha_8x_mrsd=0.0511 alpha_8x_grad=0.0330 alpha_8x=0.0841 alpha_mrsd=0.4537 alpha_grad=0.2630 alpha=0.7166
+
+[2026/01/14 06:04:55] INFO: [TRAIN] epoch=720, iter=720/2500, loss=0.8251, lr=0.007646, batch_cost=3.8202, reader_cost=3.54111, ips=4.1882 samples/sec | ETA 01:53:19
+                          	[LOSSES] alpha_8x_mrsd=0.0550 alpha_8x_grad=0.0352 alpha_8x=0.0902 alpha_mrsd=0.4675 alpha_grad=0.2674 alpha=0.7349
+
+[2026/01/14 06:05:33] INFO: [TRAIN] epoch=730, iter=730/2500, loss=0.7576, lr=0.007607, batch_cost=3.8311, reader_cost=3.51535, ips=4.1763 samples/sec | ETA 01:53:01
+                          	[LOSSES] alpha_8x_mrsd=0.0452 alpha_8x_grad=0.0305 alpha_8x=0.0757 alpha_mrsd=0.4237 alpha_grad=0.2581 alpha=0.6818
+
+[2026/01/14 06:06:11] INFO: [TRAIN] epoch=740, iter=740/2500, loss=0.7470, lr=0.007568, batch_cost=3.7991, reader_cost=3.52777, ips=4.2116 samples/sec | ETA 01:51:26
+                          	[LOSSES] alpha_8x_mrsd=0.0478 alpha_8x_grad=0.0315 alpha_8x=0.0793 alpha_mrsd=0.4187 alpha_grad=0.2489 alpha=0.6676
+
+[2026/01/14 06:06:48] INFO: [TRAIN] epoch=750, iter=750/2500, loss=0.8221, lr=0.007530, batch_cost=3.7322, reader_cost=3.42518, ips=4.2871 samples/sec | ETA 01:48:51
+                          	[LOSSES] alpha_8x_mrsd=0.0523 alpha_8x_grad=0.0339 alpha_8x=0.0862 alpha_mrsd=0.4653 alpha_grad=0.2707 alpha=0.7360
+
+[2026/01/14 06:07:26] INFO: [TRAIN] epoch=760, iter=760/2500, loss=0.7653, lr=0.007491, batch_cost=3.7562, reader_cost=3.35481, ips=4.2596 samples/sec | ETA 01:48:55
+                          	[LOSSES] alpha_8x_mrsd=0.0531 alpha_8x_grad=0.0351 alpha_8x=0.0883 alpha_mrsd=0.4275 alpha_grad=0.2495 alpha=0.6770
+
+[2026/01/14 06:08:05] INFO: [TRAIN] epoch=770, iter=770/2500, loss=0.7885, lr=0.007452, batch_cost=3.9282, reader_cost=3.68607, ips=4.0732 samples/sec | ETA 01:53:15
+                          	[LOSSES] alpha_8x_mrsd=0.0553 alpha_8x_grad=0.0349 alpha_8x=0.0902 alpha_mrsd=0.4431 alpha_grad=0.2552 alpha=0.6983
+
+[2026/01/14 06:08:44] INFO: [TRAIN] epoch=780, iter=780/2500, loss=0.7078, lr=0.007413, batch_cost=3.8885, reader_cost=3.61390, ips=4.1147 samples/sec | ETA 01:51:28
+                          	[LOSSES] alpha_8x_mrsd=0.0466 alpha_8x_grad=0.0310 alpha_8x=0.0777 alpha_mrsd=0.4018 alpha_grad=0.2284 alpha=0.6302
+
+[2026/01/14 06:09:23] INFO: [TRAIN] epoch=790, iter=790/2500, loss=0.7661, lr=0.007375, batch_cost=3.8676, reader_cost=3.58333, ips=4.1370 samples/sec | ETA 01:50:13
+                          	[LOSSES] alpha_8x_mrsd=0.0464 alpha_8x_grad=0.0310 alpha_8x=0.0774 alpha_mrsd=0.4329 alpha_grad=0.2559 alpha=0.6888
+
+[2026/01/14 06:10:01] INFO: [TRAIN] epoch=800, iter=800/2500, loss=0.7573, lr=0.007336, batch_cost=3.8589, reader_cost=3.43667, ips=4.1463 samples/sec | ETA 01:49:20
+                          	[LOSSES] alpha_8x_mrsd=0.0481 alpha_8x_grad=0.0322 alpha_8x=0.0802 alpha_mrsd=0.4254 alpha_grad=0.2517 alpha=0.6771
+
+[2026/01/14 06:10:40] INFO: [TRAIN] epoch=810, iter=810/2500, loss=0.7067, lr=0.007297, batch_cost=3.8845, reader_cost=3.56316, ips=4.1190 samples/sec | ETA 01:49:24
+                          	[LOSSES] alpha_8x_mrsd=0.0476 alpha_8x_grad=0.0314 alpha_8x=0.0789 alpha_mrsd=0.3963 alpha_grad=0.2316 alpha=0.6278
+
+[2026/01/14 06:11:18] INFO: [TRAIN] epoch=820, iter=820/2500, loss=0.7877, lr=0.007258, batch_cost=3.8055, reader_cost=3.49284, ips=4.2045 samples/sec | ETA 01:46:33
+                          	[LOSSES] alpha_8x_mrsd=0.0515 alpha_8x_grad=0.0343 alpha_8x=0.0858 alpha_mrsd=0.4402 alpha_grad=0.2617 alpha=0.7019
+
+[2026/01/14 06:11:56] INFO: [TRAIN] epoch=830, iter=830/2500, loss=0.7651, lr=0.007219, batch_cost=3.8227, reader_cost=3.44326, ips=4.1855 samples/sec | ETA 01:46:23
+                          	[LOSSES] alpha_8x_mrsd=0.0475 alpha_8x_grad=0.0317 alpha_8x=0.0793 alpha_mrsd=0.4274 alpha_grad=0.2584 alpha=0.6858
+
+[2026/01/14 06:12:35] INFO: [TRAIN] epoch=840, iter=840/2500, loss=0.8019, lr=0.007180, batch_cost=3.8453, reader_cost=3.52858, ips=4.1609 samples/sec | ETA 01:46:23
+                          	[LOSSES] alpha_8x_mrsd=0.0525 alpha_8x_grad=0.0342 alpha_8x=0.0867 alpha_mrsd=0.4511 alpha_grad=0.2642 alpha=0.7152
+
+[2026/01/14 06:13:12] INFO: [TRAIN] epoch=850, iter=850/2500, loss=0.7467, lr=0.007141, batch_cost=3.7612, reader_cost=3.48455, ips=4.2540 samples/sec | ETA 01:43:25
+                          	[LOSSES] alpha_8x_mrsd=0.0454 alpha_8x_grad=0.0307 alpha_8x=0.0761 alpha_mrsd=0.4132 alpha_grad=0.2574 alpha=0.6706
+
+[2026/01/14 06:13:50] INFO: [TRAIN] epoch=860, iter=860/2500, loss=0.7692, lr=0.007102, batch_cost=3.7216, reader_cost=3.38713, ips=4.2992 samples/sec | ETA 01:41:43
+                          	[LOSSES] alpha_8x_mrsd=0.0476 alpha_8x_grad=0.0316 alpha_8x=0.0793 alpha_mrsd=0.4327 alpha_grad=0.2573 alpha=0.6899
+
+[2026/01/14 06:14:28] INFO: [TRAIN] epoch=870, iter=870/2500, loss=0.7373, lr=0.007063, batch_cost=3.8330, reader_cost=3.58398, ips=4.1743 samples/sec | ETA 01:44:07
+                          	[LOSSES] alpha_8x_mrsd=0.0460 alpha_8x_grad=0.0312 alpha_8x=0.0772 alpha_mrsd=0.4156 alpha_grad=0.2445 alpha=0.6601
+
+[2026/01/14 06:15:06] INFO: [TRAIN] epoch=880, iter=880/2500, loss=0.7405, lr=0.007024, batch_cost=3.8414, reader_cost=3.49760, ips=4.1651 samples/sec | ETA 01:43:43
+                          	[LOSSES] alpha_8x_mrsd=0.0489 alpha_8x_grad=0.0323 alpha_8x=0.0812 alpha_mrsd=0.4155 alpha_grad=0.2438 alpha=0.6593
+
+[2026/01/14 06:15:45] INFO: [TRAIN] epoch=890, iter=890/2500, loss=0.7626, lr=0.006985, batch_cost=3.8392, reader_cost=3.52303, ips=4.1675 samples/sec | ETA 01:43:01
+                          	[LOSSES] alpha_8x_mrsd=0.0479 alpha_8x_grad=0.0319 alpha_8x=0.0799 alpha_mrsd=0.4245 alpha_grad=0.2582 alpha=0.6827
+
+[2026/01/14 06:16:23] INFO: [TRAIN] epoch=900, iter=900/2500, loss=0.7357, lr=0.006946, batch_cost=3.8176, reader_cost=3.44496, ips=4.1911 samples/sec | ETA 01:41:48
+                          	[LOSSES] alpha_8x_mrsd=0.0468 alpha_8x_grad=0.0316 alpha_8x=0.0783 alpha_mrsd=0.4089 alpha_grad=0.2485 alpha=0.6574
+
+[2026/01/14 06:17:01] INFO: [TRAIN] epoch=910, iter=910/2500, loss=0.7329, lr=0.006907, batch_cost=3.8215, reader_cost=3.43962, ips=4.1869 samples/sec | ETA 01:41:16
+                          	[LOSSES] alpha_8x_mrsd=0.0457 alpha_8x_grad=0.0310 alpha_8x=0.0768 alpha_mrsd=0.4109 alpha_grad=0.2452 alpha=0.6562
+
+[2026/01/14 06:17:39] INFO: [TRAIN] epoch=920, iter=920/2500, loss=0.7073, lr=0.006868, batch_cost=3.8350, reader_cost=3.57942, ips=4.1721 samples/sec | ETA 01:40:59
+                          	[LOSSES] alpha_8x_mrsd=0.0435 alpha_8x_grad=0.0294 alpha_8x=0.0728 alpha_mrsd=0.3928 alpha_grad=0.2417 alpha=0.6344
+
+[2026/01/14 06:18:18] INFO: [TRAIN] epoch=930, iter=930/2500, loss=0.7170, lr=0.006829, batch_cost=3.8529, reader_cost=3.57610, ips=4.1528 samples/sec | ETA 01:40:48
+                          	[LOSSES] alpha_8x_mrsd=0.0430 alpha_8x_grad=0.0295 alpha_8x=0.0725 alpha_mrsd=0.3940 alpha_grad=0.2506 alpha=0.6446
+
+[2026/01/14 06:18:56] INFO: [TRAIN] epoch=940, iter=940/2500, loss=0.7170, lr=0.006790, batch_cost=3.8521, reader_cost=3.49399, ips=4.1536 samples/sec | ETA 01:40:09
+                          	[LOSSES] alpha_8x_mrsd=0.0444 alpha_8x_grad=0.0293 alpha_8x=0.0737 alpha_mrsd=0.4002 alpha_grad=0.2431 alpha=0.6433
+
+[2026/01/14 06:19:35] INFO: [TRAIN] epoch=950, iter=950/2500, loss=0.7307, lr=0.006751, batch_cost=3.8524, reader_cost=3.46462, ips=4.1532 samples/sec | ETA 01:39:31
+                          	[LOSSES] alpha_8x_mrsd=0.0435 alpha_8x_grad=0.0292 alpha_8x=0.0728 alpha_mrsd=0.4061 alpha_grad=0.2519 alpha=0.6580
+
+[2026/01/14 06:20:14] INFO: [TRAIN] epoch=960, iter=960/2500, loss=0.7841, lr=0.006712, batch_cost=3.8704, reader_cost=3.47216, ips=4.1340 samples/sec | ETA 01:39:20
+                          	[LOSSES] alpha_8x_mrsd=0.0517 alpha_8x_grad=0.0335 alpha_8x=0.0853 alpha_mrsd=0.4429 alpha_grad=0.2559 alpha=0.6988
+
+[2026/01/14 06:20:52] INFO: [TRAIN] epoch=970, iter=970/2500, loss=0.7205, lr=0.006672, batch_cost=3.8315, reader_cost=3.49833, ips=4.1759 samples/sec | ETA 01:37:42
+                          	[LOSSES] alpha_8x_mrsd=0.0454 alpha_8x_grad=0.0301 alpha_8x=0.0755 alpha_mrsd=0.3999 alpha_grad=0.2451 alpha=0.6450
+
+[2026/01/14 06:21:31] INFO: [TRAIN] epoch=980, iter=980/2500, loss=0.7115, lr=0.006633, batch_cost=3.8700, reader_cost=3.49246, ips=4.1344 samples/sec | ETA 01:38:02
+                          	[LOSSES] alpha_8x_mrsd=0.0427 alpha_8x_grad=0.0288 alpha_8x=0.0715 alpha_mrsd=0.3991 alpha_grad=0.2409 alpha=0.6400
+
+[2026/01/14 06:22:09] INFO: [TRAIN] epoch=990, iter=990/2500, loss=0.7656, lr=0.006594, batch_cost=3.8602, reader_cost=3.51710, ips=4.1448 samples/sec | ETA 01:37:08
+                          	[LOSSES] alpha_8x_mrsd=0.0504 alpha_8x_grad=0.0333 alpha_8x=0.0837 alpha_mrsd=0.4283 alpha_grad=0.2536 alpha=0.6819
+
+[2026/01/14 06:22:48] INFO: [TRAIN] epoch=1000, iter=1000/2500, loss=0.7179, lr=0.006555, batch_cost=3.8483, reader_cost=3.53191, ips=4.1577 samples/sec | ETA 01:36:12
+                          	[LOSSES] alpha_8x_mrsd=0.0447 alpha_8x_grad=0.0301 alpha_8x=0.0748 alpha_mrsd=0.4034 alpha_grad=0.2397 alpha=0.6431
+
+/root/miniconda3/envs/pp-mattingv2/lib/python3.10/site-packages/paddle/utils/decorator_utils.py:420: Warning: 
+Non compatible API. Please refer to https://www.paddlepaddle.org.cn/documentation/docs/en/develop/guides/model_convert/convert_from_pytorch/api_difference/torch/torch.min.html first.
+  warnings.warn(
+[2026/01/14 06:22:48] INFO: Start evaluating (total_samples: 16, total_iters: 16)...
+16/16 - 1s - sad: 249.4343 - batch_cost: 0.0909 - reader cost: 0.0403
+[2026/01/14 06:22:50] INFO: [EVAL] sad: 249.4343
+[2026/01/14 06:22:50] INFO: [EVAL] The model with the best validation sad (249.4343) was saved at iter 1000.
+[2026/01/14 06:23:28] INFO: [TRAIN] epoch=1010, iter=1010/2500, loss=0.7258, lr=0.006515, batch_cost=3.7803, reader_cost=3.48260, ips=4.2325 samples/sec | ETA 01:33:52
+                          	[LOSSES] alpha_8x_mrsd=0.0430 alpha_8x_grad=0.0293 alpha_8x=0.0723 alpha_mrsd=0.4034 alpha_grad=0.2502 alpha=0.6535
+
+[2026/01/14 06:24:05] INFO: [TRAIN] epoch=1020, iter=1020/2500, loss=0.7512, lr=0.006476, batch_cost=3.6942, reader_cost=3.36929, ips=4.3311 samples/sec | ETA 01:31:07
+                          	[LOSSES] alpha_8x_mrsd=0.0463 alpha_8x_grad=0.0308 alpha_8x=0.0771 alpha_mrsd=0.4166 alpha_grad=0.2575 alpha=0.6741
+
+[2026/01/14 06:24:42] INFO: [TRAIN] epoch=1030, iter=1030/2500, loss=0.7462, lr=0.006437, batch_cost=3.6962, reader_cost=3.43838, ips=4.3288 samples/sec | ETA 01:30:33
+                          	[LOSSES] alpha_8x_mrsd=0.0451 alpha_8x_grad=0.0303 alpha_8x=0.0753 alpha_mrsd=0.4152 alpha_grad=0.2556 alpha=0.6709
+
+[2026/01/14 06:25:19] INFO: [TRAIN] epoch=1040, iter=1040/2500, loss=0.7478, lr=0.006397, batch_cost=3.7435, reader_cost=3.51197, ips=4.2741 samples/sec | ETA 01:31:05
+                          	[LOSSES] alpha_8x_mrsd=0.0449 alpha_8x_grad=0.0299 alpha_8x=0.0748 alpha_mrsd=0.4206 alpha_grad=0.2524 alpha=0.6730
+
+[2026/01/14 06:25:55] INFO: [TRAIN] epoch=1050, iter=1050/2500, loss=0.7000, lr=0.006358, batch_cost=3.6170, reader_cost=3.41369, ips=4.4236 samples/sec | ETA 01:27:24
+                          	[LOSSES] alpha_8x_mrsd=0.0437 alpha_8x_grad=0.0295 alpha_8x=0.0733 alpha_mrsd=0.3933 alpha_grad=0.2334 alpha=0.6267
+
+[2026/01/14 06:26:32] INFO: [TRAIN] epoch=1060, iter=1060/2500, loss=0.7473, lr=0.006318, batch_cost=3.6489, reader_cost=3.38442, ips=4.3849 samples/sec | ETA 01:27:34
+                          	[LOSSES] alpha_8x_mrsd=0.0467 alpha_8x_grad=0.0312 alpha_8x=0.0779 alpha_mrsd=0.4161 alpha_grad=0.2533 alpha=0.6693
+
+[2026/01/14 06:27:09] INFO: [TRAIN] epoch=1070, iter=1070/2500, loss=0.7681, lr=0.006279, batch_cost=3.7111, reader_cost=3.37905, ips=4.3114 samples/sec | ETA 01:28:26
+                          	[LOSSES] alpha_8x_mrsd=0.0443 alpha_8x_grad=0.0293 alpha_8x=0.0736 alpha_mrsd=0.4367 alpha_grad=0.2578 alpha=0.6945
+
+[2026/01/14 06:27:46] INFO: [TRAIN] epoch=1080, iter=1080/2500, loss=0.7782, lr=0.006239, batch_cost=3.6824, reader_cost=3.38819, ips=4.3450 samples/sec | ETA 01:27:08
+                          	[LOSSES] alpha_8x_mrsd=0.0482 alpha_8x_grad=0.0320 alpha_8x=0.0802 alpha_mrsd=0.4375 alpha_grad=0.2605 alpha=0.6979
+
+[2026/01/14 06:28:22] INFO: [TRAIN] epoch=1090, iter=1090/2500, loss=0.7574, lr=0.006200, batch_cost=3.6595, reader_cost=3.40067, ips=4.3722 samples/sec | ETA 01:25:59
+                          	[LOSSES] alpha_8x_mrsd=0.0443 alpha_8x_grad=0.0297 alpha_8x=0.0740 alpha_mrsd=0.4240 alpha_grad=0.2594 alpha=0.6834
+
+[2026/01/14 06:29:00] INFO: [TRAIN] epoch=1100, iter=1100/2500, loss=0.6968, lr=0.006160, batch_cost=3.8072, reader_cost=3.44039, ips=4.2026 samples/sec | ETA 01:28:50
+                          	[LOSSES] alpha_8x_mrsd=0.0439 alpha_8x_grad=0.0295 alpha_8x=0.0734 alpha_mrsd=0.3850 alpha_grad=0.2384 alpha=0.6234
+
+[2026/01/14 06:29:38] INFO: [TRAIN] epoch=1110, iter=1110/2500, loss=0.7311, lr=0.006121, batch_cost=3.7382, reader_cost=3.41344, ips=4.2801 samples/sec | ETA 01:26:36
+                          	[LOSSES] alpha_8x_mrsd=0.0430 alpha_8x_grad=0.0290 alpha_8x=0.0720 alpha_mrsd=0.4106 alpha_grad=0.2485 alpha=0.6591
+
+[2026/01/14 06:30:15] INFO: [TRAIN] epoch=1120, iter=1120/2500, loss=0.7388, lr=0.006081, batch_cost=3.6881, reader_cost=3.44007, ips=4.3383 samples/sec | ETA 01:24:49
+                          	[LOSSES] alpha_8x_mrsd=0.0397 alpha_8x_grad=0.0272 alpha_8x=0.0668 alpha_mrsd=0.4135 alpha_grad=0.2584 alpha=0.6719
+
+[2026/01/14 06:30:51] INFO: [TRAIN] epoch=1130, iter=1130/2500, loss=0.7229, lr=0.006041, batch_cost=3.6406, reader_cost=3.35651, ips=4.3949 samples/sec | ETA 01:23:07
+                          	[LOSSES] alpha_8x_mrsd=0.0407 alpha_8x_grad=0.0277 alpha_8x=0.0683 alpha_mrsd=0.4025 alpha_grad=0.2520 alpha=0.6546
+
+[2026/01/14 06:31:28] INFO: [TRAIN] epoch=1140, iter=1140/2500, loss=0.7131, lr=0.006002, batch_cost=3.6675, reader_cost=3.38544, ips=4.3626 samples/sec | ETA 01:23:07
+                          	[LOSSES] alpha_8x_mrsd=0.0418 alpha_8x_grad=0.0286 alpha_8x=0.0704 alpha_mrsd=0.3963 alpha_grad=0.2464 alpha=0.6427
+
+[2026/01/14 06:32:05] INFO: [TRAIN] epoch=1150, iter=1150/2500, loss=0.7203, lr=0.005962, batch_cost=3.7138, reader_cost=3.48138, ips=4.3083 samples/sec | ETA 01:23:33
+                          	[LOSSES] alpha_8x_mrsd=0.0447 alpha_8x_grad=0.0305 alpha_8x=0.0752 alpha_mrsd=0.3993 alpha_grad=0.2458 alpha=0.6451
+
+[2026/01/14 06:32:42] INFO: [TRAIN] epoch=1160, iter=1160/2500, loss=0.7430, lr=0.005922, batch_cost=3.7227, reader_cost=3.48609, ips=4.2980 samples/sec | ETA 01:23:08
+                          	[LOSSES] alpha_8x_mrsd=0.0481 alpha_8x_grad=0.0324 alpha_8x=0.0805 alpha_mrsd=0.4102 alpha_grad=0.2523 alpha=0.6625
+
+[2026/01/14 06:33:19] INFO: [TRAIN] epoch=1170, iter=1170/2500, loss=0.7358, lr=0.005883, batch_cost=3.7208, reader_cost=3.42330, ips=4.3002 samples/sec | ETA 01:22:28
+                          	[LOSSES] alpha_8x_mrsd=0.0449 alpha_8x_grad=0.0299 alpha_8x=0.0748 alpha_mrsd=0.4111 alpha_grad=0.2499 alpha=0.6610
+
+[2026/01/14 06:33:56] INFO: [TRAIN] epoch=1180, iter=1180/2500, loss=0.7421, lr=0.005843, batch_cost=3.6740, reader_cost=3.37281, ips=4.3550 samples/sec | ETA 01:20:49
+                          	[LOSSES] alpha_8x_mrsd=0.0433 alpha_8x_grad=0.0290 alpha_8x=0.0722 alpha_mrsd=0.4150 alpha_grad=0.2549 alpha=0.6699
+
+[2026/01/14 06:34:32] INFO: [TRAIN] epoch=1190, iter=1190/2500, loss=0.7207, lr=0.005803, batch_cost=3.6380, reader_cost=3.41722, ips=4.3980 samples/sec | ETA 01:19:25
+                          	[LOSSES] alpha_8x_mrsd=0.0439 alpha_8x_grad=0.0294 alpha_8x=0.0733 alpha_mrsd=0.4016 alpha_grad=0.2458 alpha=0.6474
+
+[2026/01/14 06:35:10] INFO: [TRAIN] epoch=1200, iter=1200/2500, loss=0.6959, lr=0.005763, batch_cost=3.7780, reader_cost=3.43143, ips=4.2350 samples/sec | ETA 01:21:51
+                          	[LOSSES] alpha_8x_mrsd=0.0395 alpha_8x_grad=0.0270 alpha_8x=0.0664 alpha_mrsd=0.3881 alpha_grad=0.2414 alpha=0.6295
+
+[2026/01/14 06:35:47] INFO: [TRAIN] epoch=1210, iter=1210/2500, loss=0.6929, lr=0.005723, batch_cost=3.6997, reader_cost=3.43731, ips=4.3247 samples/sec | ETA 01:19:32
+                          	[LOSSES] alpha_8x_mrsd=0.0389 alpha_8x_grad=0.0267 alpha_8x=0.0656 alpha_mrsd=0.3824 alpha_grad=0.2449 alpha=0.6273
+
+[2026/01/14 06:36:24] INFO: [TRAIN] epoch=1220, iter=1220/2500, loss=0.6732, lr=0.005683, batch_cost=3.6895, reader_cost=3.40881, ips=4.3366 samples/sec | ETA 01:18:42
+                          	[LOSSES] alpha_8x_mrsd=0.0426 alpha_8x_grad=0.0288 alpha_8x=0.0715 alpha_mrsd=0.3718 alpha_grad=0.2299 alpha=0.6017
+
+[2026/01/14 06:37:01] INFO: [TRAIN] epoch=1230, iter=1230/2500, loss=0.7011, lr=0.005643, batch_cost=3.7338, reader_cost=3.48338, ips=4.2852 samples/sec | ETA 01:19:01
+                          	[LOSSES] alpha_8x_mrsd=0.0433 alpha_8x_grad=0.0291 alpha_8x=0.0724 alpha_mrsd=0.3917 alpha_grad=0.2370 alpha=0.6287
+
+[2026/01/14 06:37:38] INFO: [TRAIN] epoch=1240, iter=1240/2500, loss=0.7177, lr=0.005603, batch_cost=3.7034, reader_cost=3.46499, ips=4.3204 samples/sec | ETA 01:17:46
+                          	[LOSSES] alpha_8x_mrsd=0.0408 alpha_8x_grad=0.0276 alpha_8x=0.0684 alpha_mrsd=0.4027 alpha_grad=0.2466 alpha=0.6493
+
+[2026/01/14 06:38:16] INFO: [TRAIN] epoch=1250, iter=1250/2500, loss=0.7281, lr=0.005563, batch_cost=3.7482, reader_cost=3.44317, ips=4.2687 samples/sec | ETA 01:18:05
+                          	[LOSSES] alpha_8x_mrsd=0.0408 alpha_8x_grad=0.0277 alpha_8x=0.0685 alpha_mrsd=0.4060 alpha_grad=0.2536 alpha=0.6596
+
+[2026/01/14 06:38:53] INFO: [TRAIN] epoch=1260, iter=1260/2500, loss=0.7614, lr=0.005523, batch_cost=3.7556, reader_cost=3.49494, ips=4.2603 samples/sec | ETA 01:17:36
+                          	[LOSSES] alpha_8x_mrsd=0.0480 alpha_8x_grad=0.0316 alpha_8x=0.0796 alpha_mrsd=0.4270 alpha_grad=0.2548 alpha=0.6819
+
+[2026/01/14 06:39:31] INFO: [TRAIN] epoch=1270, iter=1270/2500, loss=0.7078, lr=0.005483, batch_cost=3.7226, reader_cost=3.42459, ips=4.2981 samples/sec | ETA 01:16:18
+                          	[LOSSES] alpha_8x_mrsd=0.0441 alpha_8x_grad=0.0293 alpha_8x=0.0734 alpha_mrsd=0.4010 alpha_grad=0.2333 alpha=0.6344
+
+[2026/01/14 06:40:08] INFO: [TRAIN] epoch=1280, iter=1280/2500, loss=0.7096, lr=0.005443, batch_cost=3.7587, reader_cost=3.49108, ips=4.2568 samples/sec | ETA 01:16:25
+                          	[LOSSES] alpha_8x_mrsd=0.0417 alpha_8x_grad=0.0286 alpha_8x=0.0703 alpha_mrsd=0.3939 alpha_grad=0.2453 alpha=0.6392
+
+[2026/01/14 06:40:46] INFO: [TRAIN] epoch=1290, iter=1290/2500, loss=0.7345, lr=0.005403, batch_cost=3.7714, reader_cost=3.47034, ips=4.2425 samples/sec | ETA 01:16:03
+                          	[LOSSES] alpha_8x_mrsd=0.0424 alpha_8x_grad=0.0286 alpha_8x=0.0710 alpha_mrsd=0.4117 alpha_grad=0.2518 alpha=0.6635
+
+[2026/01/14 06:41:24] INFO: [TRAIN] epoch=1300, iter=1300/2500, loss=0.6897, lr=0.005363, batch_cost=3.7549, reader_cost=3.48748, ips=4.2611 samples/sec | ETA 01:15:05
+                          	[LOSSES] alpha_8x_mrsd=0.0425 alpha_8x_grad=0.0286 alpha_8x=0.0712 alpha_mrsd=0.3870 alpha_grad=0.2316 alpha=0.6186
+
+[2026/01/14 06:42:01] INFO: [TRAIN] epoch=1310, iter=1310/2500, loss=0.6771, lr=0.005323, batch_cost=3.7058, reader_cost=3.34806, ips=4.3176 samples/sec | ETA 01:13:29
+                          	[LOSSES] alpha_8x_mrsd=0.0412 alpha_8x_grad=0.0278 alpha_8x=0.0691 alpha_mrsd=0.3755 alpha_grad=0.2325 alpha=0.6080
+
+[2026/01/14 06:42:38] INFO: [TRAIN] epoch=1320, iter=1320/2500, loss=0.7121, lr=0.005282, batch_cost=3.7716, reader_cost=3.46149, ips=4.2423 samples/sec | ETA 01:14:10
+                          	[LOSSES] alpha_8x_mrsd=0.0418 alpha_8x_grad=0.0283 alpha_8x=0.0701 alpha_mrsd=0.3929 alpha_grad=0.2492 alpha=0.6421
+
+[2026/01/14 06:43:15] INFO: [TRAIN] epoch=1330, iter=1330/2500, loss=0.6508, lr=0.005242, batch_cost=3.7156, reader_cost=3.43651, ips=4.3062 samples/sec | ETA 01:12:27
+                          	[LOSSES] alpha_8x_mrsd=0.0380 alpha_8x_grad=0.0261 alpha_8x=0.0641 alpha_mrsd=0.3633 alpha_grad=0.2234 alpha=0.5867
+
+[2026/01/14 06:43:53] INFO: [TRAIN] epoch=1340, iter=1340/2500, loss=0.6740, lr=0.005202, batch_cost=3.7650, reader_cost=3.48513, ips=4.2497 samples/sec | ETA 01:12:47
+                          	[LOSSES] alpha_8x_mrsd=0.0386 alpha_8x_grad=0.0264 alpha_8x=0.0650 alpha_mrsd=0.3739 alpha_grad=0.2350 alpha=0.6090
+
+[2026/01/14 06:44:30] INFO: [TRAIN] epoch=1350, iter=1350/2500, loss=0.6910, lr=0.005162, batch_cost=3.6441, reader_cost=3.43988, ips=4.3907 samples/sec | ETA 01:09:50
+                          	[LOSSES] alpha_8x_mrsd=0.0396 alpha_8x_grad=0.0270 alpha_8x=0.0666 alpha_mrsd=0.3851 alpha_grad=0.2393 alpha=0.6244
+
+[2026/01/14 06:45:07] INFO: [TRAIN] epoch=1360, iter=1360/2500, loss=0.6875, lr=0.005121, batch_cost=3.7502, reader_cost=3.44362, ips=4.2664 samples/sec | ETA 01:11:15
+                          	[LOSSES] alpha_8x_mrsd=0.0388 alpha_8x_grad=0.0262 alpha_8x=0.0650 alpha_mrsd=0.3836 alpha_grad=0.2389 alpha=0.6225
+
+[2026/01/14 06:45:44] INFO: [TRAIN] epoch=1370, iter=1370/2500, loss=0.7225, lr=0.005081, batch_cost=3.6499, reader_cost=3.40102, ips=4.3836 samples/sec | ETA 01:08:44
+                          	[LOSSES] alpha_8x_mrsd=0.0443 alpha_8x_grad=0.0293 alpha_8x=0.0736 alpha_mrsd=0.4023 alpha_grad=0.2466 alpha=0.6489
+
+[2026/01/14 06:46:21] INFO: [TRAIN] epoch=1380, iter=1380/2500, loss=0.6686, lr=0.005040, batch_cost=3.7241, reader_cost=3.37744, ips=4.2963 samples/sec | ETA 01:09:30
+                          	[LOSSES] alpha_8x_mrsd=0.0402 alpha_8x_grad=0.0274 alpha_8x=0.0676 alpha_mrsd=0.3716 alpha_grad=0.2294 alpha=0.6010
+
+[2026/01/14 06:46:59] INFO: [TRAIN] epoch=1390, iter=1390/2500, loss=0.7308, lr=0.005000, batch_cost=3.7977, reader_cost=3.48579, ips=4.2130 samples/sec | ETA 01:10:15
+                          	[LOSSES] alpha_8x_mrsd=0.0438 alpha_8x_grad=0.0292 alpha_8x=0.0730 alpha_mrsd=0.4095 alpha_grad=0.2483 alpha=0.6578
+
+[2026/01/14 06:47:36] INFO: [TRAIN] epoch=1400, iter=1400/2500, loss=0.7271, lr=0.004959, batch_cost=3.7435, reader_cost=3.45388, ips=4.2740 samples/sec | ETA 01:08:37
+                          	[LOSSES] alpha_8x_mrsd=0.0420 alpha_8x_grad=0.0283 alpha_8x=0.0703 alpha_mrsd=0.4068 alpha_grad=0.2501 alpha=0.6569
+
+[2026/01/14 06:48:13] INFO: [TRAIN] epoch=1410, iter=1410/2500, loss=0.7245, lr=0.004919, batch_cost=3.6771, reader_cost=3.41172, ips=4.3512 samples/sec | ETA 01:06:48
+                          	[LOSSES] alpha_8x_mrsd=0.0441 alpha_8x_grad=0.0294 alpha_8x=0.0735 alpha_mrsd=0.4019 alpha_grad=0.2491 alpha=0.6510
+
+[2026/01/14 06:48:51] INFO: [TRAIN] epoch=1420, iter=1420/2500, loss=0.6725, lr=0.004878, batch_cost=3.8162, reader_cost=3.49069, ips=4.1926 samples/sec | ETA 01:08:41
+                          	[LOSSES] alpha_8x_mrsd=0.0379 alpha_8x_grad=0.0262 alpha_8x=0.0641 alpha_mrsd=0.3722 alpha_grad=0.2362 alpha=0.6084
+
+[2026/01/14 06:49:28] INFO: [TRAIN] epoch=1430, iter=1430/2500, loss=0.7311, lr=0.004837, batch_cost=3.6763, reader_cost=3.41454, ips=4.3522 samples/sec | ETA 01:05:33
+                          	[LOSSES] alpha_8x_mrsd=0.0458 alpha_8x_grad=0.0306 alpha_8x=0.0764 alpha_mrsd=0.4064 alpha_grad=0.2483 alpha=0.6547
+
+[2026/01/14 06:50:06] INFO: [TRAIN] epoch=1440, iter=1440/2500, loss=0.7184, lr=0.004797, batch_cost=3.7844, reader_cost=3.53658, ips=4.2279 samples/sec | ETA 01:06:51
+                          	[LOSSES] alpha_8x_mrsd=0.0400 alpha_8x_grad=0.0269 alpha_8x=0.0669 alpha_mrsd=0.4022 alpha_grad=0.2494 alpha=0.6516
+
+[2026/01/14 06:50:43] INFO: [TRAIN] epoch=1450, iter=1450/2500, loss=0.7127, lr=0.004756, batch_cost=3.7141, reader_cost=3.45773, ips=4.3079 samples/sec | ETA 01:04:59
+                          	[LOSSES] alpha_8x_mrsd=0.0437 alpha_8x_grad=0.0297 alpha_8x=0.0734 alpha_mrsd=0.3949 alpha_grad=0.2444 alpha=0.6393
+
+[2026/01/14 06:51:20] INFO: [TRAIN] epoch=1460, iter=1460/2500, loss=0.6789, lr=0.004715, batch_cost=3.7387, reader_cost=3.38092, ips=4.2796 samples/sec | ETA 01:04:48
+                          	[LOSSES] alpha_8x_mrsd=0.0393 alpha_8x_grad=0.0266 alpha_8x=0.0659 alpha_mrsd=0.3770 alpha_grad=0.2360 alpha=0.6130
+
+[2026/01/14 06:51:57] INFO: [TRAIN] epoch=1470, iter=1470/2500, loss=0.7077, lr=0.004675, batch_cost=3.7138, reader_cost=3.42747, ips=4.3083 samples/sec | ETA 01:03:45
+                          	[LOSSES] alpha_8x_mrsd=0.0411 alpha_8x_grad=0.0277 alpha_8x=0.0688 alpha_mrsd=0.3940 alpha_grad=0.2449 alpha=0.6389
+
+[2026/01/14 06:52:35] INFO: [TRAIN] epoch=1480, iter=1480/2500, loss=0.6796, lr=0.004634, batch_cost=3.7606, reader_cost=3.47341, ips=4.2547 samples/sec | ETA 01:03:55
+                          	[LOSSES] alpha_8x_mrsd=0.0398 alpha_8x_grad=0.0272 alpha_8x=0.0670 alpha_mrsd=0.3772 alpha_grad=0.2354 alpha=0.6125
+
+[2026/01/14 06:53:12] INFO: [TRAIN] epoch=1490, iter=1490/2500, loss=0.7334, lr=0.004593, batch_cost=3.7233, reader_cost=3.45458, ips=4.2972 samples/sec | ETA 01:02:40
+                          	[LOSSES] alpha_8x_mrsd=0.0439 alpha_8x_grad=0.0294 alpha_8x=0.0733 alpha_mrsd=0.4079 alpha_grad=0.2522 alpha=0.6601
+
+[2026/01/14 06:53:50] INFO: [TRAIN] epoch=1500, iter=1500/2500, loss=0.6431, lr=0.004552, batch_cost=3.7281, reader_cost=3.40972, ips=4.2917 samples/sec | ETA 01:02:08
+                          	[LOSSES] alpha_8x_mrsd=0.0381 alpha_8x_grad=0.0262 alpha_8x=0.0643 alpha_mrsd=0.3551 alpha_grad=0.2237 alpha=0.5788
+
+[2026/01/14 06:53:50] INFO: Start evaluating (total_samples: 16, total_iters: 16)...
+16/16 - 1s - sad: 255.4642 - batch_cost: 0.0917 - reader cost: 0.0368
+[2026/01/14 06:53:51] INFO: [EVAL] sad: 255.4642
+[2026/01/14 06:53:51] INFO: [EVAL] The model with the best validation sad (249.4343) was saved at iter 1000.
+[2026/01/14 06:54:30] INFO: [TRAIN] epoch=1510, iter=1510/2500, loss=0.7394, lr=0.004511, batch_cost=3.8706, reader_cost=3.62008, ips=4.1338 samples/sec | ETA 01:03:51
+                          	[LOSSES] alpha_8x_mrsd=0.0466 alpha_8x_grad=0.0308 alpha_8x=0.0773 alpha_mrsd=0.4165 alpha_grad=0.2456 alpha=0.6620
+
+[2026/01/14 06:55:08] INFO: [TRAIN] epoch=1520, iter=1520/2500, loss=0.6913, lr=0.004470, batch_cost=3.8019, reader_cost=3.56705, ips=4.2084 samples/sec | ETA 01:02:05
+                          	[LOSSES] alpha_8x_mrsd=0.0406 alpha_8x_grad=0.0279 alpha_8x=0.0685 alpha_mrsd=0.3844 alpha_grad=0.2383 alpha=0.6228
+
+[2026/01/14 06:55:46] INFO: [TRAIN] epoch=1530, iter=1530/2500, loss=0.6708, lr=0.004429, batch_cost=3.7748, reader_cost=3.54185, ips=4.2386 samples/sec | ETA 01:01:01
+                          	[LOSSES] alpha_8x_mrsd=0.0398 alpha_8x_grad=0.0272 alpha_8x=0.0670 alpha_mrsd=0.3708 alpha_grad=0.2330 alpha=0.6038
+
+[2026/01/14 06:56:24] INFO: [TRAIN] epoch=1540, iter=1540/2500, loss=0.6388, lr=0.004388, batch_cost=3.7877, reader_cost=3.52606, ips=4.2242 samples/sec | ETA 01:00:36
+                          	[LOSSES] alpha_8x_mrsd=0.0389 alpha_8x_grad=0.0264 alpha_8x=0.0653 alpha_mrsd=0.3517 alpha_grad=0.2219 alpha=0.5736
+
+[2026/01/14 06:57:02] INFO: [TRAIN] epoch=1550, iter=1550/2500, loss=0.7224, lr=0.004347, batch_cost=3.7840, reader_cost=3.48518, ips=4.2284 samples/sec | ETA 00:59:54
+                          	[LOSSES] alpha_8x_mrsd=0.0421 alpha_8x_grad=0.0279 alpha_8x=0.0700 alpha_mrsd=0.3996 alpha_grad=0.2527 alpha=0.6524
+
+[2026/01/14 06:57:39] INFO: [TRAIN] epoch=1560, iter=1560/2500, loss=0.6939, lr=0.004306, batch_cost=3.7025, reader_cost=3.49109, ips=4.3215 samples/sec | ETA 00:58:00
+                          	[LOSSES] alpha_8x_mrsd=0.0385 alpha_8x_grad=0.0259 alpha_8x=0.0644 alpha_mrsd=0.3914 alpha_grad=0.2380 alpha=0.6295
+
+[2026/01/14 06:58:16] INFO: [TRAIN] epoch=1570, iter=1570/2500, loss=0.6785, lr=0.004264, batch_cost=3.7717, reader_cost=3.47422, ips=4.2421 samples/sec | ETA 00:58:27
+                          	[LOSSES] alpha_8x_mrsd=0.0379 alpha_8x_grad=0.0264 alpha_8x=0.0643 alpha_mrsd=0.3726 alpha_grad=0.2416 alpha=0.6142
+
+[2026/01/14 06:58:54] INFO: [TRAIN] epoch=1580, iter=1580/2500, loss=0.6718, lr=0.004223, batch_cost=3.7709, reader_cost=3.51324, ips=4.2431 samples/sec | ETA 00:57:49
+                          	[LOSSES] alpha_8x_mrsd=0.0399 alpha_8x_grad=0.0270 alpha_8x=0.0669 alpha_mrsd=0.3753 alpha_grad=0.2296 alpha=0.6049
+
+[2026/01/14 06:59:32] INFO: [TRAIN] epoch=1590, iter=1590/2500, loss=0.6990, lr=0.004182, batch_cost=3.7644, reader_cost=3.54351, ips=4.2504 samples/sec | ETA 00:57:05
+                          	[LOSSES] alpha_8x_mrsd=0.0408 alpha_8x_grad=0.0276 alpha_8x=0.0683 alpha_mrsd=0.3866 alpha_grad=0.2441 alpha=0.6306
+
+[2026/01/14 07:00:10] INFO: [TRAIN] epoch=1600, iter=1600/2500, loss=0.6974, lr=0.004141, batch_cost=3.8075, reader_cost=3.48908, ips=4.2022 samples/sec | ETA 00:57:06
+                          	[LOSSES] alpha_8x_mrsd=0.0413 alpha_8x_grad=0.0276 alpha_8x=0.0689 alpha_mrsd=0.3876 alpha_grad=0.2409 alpha=0.6285
+
+[2026/01/14 07:00:47] INFO: [TRAIN] epoch=1610, iter=1610/2500, loss=0.6783, lr=0.004099, batch_cost=3.7228, reader_cost=3.49951, ips=4.2978 samples/sec | ETA 00:55:13
+                          	[LOSSES] alpha_8x_mrsd=0.0388 alpha_8x_grad=0.0264 alpha_8x=0.0653 alpha_mrsd=0.3745 alpha_grad=0.2385 alpha=0.6130
+
+[2026/01/14 07:01:25] INFO: [TRAIN] epoch=1620, iter=1620/2500, loss=0.7116, lr=0.004058, batch_cost=3.8396, reader_cost=3.63778, ips=4.1671 samples/sec | ETA 00:56:18
+                          	[LOSSES] alpha_8x_mrsd=0.0412 alpha_8x_grad=0.0275 alpha_8x=0.0687 alpha_mrsd=0.4011 alpha_grad=0.2417 alpha=0.6428
+
+[2026/01/14 07:02:03] INFO: [TRAIN] epoch=1630, iter=1630/2500, loss=0.7047, lr=0.004016, batch_cost=3.7996, reader_cost=3.58113, ips=4.2110 samples/sec | ETA 00:55:05
+                          	[LOSSES] alpha_8x_mrsd=0.0401 alpha_8x_grad=0.0274 alpha_8x=0.0675 alpha_mrsd=0.3919 alpha_grad=0.2453 alpha=0.6372
+
+[2026/01/14 07:02:44] INFO: [TRAIN] epoch=1640, iter=1640/2500, loss=0.6778, lr=0.003975, batch_cost=4.0199, reader_cost=3.72045, ips=3.9802 samples/sec | ETA 00:57:37
+                          	[LOSSES] alpha_8x_mrsd=0.0398 alpha_8x_grad=0.0263 alpha_8x=0.0661 alpha_mrsd=0.3812 alpha_grad=0.2305 alpha=0.6117
+
+[2026/01/14 07:03:22] INFO: [TRAIN] epoch=1650, iter=1650/2500, loss=0.6715, lr=0.003933, batch_cost=3.8804, reader_cost=3.58281, ips=4.1233 samples/sec | ETA 00:54:58
+                          	[LOSSES] alpha_8x_mrsd=0.0398 alpha_8x_grad=0.0268 alpha_8x=0.0666 alpha_mrsd=0.3764 alpha_grad=0.2284 alpha=0.6048
+
+[2026/01/14 07:04:01] INFO: [TRAIN] epoch=1660, iter=1660/2500, loss=0.6634, lr=0.003892, batch_cost=3.8786, reader_cost=3.61044, ips=4.1252 samples/sec | ETA 00:54:18
+                          	[LOSSES] alpha_8x_mrsd=0.0389 alpha_8x_grad=0.0264 alpha_8x=0.0653 alpha_mrsd=0.3691 alpha_grad=0.2291 alpha=0.5981
+
+[2026/01/14 07:04:40] INFO: [TRAIN] epoch=1670, iter=1670/2500, loss=0.6857, lr=0.003850, batch_cost=3.8446, reader_cost=3.58698, ips=4.1617 samples/sec | ETA 00:53:10
+                          	[LOSSES] alpha_8x_mrsd=0.0391 alpha_8x_grad=0.0262 alpha_8x=0.0653 alpha_mrsd=0.3818 alpha_grad=0.2386 alpha=0.6204
+
+[2026/01/14 07:05:18] INFO: [TRAIN] epoch=1680, iter=1680/2500, loss=0.6665, lr=0.003808, batch_cost=3.8340, reader_cost=3.59503, ips=4.1732 samples/sec | ETA 00:52:23
+                          	[LOSSES] alpha_8x_mrsd=0.0358 alpha_8x_grad=0.0248 alpha_8x=0.0605 alpha_mrsd=0.3699 alpha_grad=0.2360 alpha=0.6059
+
+[2026/01/14 07:05:57] INFO: [TRAIN] epoch=1690, iter=1690/2500, loss=0.6764, lr=0.003766, batch_cost=3.9453, reader_cost=3.69365, ips=4.0555 samples/sec | ETA 00:53:15
+                          	[LOSSES] alpha_8x_mrsd=0.0390 alpha_8x_grad=0.0267 alpha_8x=0.0657 alpha_mrsd=0.3732 alpha_grad=0.2375 alpha=0.6107
+
+[2026/01/14 07:06:35] INFO: [TRAIN] epoch=1700, iter=1700/2500, loss=0.6722, lr=0.003725, batch_cost=3.8042, reader_cost=3.54026, ips=4.2059 samples/sec | ETA 00:50:43
+                          	[LOSSES] alpha_8x_mrsd=0.0381 alpha_8x_grad=0.0261 alpha_8x=0.0642 alpha_mrsd=0.3737 alpha_grad=0.2343 alpha=0.6080
+
+[2026/01/14 07:07:14] INFO: [TRAIN] epoch=1710, iter=1710/2500, loss=0.6488, lr=0.003683, batch_cost=3.8866, reader_cost=3.61565, ips=4.1167 samples/sec | ETA 00:51:10
+                          	[LOSSES] alpha_8x_mrsd=0.0379 alpha_8x_grad=0.0259 alpha_8x=0.0639 alpha_mrsd=0.3592 alpha_grad=0.2258 alpha=0.5850
+
+[2026/01/14 07:07:53] INFO: [TRAIN] epoch=1720, iter=1720/2500, loss=0.6594, lr=0.003641, batch_cost=3.8201, reader_cost=3.55795, ips=4.1884 samples/sec | ETA 00:49:39
+                          	[LOSSES] alpha_8x_mrsd=0.0389 alpha_8x_grad=0.0263 alpha_8x=0.0653 alpha_mrsd=0.3661 alpha_grad=0.2279 alpha=0.5941
+
+[2026/01/14 07:08:31] INFO: [TRAIN] epoch=1730, iter=1730/2500, loss=0.6813, lr=0.003599, batch_cost=3.8350, reader_cost=3.58529, ips=4.1721 samples/sec | ETA 00:49:12
+                          	[LOSSES] alpha_8x_mrsd=0.0398 alpha_8x_grad=0.0268 alpha_8x=0.0667 alpha_mrsd=0.3814 alpha_grad=0.2332 alpha=0.6146
+
+[2026/01/14 07:09:09] INFO: [TRAIN] epoch=1740, iter=1740/2500, loss=0.6632, lr=0.003557, batch_cost=3.8598, reader_cost=3.64041, ips=4.1453 samples/sec | ETA 00:48:53
+                          	[LOSSES] alpha_8x_mrsd=0.0370 alpha_8x_grad=0.0254 alpha_8x=0.0624 alpha_mrsd=0.3661 alpha_grad=0.2347 alpha=0.6007
+
+[2026/01/14 07:09:48] INFO: [TRAIN] epoch=1750, iter=1750/2500, loss=0.6728, lr=0.003515, batch_cost=3.8183, reader_cost=3.59847, ips=4.1904 samples/sec | ETA 00:47:43
+                          	[LOSSES] alpha_8x_mrsd=0.0404 alpha_8x_grad=0.0272 alpha_8x=0.0676 alpha_mrsd=0.3723 alpha_grad=0.2330 alpha=0.6053
+
+[2026/01/14 07:10:26] INFO: [TRAIN] epoch=1760, iter=1760/2500, loss=0.6472, lr=0.003473, batch_cost=3.8254, reader_cost=3.57001, ips=4.1826 samples/sec | ETA 00:47:10
+                          	[LOSSES] alpha_8x_mrsd=0.0374 alpha_8x_grad=0.0257 alpha_8x=0.0631 alpha_mrsd=0.3606 alpha_grad=0.2235 alpha=0.5841
+
+[2026/01/14 07:11:04] INFO: [TRAIN] epoch=1770, iter=1770/2500, loss=0.6611, lr=0.003430, batch_cost=3.8252, reader_cost=3.62631, ips=4.1828 samples/sec | ETA 00:46:32
+                          	[LOSSES] alpha_8x_mrsd=0.0352 alpha_8x_grad=0.0245 alpha_8x=0.0596 alpha_mrsd=0.3637 alpha_grad=0.2377 alpha=0.6014
+
+[2026/01/14 07:11:42] INFO: [TRAIN] epoch=1780, iter=1780/2500, loss=0.7029, lr=0.003388, batch_cost=3.8339, reader_cost=3.56005, ips=4.1733 samples/sec | ETA 00:46:00
+                          	[LOSSES] alpha_8x_mrsd=0.0411 alpha_8x_grad=0.0271 alpha_8x=0.0683 alpha_mrsd=0.3955 alpha_grad=0.2391 alpha=0.6346
+
+[2026/01/14 07:12:21] INFO: [TRAIN] epoch=1790, iter=1790/2500, loss=0.6775, lr=0.003346, batch_cost=3.8842, reader_cost=3.62926, ips=4.1192 samples/sec | ETA 00:45:57
+                          	[LOSSES] alpha_8x_mrsd=0.0403 alpha_8x_grad=0.0273 alpha_8x=0.0676 alpha_mrsd=0.3786 alpha_grad=0.2314 alpha=0.6100
+
+[2026/01/14 07:13:00] INFO: [TRAIN] epoch=1800, iter=1800/2500, loss=0.6888, lr=0.003303, batch_cost=3.8226, reader_cost=3.57300, ips=4.1856 samples/sec | ETA 00:44:35
+                          	[LOSSES] alpha_8x_mrsd=0.0384 alpha_8x_grad=0.0264 alpha_8x=0.0648 alpha_mrsd=0.3796 alpha_grad=0.2444 alpha=0.6240
+
+[2026/01/14 07:13:38] INFO: [TRAIN] epoch=1810, iter=1810/2500, loss=0.6559, lr=0.003261, batch_cost=3.7953, reader_cost=3.55437, ips=4.2158 samples/sec | ETA 00:43:38
+                          	[LOSSES] alpha_8x_mrsd=0.0384 alpha_8x_grad=0.0262 alpha_8x=0.0646 alpha_mrsd=0.3638 alpha_grad=0.2275 alpha=0.5913
+
+[2026/01/14 07:14:16] INFO: [TRAIN] epoch=1820, iter=1820/2500, loss=0.6539, lr=0.003218, batch_cost=3.8989, reader_cost=3.60413, ips=4.1037 samples/sec | ETA 00:44:11
+                          	[LOSSES] alpha_8x_mrsd=0.0367 alpha_8x_grad=0.0254 alpha_8x=0.0621 alpha_mrsd=0.3606 alpha_grad=0.2313 alpha=0.5918
+
+[2026/01/14 07:14:55] INFO: [TRAIN] epoch=1830, iter=1830/2500, loss=0.6696, lr=0.003176, batch_cost=3.8356, reader_cost=3.62060, ips=4.1714 samples/sec | ETA 00:42:49
+                          	[LOSSES] alpha_8x_mrsd=0.0385 alpha_8x_grad=0.0267 alpha_8x=0.0652 alpha_mrsd=0.3710 alpha_grad=0.2335 alpha=0.6045
+
+[2026/01/14 07:15:34] INFO: [TRAIN] epoch=1840, iter=1840/2500, loss=0.6665, lr=0.003133, batch_cost=3.8710, reader_cost=3.57055, ips=4.1333 samples/sec | ETA 00:42:34
+                          	[LOSSES] alpha_8x_mrsd=0.0384 alpha_8x_grad=0.0257 alpha_8x=0.0641 alpha_mrsd=0.3752 alpha_grad=0.2272 alpha=0.6024
+
+[2026/01/14 07:16:12] INFO: [TRAIN] epoch=1850, iter=1850/2500, loss=0.6680, lr=0.003091, batch_cost=3.8786, reader_cost=3.60852, ips=4.1252 samples/sec | ETA 00:42:01
+                          	[LOSSES] alpha_8x_mrsd=0.0367 alpha_8x_grad=0.0249 alpha_8x=0.0615 alpha_mrsd=0.3733 alpha_grad=0.2332 alpha=0.6065
+
+[2026/01/14 07:16:52] INFO: [TRAIN] epoch=1860, iter=1860/2500, loss=0.6938, lr=0.003048, batch_cost=3.9464, reader_cost=3.73249, ips=4.0543 samples/sec | ETA 00:42:05
+                          	[LOSSES] alpha_8x_mrsd=0.0399 alpha_8x_grad=0.0268 alpha_8x=0.0667 alpha_mrsd=0.3889 alpha_grad=0.2383 alpha=0.6272
+
+[2026/01/14 07:17:31] INFO: [TRAIN] epoch=1870, iter=1870/2500, loss=0.7086, lr=0.003005, batch_cost=3.8835, reader_cost=3.62032, ips=4.1200 samples/sec | ETA 00:40:46
+                          	[LOSSES] alpha_8x_mrsd=0.0374 alpha_8x_grad=0.0255 alpha_8x=0.0629 alpha_mrsd=0.3973 alpha_grad=0.2484 alpha=0.6456
+
+[2026/01/14 07:18:09] INFO: [TRAIN] epoch=1880, iter=1880/2500, loss=0.7534, lr=0.002962, batch_cost=3.8618, reader_cost=3.59882, ips=4.1432 samples/sec | ETA 00:39:54
+                          	[LOSSES] alpha_8x_mrsd=0.0450 alpha_8x_grad=0.0297 alpha_8x=0.0747 alpha_mrsd=0.4198 alpha_grad=0.2589 alpha=0.6787
+
+[2026/01/14 07:18:47] INFO: [TRAIN] epoch=1890, iter=1890/2500, loss=0.6556, lr=0.002919, batch_cost=3.7865, reader_cost=3.55453, ips=4.2256 samples/sec | ETA 00:38:29
+                          	[LOSSES] alpha_8x_mrsd=0.0348 alpha_8x_grad=0.0236 alpha_8x=0.0584 alpha_mrsd=0.3654 alpha_grad=0.2318 alpha=0.5971
+
+[2026/01/14 07:19:26] INFO: [TRAIN] epoch=1900, iter=1900/2500, loss=0.6835, lr=0.002876, batch_cost=3.8645, reader_cost=3.60494, ips=4.1402 samples/sec | ETA 00:38:38
+                          	[LOSSES] alpha_8x_mrsd=0.0399 alpha_8x_grad=0.0272 alpha_8x=0.0671 alpha_mrsd=0.3795 alpha_grad=0.2370 alpha=0.6164
+
+[2026/01/14 07:20:05] INFO: [TRAIN] epoch=1910, iter=1910/2500, loss=0.6757, lr=0.002833, batch_cost=3.9081, reader_cost=3.62421, ips=4.0940 samples/sec | ETA 00:38:25
+                          	[LOSSES] alpha_8x_mrsd=0.0388 alpha_8x_grad=0.0264 alpha_8x=0.0652 alpha_mrsd=0.3739 alpha_grad=0.2366 alpha=0.6105
+
+[2026/01/14 07:20:44] INFO: [TRAIN] epoch=1920, iter=1920/2500, loss=0.6671, lr=0.002790, batch_cost=3.8641, reader_cost=3.59337, ips=4.1407 samples/sec | ETA 00:37:21
+                          	[LOSSES] alpha_8x_mrsd=0.0399 alpha_8x_grad=0.0269 alpha_8x=0.0668 alpha_mrsd=0.3716 alpha_grad=0.2287 alpha=0.6003
+
+[2026/01/14 07:21:23] INFO: [TRAIN] epoch=1930, iter=1930/2500, loss=0.6832, lr=0.002747, batch_cost=3.9918, reader_cost=3.77825, ips=4.0082 samples/sec | ETA 00:37:55
+                          	[LOSSES] alpha_8x_mrsd=0.0389 alpha_8x_grad=0.0267 alpha_8x=0.0656 alpha_mrsd=0.3745 alpha_grad=0.2431 alpha=0.6176
+
+[2026/01/14 07:22:02] INFO: [TRAIN] epoch=1940, iter=1940/2500, loss=0.6745, lr=0.002703, batch_cost=3.8634, reader_cost=3.59420, ips=4.1414 samples/sec | ETA 00:36:03
+                          	[LOSSES] alpha_8x_mrsd=0.0388 alpha_8x_grad=0.0257 alpha_8x=0.0645 alpha_mrsd=0.3750 alpha_grad=0.2349 alpha=0.6100
+
+[2026/01/14 07:22:40] INFO: [TRAIN] epoch=1950, iter=1950/2500, loss=0.7532, lr=0.002660, batch_cost=3.8408, reader_cost=3.60982, ips=4.1658 samples/sec | ETA 00:35:12
+                          	[LOSSES] alpha_8x_mrsd=0.0466 alpha_8x_grad=0.0308 alpha_8x=0.0774 alpha_mrsd=0.4188 alpha_grad=0.2570 alpha=0.6758
+
+[2026/01/14 07:23:19] INFO: [TRAIN] epoch=1960, iter=1960/2500, loss=0.6721, lr=0.002616, batch_cost=3.8987, reader_cost=3.65876, ips=4.1039 samples/sec | ETA 00:35:05
+                          	[LOSSES] alpha_8x_mrsd=0.0407 alpha_8x_grad=0.0273 alpha_8x=0.0680 alpha_mrsd=0.3741 alpha_grad=0.2299 alpha=0.6041
+
+[2026/01/14 07:23:58] INFO: [TRAIN] epoch=1970, iter=1970/2500, loss=0.7190, lr=0.002573, batch_cost=3.8360, reader_cost=3.60537, ips=4.1710 samples/sec | ETA 00:33:53
+                          	[LOSSES] alpha_8x_mrsd=0.0422 alpha_8x_grad=0.0283 alpha_8x=0.0705 alpha_mrsd=0.3990 alpha_grad=0.2495 alpha=0.6485
+
+[2026/01/14 07:24:38] INFO: [TRAIN] epoch=1980, iter=1980/2500, loss=0.6440, lr=0.002529, batch_cost=3.9980, reader_cost=3.71390, ips=4.0020 samples/sec | ETA 00:34:38
+                          	[LOSSES] alpha_8x_mrsd=0.0351 alpha_8x_grad=0.0245 alpha_8x=0.0596 alpha_mrsd=0.3577 alpha_grad=0.2267 alpha=0.5844
+
+[2026/01/14 07:25:17] INFO: [TRAIN] epoch=1990, iter=1990/2500, loss=0.6999, lr=0.002485, batch_cost=3.8887, reader_cost=3.60347, ips=4.1145 samples/sec | ETA 00:33:03
+                          	[LOSSES] alpha_8x_mrsd=0.0387 alpha_8x_grad=0.0260 alpha_8x=0.0647 alpha_mrsd=0.3906 alpha_grad=0.2446 alpha=0.6352
+
+[2026/01/14 07:25:56] INFO: [TRAIN] epoch=2000, iter=2000/2500, loss=0.6356, lr=0.002442, batch_cost=3.9345, reader_cost=3.72011, ips=4.0666 samples/sec | ETA 00:32:47
+                          	[LOSSES] alpha_8x_mrsd=0.0379 alpha_8x_grad=0.0260 alpha_8x=0.0639 alpha_mrsd=0.3512 alpha_grad=0.2206 alpha=0.5718
+
+[2026/01/14 07:25:56] INFO: Start evaluating (total_samples: 16, total_iters: 16)...
+16/16 - 1s - sad: 247.9705 - batch_cost: 0.0929 - reader cost: 0.0434
+[2026/01/14 07:25:58] INFO: [EVAL] sad: 247.9705
+[2026/01/14 07:25:58] INFO: [EVAL] The model with the best validation sad (247.9705) was saved at iter 2000.
+[2026/01/14 07:26:38] INFO: [TRAIN] epoch=2010, iter=2010/2500, loss=0.6884, lr=0.002398, batch_cost=3.9553, reader_cost=3.73251, ips=4.0452 samples/sec | ETA 00:32:18
+                          	[LOSSES] alpha_8x_mrsd=0.0397 alpha_8x_grad=0.0266 alpha_8x=0.0664 alpha_mrsd=0.3848 alpha_grad=0.2372 alpha=0.6220
+
+[2026/01/14 07:27:17] INFO: [TRAIN] epoch=2020, iter=2020/2500, loss=0.6587, lr=0.002354, batch_cost=3.9626, reader_cost=3.73890, ips=4.0377 samples/sec | ETA 00:31:42
+                          	[LOSSES] alpha_8x_mrsd=0.0379 alpha_8x_grad=0.0260 alpha_8x=0.0640 alpha_mrsd=0.3626 alpha_grad=0.2321 alpha=0.5948
+
+[2026/01/14 07:27:56] INFO: [TRAIN] epoch=2030, iter=2030/2500, loss=0.6812, lr=0.002310, batch_cost=3.9085, reader_cost=3.70185, ips=4.0936 samples/sec | ETA 00:30:37
+                          	[LOSSES] alpha_8x_mrsd=0.0396 alpha_8x_grad=0.0267 alpha_8x=0.0663 alpha_mrsd=0.3800 alpha_grad=0.2349 alpha=0.6149
+
+[2026/01/14 07:28:36] INFO: [TRAIN] epoch=2040, iter=2040/2500, loss=0.7089, lr=0.002265, batch_cost=3.9777, reader_cost=3.69281, ips=4.0224 samples/sec | ETA 00:30:29
+                          	[LOSSES] alpha_8x_mrsd=0.0410 alpha_8x_grad=0.0279 alpha_8x=0.0689 alpha_mrsd=0.3895 alpha_grad=0.2504 alpha=0.6400
+
+[2026/01/14 07:29:15] INFO: [TRAIN] epoch=2050, iter=2050/2500, loss=0.6647, lr=0.002221, batch_cost=3.9073, reader_cost=3.69201, ips=4.0949 samples/sec | ETA 00:29:18
+                          	[LOSSES] alpha_8x_mrsd=0.0378 alpha_8x_grad=0.0256 alpha_8x=0.0634 alpha_mrsd=0.3694 alpha_grad=0.2319 alpha=0.6013
+
+[2026/01/14 07:29:55] INFO: [TRAIN] epoch=2060, iter=2060/2500, loss=0.6754, lr=0.002177, batch_cost=3.9958, reader_cost=3.79158, ips=4.0042 samples/sec | ETA 00:29:18
+                          	[LOSSES] alpha_8x_mrsd=0.0395 alpha_8x_grad=0.0268 alpha_8x=0.0664 alpha_mrsd=0.3755 alpha_grad=0.2335 alpha=0.6090
+
+[2026/01/14 07:30:35] INFO: [TRAIN] epoch=2070, iter=2070/2500, loss=0.7294, lr=0.002132, batch_cost=4.0311, reader_cost=3.82589, ips=3.9691 samples/sec | ETA 00:28:53
+                          	[LOSSES] alpha_8x_mrsd=0.0439 alpha_8x_grad=0.0294 alpha_8x=0.0732 alpha_mrsd=0.4076 alpha_grad=0.2486 alpha=0.6561
+
+[2026/01/14 07:31:16] INFO: [TRAIN] epoch=2080, iter=2080/2500, loss=0.6556, lr=0.002088, batch_cost=4.0732, reader_cost=3.88154, ips=3.9281 samples/sec | ETA 00:28:30
+                          	[LOSSES] alpha_8x_mrsd=0.0374 alpha_8x_grad=0.0250 alpha_8x=0.0624 alpha_mrsd=0.3625 alpha_grad=0.2307 alpha=0.5932
+
+[2026/01/14 07:31:56] INFO: [TRAIN] epoch=2090, iter=2090/2500, loss=0.6846, lr=0.002043, batch_cost=4.0287, reader_cost=3.83492, ips=3.9715 samples/sec | ETA 00:27:31
+                          	[LOSSES] alpha_8x_mrsd=0.0386 alpha_8x_grad=0.0261 alpha_8x=0.0647 alpha_mrsd=0.3797 alpha_grad=0.2402 alpha=0.6199
+
+[2026/01/14 07:32:37] INFO: [TRAIN] epoch=2100, iter=2100/2500, loss=0.6908, lr=0.001998, batch_cost=4.0288, reader_cost=3.80002, ips=3.9714 samples/sec | ETA 00:26:51
+                          	[LOSSES] alpha_8x_mrsd=0.0373 alpha_8x_grad=0.0253 alpha_8x=0.0625 alpha_mrsd=0.3833 alpha_grad=0.2450 alpha=0.6283
+
+[2026/01/14 07:33:17] INFO: [TRAIN] epoch=2110, iter=2110/2500, loss=0.6370, lr=0.001953, batch_cost=4.0519, reader_cost=3.77374, ips=3.9487 samples/sec | ETA 00:26:20
+                          	[LOSSES] alpha_8x_mrsd=0.0358 alpha_8x_grad=0.0244 alpha_8x=0.0602 alpha_mrsd=0.3532 alpha_grad=0.2236 alpha=0.5767
+
+[2026/01/14 07:33:57] INFO: [TRAIN] epoch=2120, iter=2120/2500, loss=0.6688, lr=0.001908, batch_cost=3.9845, reader_cost=3.76200, ips=4.0156 samples/sec | ETA 00:25:14
+                          	[LOSSES] alpha_8x_mrsd=0.0388 alpha_8x_grad=0.0263 alpha_8x=0.0651 alpha_mrsd=0.3687 alpha_grad=0.2350 alpha=0.6037
+
+[2026/01/14 07:34:36] INFO: [TRAIN] epoch=2130, iter=2130/2500, loss=0.7057, lr=0.001863, batch_cost=3.9037, reader_cost=3.68262, ips=4.0986 samples/sec | ETA 00:24:04
+                          	[LOSSES] alpha_8x_mrsd=0.0365 alpha_8x_grad=0.0246 alpha_8x=0.0611 alpha_mrsd=0.3984 alpha_grad=0.2462 alpha=0.6446
+
+[2026/01/14 07:35:16] INFO: [TRAIN] epoch=2140, iter=2140/2500, loss=0.6837, lr=0.001818, batch_cost=3.9767, reader_cost=3.78535, ips=4.0235 samples/sec | ETA 00:23:51
+                          	[LOSSES] alpha_8x_mrsd=0.0379 alpha_8x_grad=0.0258 alpha_8x=0.0637 alpha_mrsd=0.3820 alpha_grad=0.2381 alpha=0.6200
+
+[2026/01/14 07:35:56] INFO: [TRAIN] epoch=2150, iter=2150/2500, loss=0.7123, lr=0.001773, batch_cost=3.9848, reader_cost=3.73819, ips=4.0152 samples/sec | ETA 00:23:14
+                          	[LOSSES] alpha_8x_mrsd=0.0397 alpha_8x_grad=0.0261 alpha_8x=0.0658 alpha_mrsd=0.3995 alpha_grad=0.2471 alpha=0.6465
+
+[2026/01/14 07:36:36] INFO: [TRAIN] epoch=2160, iter=2160/2500, loss=0.7079, lr=0.001727, batch_cost=4.0268, reader_cost=3.79927, ips=3.9734 samples/sec | ETA 00:22:49
+                          	[LOSSES] alpha_8x_mrsd=0.0405 alpha_8x_grad=0.0267 alpha_8x=0.0672 alpha_mrsd=0.3977 alpha_grad=0.2430 alpha=0.6407
+
+[2026/01/14 07:37:16] INFO: [TRAIN] epoch=2170, iter=2170/2500, loss=0.6694, lr=0.001681, batch_cost=3.9848, reader_cost=3.78328, ips=4.0153 samples/sec | ETA 00:21:54
+                          	[LOSSES] alpha_8x_mrsd=0.0390 alpha_8x_grad=0.0261 alpha_8x=0.0652 alpha_mrsd=0.3727 alpha_grad=0.2315 alpha=0.6042
+
+[2026/01/14 07:37:56] INFO: [TRAIN] epoch=2180, iter=2180/2500, loss=0.6531, lr=0.001636, batch_cost=4.0082, reader_cost=3.81190, ips=3.9918 samples/sec | ETA 00:21:22
+                          	[LOSSES] alpha_8x_mrsd=0.0391 alpha_8x_grad=0.0265 alpha_8x=0.0656 alpha_mrsd=0.3597 alpha_grad=0.2278 alpha=0.5875
+
+[2026/01/14 07:38:36] INFO: [TRAIN] epoch=2190, iter=2190/2500, loss=0.6489, lr=0.001590, batch_cost=4.0043, reader_cost=3.76921, ips=3.9957 samples/sec | ETA 00:20:41
+                          	[LOSSES] alpha_8x_mrsd=0.0366 alpha_8x_grad=0.0252 alpha_8x=0.0619 alpha_mrsd=0.3555 alpha_grad=0.2315 alpha=0.5871
+
+[2026/01/14 07:39:17] INFO: [TRAIN] epoch=2200, iter=2200/2500, loss=0.6948, lr=0.001544, batch_cost=4.0685, reader_cost=3.84385, ips=3.9326 samples/sec | ETA 00:20:20
+                          	[LOSSES] alpha_8x_mrsd=0.0386 alpha_8x_grad=0.0259 alpha_8x=0.0645 alpha_mrsd=0.3882 alpha_grad=0.2421 alpha=0.6303
+
+[2026/01/14 07:39:57] INFO: [TRAIN] epoch=2210, iter=2210/2500, loss=0.6920, lr=0.001497, batch_cost=4.0543, reader_cost=3.82691, ips=3.9464 samples/sec | ETA 00:19:35
+                          	[LOSSES] alpha_8x_mrsd=0.0373 alpha_8x_grad=0.0254 alpha_8x=0.0627 alpha_mrsd=0.3833 alpha_grad=0.2460 alpha=0.6292
+
+[2026/01/14 07:40:38] INFO: [TRAIN] epoch=2220, iter=2220/2500, loss=0.6723, lr=0.001451, batch_cost=4.0249, reader_cost=3.79698, ips=3.9753 samples/sec | ETA 00:18:46
+                          	[LOSSES] alpha_8x_mrsd=0.0367 alpha_8x_grad=0.0248 alpha_8x=0.0615 alpha_mrsd=0.3747 alpha_grad=0.2361 alpha=0.6108
+
+[2026/01/14 07:41:17] INFO: [TRAIN] epoch=2230, iter=2230/2500, loss=0.6809, lr=0.001404, batch_cost=3.9633, reader_cost=3.77091, ips=4.0371 samples/sec | ETA 00:17:50
+                          	[LOSSES] alpha_8x_mrsd=0.0368 alpha_8x_grad=0.0249 alpha_8x=0.0617 alpha_mrsd=0.3799 alpha_grad=0.2394 alpha=0.6193
+
+[2026/01/14 07:41:57] INFO: [TRAIN] epoch=2240, iter=2240/2500, loss=0.6709, lr=0.001358, batch_cost=4.0126, reader_cost=3.80872, ips=3.9875 samples/sec | ETA 00:17:23
+                          	[LOSSES] alpha_8x_mrsd=0.0403 alpha_8x_grad=0.0272 alpha_8x=0.0674 alpha_mrsd=0.3726 alpha_grad=0.2308 alpha=0.6034
+
+[2026/01/14 07:42:38] INFO: [TRAIN] epoch=2250, iter=2250/2500, loss=0.6986, lr=0.001311, batch_cost=4.0436, reader_cost=3.84300, ips=3.9569 samples/sec | ETA 00:16:50
+                          	[LOSSES] alpha_8x_mrsd=0.0386 alpha_8x_grad=0.0260 alpha_8x=0.0646 alpha_mrsd=0.3908 alpha_grad=0.2432 alpha=0.6340
+
+[2026/01/14 07:43:17] INFO: [TRAIN] epoch=2260, iter=2260/2500, loss=0.7131, lr=0.001264, batch_cost=3.9686, reader_cost=3.77679, ips=4.0316 samples/sec | ETA 00:15:52
+                          	[LOSSES] alpha_8x_mrsd=0.0414 alpha_8x_grad=0.0280 alpha_8x=0.0694 alpha_mrsd=0.3952 alpha_grad=0.2484 alpha=0.6437
+
+[2026/01/14 07:43:57] INFO: [TRAIN] epoch=2270, iter=2270/2500, loss=0.6373, lr=0.001216, batch_cost=3.9086, reader_cost=3.70834, ips=4.0935 samples/sec | ETA 00:14:58
+                          	[LOSSES] alpha_8x_mrsd=0.0351 alpha_8x_grad=0.0243 alpha_8x=0.0594 alpha_mrsd=0.3481 alpha_grad=0.2298 alpha=0.5779
+
+[2026/01/14 07:44:37] INFO: [TRAIN] epoch=2280, iter=2280/2500, loss=0.6576, lr=0.001169, batch_cost=4.0707, reader_cost=3.85816, ips=3.9305 samples/sec | ETA 00:14:55
+                          	[LOSSES] alpha_8x_mrsd=0.0379 alpha_8x_grad=0.0261 alpha_8x=0.0640 alpha_mrsd=0.3604 alpha_grad=0.2333 alpha=0.5936
+
+[2026/01/14 07:45:17] INFO: [TRAIN] epoch=2290, iter=2290/2500, loss=0.6809, lr=0.001121, batch_cost=4.0239, reader_cost=3.80006, ips=3.9762 samples/sec | ETA 00:14:05
+                          	[LOSSES] alpha_8x_mrsd=0.0374 alpha_8x_grad=0.0256 alpha_8x=0.0630 alpha_mrsd=0.3757 alpha_grad=0.2422 alpha=0.6179
+
+[2026/01/14 07:45:57] INFO: [TRAIN] epoch=2300, iter=2300/2500, loss=0.6471, lr=0.001073, batch_cost=3.9427, reader_cost=3.74583, ips=4.0582 samples/sec | ETA 00:13:08
+                          	[LOSSES] alpha_8x_mrsd=0.0359 alpha_8x_grad=0.0246 alpha_8x=0.0605 alpha_mrsd=0.3556 alpha_grad=0.2311 alpha=0.5866
+
+[2026/01/14 07:46:38] INFO: [TRAIN] epoch=2310, iter=2310/2500, loss=0.6871, lr=0.001025, batch_cost=4.0853, reader_cost=3.88831, ips=3.9165 samples/sec | ETA 00:12:56
+                          	[LOSSES] alpha_8x_mrsd=0.0374 alpha_8x_grad=0.0258 alpha_8x=0.0632 alpha_mrsd=0.3806 alpha_grad=0.2433 alpha=0.6239
+
+[2026/01/14 07:47:18] INFO: [TRAIN] epoch=2320, iter=2320/2500, loss=0.6645, lr=0.000977, batch_cost=4.0256, reader_cost=3.78352, ips=3.9745 samples/sec | ETA 00:12:04
+                          	[LOSSES] alpha_8x_mrsd=0.0365 alpha_8x_grad=0.0249 alpha_8x=0.0614 alpha_mrsd=0.3683 alpha_grad=0.2347 alpha=0.6030
+
+[2026/01/14 07:47:58] INFO: [TRAIN] epoch=2330, iter=2330/2500, loss=0.6920, lr=0.000928, batch_cost=4.0484, reader_cost=3.82422, ips=3.9521 samples/sec | ETA 00:11:28
+                          	[LOSSES] alpha_8x_mrsd=0.0371 alpha_8x_grad=0.0252 alpha_8x=0.0623 alpha_mrsd=0.3855 alpha_grad=0.2442 alpha=0.6297
+
+[2026/01/14 07:48:39] INFO: [TRAIN] epoch=2340, iter=2340/2500, loss=0.6857, lr=0.000879, batch_cost=4.0755, reader_cost=3.85045, ips=3.9259 samples/sec | ETA 00:10:52
+                          	[LOSSES] alpha_8x_mrsd=0.0373 alpha_8x_grad=0.0254 alpha_8x=0.0627 alpha_mrsd=0.3815 alpha_grad=0.2415 alpha=0.6230
+
+[2026/01/14 07:49:20] INFO: [TRAIN] epoch=2350, iter=2350/2500, loss=0.6722, lr=0.000830, batch_cost=4.0314, reader_cost=3.81920, ips=3.9688 samples/sec | ETA 00:10:04
+                          	[LOSSES] alpha_8x_mrsd=0.0397 alpha_8x_grad=0.0263 alpha_8x=0.0660 alpha_mrsd=0.3752 alpha_grad=0.2310 alpha=0.6062
+
+[2026/01/14 07:50:00] INFO: [TRAIN] epoch=2360, iter=2360/2500, loss=0.6622, lr=0.000780, batch_cost=4.0016, reader_cost=3.77327, ips=3.9984 samples/sec | ETA 00:09:20
+                          	[LOSSES] alpha_8x_mrsd=0.0353 alpha_8x_grad=0.0241 alpha_8x=0.0594 alpha_mrsd=0.3685 alpha_grad=0.2344 alpha=0.6028
+
+[2026/01/14 07:50:40] INFO: [TRAIN] epoch=2370, iter=2370/2500, loss=0.6740, lr=0.000730, batch_cost=4.0314, reader_cost=3.81141, ips=3.9688 samples/sec | ETA 00:08:44
+                          	[LOSSES] alpha_8x_mrsd=0.0370 alpha_8x_grad=0.0256 alpha_8x=0.0625 alpha_mrsd=0.3711 alpha_grad=0.2404 alpha=0.6114
+
+[2026/01/14 07:51:19] INFO: [TRAIN] epoch=2380, iter=2380/2500, loss=0.6905, lr=0.000680, batch_cost=3.9587, reader_cost=3.74246, ips=4.0418 samples/sec | ETA 00:07:55
+                          	[LOSSES] alpha_8x_mrsd=0.0381 alpha_8x_grad=0.0257 alpha_8x=0.0638 alpha_mrsd=0.3850 alpha_grad=0.2417 alpha=0.6268
+
+[2026/01/14 07:52:00] INFO: [TRAIN] epoch=2390, iter=2390/2500, loss=0.7001, lr=0.000629, batch_cost=4.0267, reader_cost=3.79218, ips=3.9735 samples/sec | ETA 00:07:22
+                          	[LOSSES] alpha_8x_mrsd=0.0413 alpha_8x_grad=0.0276 alpha_8x=0.0689 alpha_mrsd=0.3886 alpha_grad=0.2426 alpha=0.6312
+
+[2026/01/14 07:52:41] INFO: [TRAIN] epoch=2400, iter=2400/2500, loss=0.6735, lr=0.000578, batch_cost=4.1139, reader_cost=3.88589, ips=3.8893 samples/sec | ETA 00:06:51
+                          	[LOSSES] alpha_8x_mrsd=0.0355 alpha_8x_grad=0.0243 alpha_8x=0.0598 alpha_mrsd=0.3735 alpha_grad=0.2402 alpha=0.6137
+
+[2026/01/14 07:53:22] INFO: [TRAIN] epoch=2410, iter=2410/2500, loss=0.6454, lr=0.000526, batch_cost=4.0893, reader_cost=3.85462, ips=3.9126 samples/sec | ETA 00:06:08
+                          	[LOSSES] alpha_8x_mrsd=0.0383 alpha_8x_grad=0.0259 alpha_8x=0.0642 alpha_mrsd=0.3597 alpha_grad=0.2215 alpha=0.5812
+
+[2026/01/14 07:54:03] INFO: [TRAIN] epoch=2420, iter=2420/2500, loss=0.6866, lr=0.000474, batch_cost=4.1189, reader_cost=3.92676, ips=3.8845 samples/sec | ETA 00:05:29
+                          	[LOSSES] alpha_8x_mrsd=0.0400 alpha_8x_grad=0.0267 alpha_8x=0.0667 alpha_mrsd=0.3825 alpha_grad=0.2374 alpha=0.6199
+
+[2026/01/14 07:54:45] INFO: [TRAIN] epoch=2430, iter=2430/2500, loss=0.6782, lr=0.000421, batch_cost=4.1729, reader_cost=3.96294, ips=3.8343 samples/sec | ETA 00:04:52
+                          	[LOSSES] alpha_8x_mrsd=0.0388 alpha_8x_grad=0.0265 alpha_8x=0.0652 alpha_mrsd=0.3768 alpha_grad=0.2361 alpha=0.6129
+
+[2026/01/14 07:55:26] INFO: [TRAIN] epoch=2440, iter=2440/2500, loss=0.6710, lr=0.000367, batch_cost=4.1645, reader_cost=3.97178, ips=3.8420 samples/sec | ETA 00:04:09
+                          	[LOSSES] alpha_8x_mrsd=0.0382 alpha_8x_grad=0.0258 alpha_8x=0.0641 alpha_mrsd=0.3733 alpha_grad=0.2335 alpha=0.6069
+
+[2026/01/14 07:56:08] INFO: [TRAIN] epoch=2450, iter=2450/2500, loss=0.6444, lr=0.000312, batch_cost=4.1737, reader_cost=3.97363, ips=3.8335 samples/sec | ETA 00:03:28
+                          	[LOSSES] alpha_8x_mrsd=0.0383 alpha_8x_grad=0.0259 alpha_8x=0.0642 alpha_mrsd=0.3590 alpha_grad=0.2212 alpha=0.5802
+
+[2026/01/14 07:56:49] INFO: [TRAIN] epoch=2460, iter=2460/2500, loss=0.6226, lr=0.000257, batch_cost=4.0978, reader_cost=3.90152, ips=3.9046 samples/sec | ETA 00:02:43
+                          	[LOSSES] alpha_8x_mrsd=0.0352 alpha_8x_grad=0.0240 alpha_8x=0.0592 alpha_mrsd=0.3441 alpha_grad=0.2193 alpha=0.5635
+
+[2026/01/14 07:57:31] INFO: [TRAIN] epoch=2470, iter=2470/2500, loss=0.6150, lr=0.000200, batch_cost=4.1569, reader_cost=3.88867, ips=3.8491 samples/sec | ETA 00:02:04
+                          	[LOSSES] alpha_8x_mrsd=0.0359 alpha_8x_grad=0.0249 alpha_8x=0.0608 alpha_mrsd=0.3344 alpha_grad=0.2197 alpha=0.5541
+
+[2026/01/14 07:58:12] INFO: [TRAIN] epoch=2480, iter=2480/2500, loss=0.6830, lr=0.000141, batch_cost=4.1277, reader_cost=3.84320, ips=3.8762 samples/sec | ETA 00:01:22
+                          	[LOSSES] alpha_8x_mrsd=0.0389 alpha_8x_grad=0.0263 alpha_8x=0.0652 alpha_mrsd=0.3802 alpha_grad=0.2376 alpha=0.6178
+
+[2026/01/14 07:58:54] INFO: [TRAIN] epoch=2490, iter=2490/2500, loss=0.6731, lr=0.000079, batch_cost=4.2364, reader_cost=4.04022, ips=3.7768 samples/sec | ETA 00:00:42
+                          	[LOSSES] alpha_8x_mrsd=0.0372 alpha_8x_grad=0.0254 alpha_8x=0.0626 alpha_mrsd=0.3743 alpha_grad=0.2362 alpha=0.6105
+
+[2026/01/14 07:59:35] INFO: [TRAIN] epoch=2500, iter=2500/2500, loss=0.6568, lr=0.000009, batch_cost=4.0949, reader_cost=3.85457, ips=3.9073 samples/sec | ETA 00:00:00
+                          	[LOSSES] alpha_8x_mrsd=0.0361 alpha_8x_grad=0.0248 alpha_8x=0.0609 alpha_mrsd=0.3617 alpha_grad=0.2342 alpha=0.5959
+
+[2026/01/14 07:59:36] INFO: Start evaluating (total_samples: 16, total_iters: 16)...
+16/16 - 1s - sad: 251.0318 - batch_cost: 0.0861 - reader cost: 0.0358
+[2026/01/14 07:59:37] INFO: [EVAL] sad: 251.0318
+[2026/01/14 07:59:37] INFO: [EVAL] The model with the best validation sad (247.9705) was saved at iter 2000.
+I0114 07:59:38.903221 2168331 process_group_nccl.cc:162] ProcessGroupNCCL destruct 
+I0114 07:59:39.065899 2168435 tcp_store.cc:292] receive shutdown event and so quit from MasterDaemon run loop
